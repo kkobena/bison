@@ -1,0 +1,90 @@
+{
+  "name": "LignesVente",
+  "fields": [
+    {
+      "fieldName": "montant",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qty",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qtyServi",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixUni",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixPaf",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantremise",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantTva",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "valeurTva",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantNet",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "checked",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vente",
+      "otherEntityRelationshipName": "lignesVente",
+      "relationshipName": "vente",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "stockProduit",
+      "otherEntityRelationshipName": "lignesVente",
+      "relationshipValidateRules": "required",
+      "relationshipName": "produitStock",
+      "otherEntityField": "codeCip"
+    }
+  ],
+  "changelogDate": "20200531181650",
+  "entityTableName": "lignes_vente",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

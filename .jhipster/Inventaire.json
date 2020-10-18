@@ -1,0 +1,94 @@
+{
+  "name": "Inventaire",
+  "fields": [
+    {
+      "fieldName": "libelle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "programmable",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "valeurAchatAvant",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valeurAchatApres",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valeurVenteAvant",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valeurVenteApres",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateDebut",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateFin",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "detailsInventaire",
+      "otherEntityRelationshipName": "inventaire",
+      "relationshipName": "detailsInventaire"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "inventaire",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "inventaire",
+      "relationshipName": "createdBy",
+      "otherEntityField": "firstName"
+    }
+  ],
+  "changelogDate": "20200531180750",
+  "entityTableName": "inventaire",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

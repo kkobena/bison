@@ -1,0 +1,55 @@
+{
+  "name": "PaiementItem",
+  "fields": [
+    {
+      "fieldName": "codeRef",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pkey",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montantAttendu",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantRegl",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantRestant",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "paiement",
+      "otherEntityRelationshipName": "paiementItem",
+      "relationshipName": "paiement",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200531182050",
+  "entityTableName": "paiement_item",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

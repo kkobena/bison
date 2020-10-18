@@ -99,7 +99,7 @@ spring:
     allow-bean-definition-overriding: true
   mvc:
     favicon:
-      enabled: false
+      enabled-icon: false
   task:
     execution:
       thread-name-prefix: nucleus-task-

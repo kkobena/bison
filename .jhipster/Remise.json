@@ -1,0 +1,47 @@
+{
+  "name": "Remise",
+  "fields": [
+    {
+      "fieldName": "valeur",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "remiseValue",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "vente",
+      "otherEntityRelationshipName": "remise",
+      "relationshipName": "vente"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "client",
+      "otherEntityRelationshipName": "remise",
+      "relationshipName": "client"
+    }
+  ],
+  "changelogDate": "20200531174750",
+  "entityTableName": "remise",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
+}

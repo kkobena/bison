@@ -1,0 +1,238 @@
+package com.kobe.nucleus.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+import java.io.Serializable;
+
+import com.kobe.nucleus.domain.enumeration.Status;
+
+/**
+ * A Fournisseur.
+ */
+@Entity
+@Table(name = "fournisseur")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Fournisseur implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
+    private Long id;
+
+    @NotNull
+    @Column(name = "libelle", nullable = false, unique = true)
+    private String libelle;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private Status status;
+
+    @Column(name = "addresspostale")
+    private String addresspostale;
+
+    @Column(name = "num_faxe")
+    private String numFaxe;
+
+    @Column(name = "addresse_postal")
+    private String addressePostal;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Column(name = "site")
+    private String site;
+
+    @NotNull
+    @Size(max = 70)
+    @Column(name = "code", length = 70, nullable = false, unique = true)
+    private String code;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = "fournisseurs", allowSetters = true)
+    private GroupeFournisseur groupeFournisseur;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public Fournisseur libelle(String libelle) {
+        this.libelle = libelle;
+        return this;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public Fournisseur status(Status status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public String getAddresspostale() {
+        return addresspostale;
+    }
+
+    public Fournisseur addresspostale(String addresspostale) {
+        this.addresspostale = addresspostale;
+        return this;
+    }
+
+    public void setAddresspostale(String addresspostale) {
+        this.addresspostale = addresspostale;
+    }
+
+    public String getNumFaxe() {
+        return numFaxe;
+    }
+
+    public Fournisseur numFaxe(String numFaxe) {
+        this.numFaxe = numFaxe;
+        return this;
+    }
+
+    public void setNumFaxe(String numFaxe) {
+        this.numFaxe = numFaxe;
+    }
+
+    public String getAddressePostal() {
+        return addressePostal;
+    }
+
+    public Fournisseur addressePostal(String addressePostal) {
+        this.addressePostal = addressePostal;
+        return this;
+    }
+
+    public void setAddressePostal(String addressePostal) {
+        this.addressePostal = addressePostal;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Fournisseur phone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public Fournisseur mobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public Fournisseur site(String site) {
+        this.site = site;
+        return this;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Fournisseur code(String code) {
+        this.code = code;
+        return this;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public GroupeFournisseur getGroupeFournisseur() {
+        return groupeFournisseur;
+    }
+
+    public Fournisseur groupeFournisseur(GroupeFournisseur groupeFournisseur) {
+        this.groupeFournisseur = groupeFournisseur;
+        return this;
+    }
+
+    public void setGroupeFournisseur(GroupeFournisseur groupeFournisseur) {
+        this.groupeFournisseur = groupeFournisseur;
+    }
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Fournisseur)) {
+            return false;
+        }
+        return id != null && id.equals(((Fournisseur) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31;
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "Fournisseur{" +
+            "id=" + getId() +
+            ", libelle='" + getLibelle() + "'" +
+            ", status='" + getStatus() + "'" +
+            ", addresspostale='" + getAddresspostale() + "'" +
+            ", numFaxe='" + getNumFaxe() + "'" +
+            ", addressePostal='" + getAddressePostal() + "'" +
+            ", phone='" + getPhone() + "'" +
+            ", mobile='" + getMobile() + "'" +
+            ", site='" + getSite() + "'" +
+            ", code='" + getCode() + "'" +
+            "}";
+    }
+}

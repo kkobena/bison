@@ -1,0 +1,40 @@
+{
+  "name": "Permission",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "permission",
+      "relationshipName": "createdBy",
+      "otherEntityField": "firstName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "menu",
+      "otherEntityRelationshipName": "permission",
+      "relationshipName": "menu",
+      "otherEntityField": "libelle"
+    }
+  ],
+  "changelogDate": "20200531181750",
+  "entityTableName": "permission",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,172 @@
+{
+  "name": "Vente",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateMVT",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "natureVente",
+      "fieldType": "NatureVente",
+      "fieldValues": "VO,VNO,DEPOT"
+    },
+    {
+      "fieldName": "typeVente",
+      "fieldType": "TypeVente",
+      "fieldValues": "VNO,VO"
+    },
+    {
+      "fieldName": "refVente",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numTicket",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tauxremise",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "montantVente",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantTva",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantNet",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montanRemise",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "valeurMarge",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "avoir",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "montantPaye",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantRestant",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantTp",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantClient",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantVerse",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantRendu",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "refBon",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "avoidAmount",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "lignesVente",
+      "otherEntityRelationshipName": "vente",
+      "relationshipName": "lignesVente"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "lignesVenteAssurence",
+      "otherEntityRelationshipName": "vente",
+      "relationshipName": "lignesVenteAssurence"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "vente",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "vente",
+      "relationshipName": "createdBy",
+      "otherEntityField": "firstName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "client",
+      "otherEntityRelationshipName": "vente",
+      "relationshipName": "assure",
+      "otherEntityField": "firstName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "ayantDroit",
+      "otherEntityRelationshipName": "vente",
+      "relationshipName": "ayantDroit",
+      "otherEntityField": "firstName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "remise",
+      "otherEntityRelationshipName": "vente",
+      "relationshipName": "remise",
+      "otherEntityField": "valeur"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "modePaiement",
+      "otherEntityRelationshipName": "vente",
+      "relationshipValidateRules": "required",
+      "relationshipName": "modePaiement",
+      "otherEntityField": "libelle"
+    }
+  ],
+  "changelogDate": "20200531181450",
+  "entityTableName": "vente",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

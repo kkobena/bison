@@ -1,0 +1,74 @@
+{
+  "name": "RetourFournisseur",
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "answered",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "RetourEnum",
+      "fieldValues": "NONCOMFIRME,CONFIRME"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mvtDate",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "retourItem",
+      "otherEntityRelationshipName": "retourFournisseur",
+      "relationshipName": "retourItem"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "retourFournisseur",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "retourFournisseur",
+      "relationshipName": "createdBy",
+      "otherEntityField": "firstName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "motif",
+      "otherEntityRelationshipName": "retourFournisseur",
+      "relationshipName": "motif",
+      "otherEntityField": "libelle"
+    }
+  ],
+  "changelogDate": "20200531180550",
+  "entityTableName": "retour_fournisseur",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

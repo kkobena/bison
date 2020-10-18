@@ -1,0 +1,149 @@
+{
+  "name": "Tierspayant",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "libelCourt",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "libelLong",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "plafond",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "typePlafond",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "consoJournaliere",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "consoMensuelle",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "typeTp",
+      "fieldType": "TypeTierspayant",
+      "fieldValues": "ASSURANCE,CARNET"
+    },
+    {
+      "fieldName": "codeComptable",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nbreBordereaux",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "registrecommerce",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": 20
+    },
+    {
+      "fieldName": "mobile",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": 20
+    },
+    {
+      "fieldName": "enable",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String",
+      "fieldValidateRules": ["maxlength"],
+      "fieldValidateRulesMaxlength": "100"
+    },
+    {
+      "fieldName": "montantMaxFacture",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["min"],
+      "fieldValidateRulesMin": 0
+    },
+    {
+      "fieldName": "remiseForfetaire",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "facture",
+      "otherEntityRelationshipName": "tierpayant",
+      "relationshipName": "facture"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "compteClient",
+      "otherEntityRelationshipName": "tierspayant",
+      "relationshipName": "compteClient"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "groupeTierspayant",
+      "otherEntityRelationshipName": "tierspayant",
+      "relationshipName": "groupetp",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "risque",
+      "otherEntityRelationshipName": "tierspayant",
+      "relationshipName": "risque",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "modelFacture",
+      "otherEntityRelationshipName": "tierspayant",
+      "relationshipName": "modelFacture",
+      "otherEntityField": "libelle"
+    }
+  ],
+  "changelogDate": "20200531181350",
+  "entityTableName": "tierspayant",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
+}

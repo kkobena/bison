@@ -1,0 +1,62 @@
+{
+  "name": "Lot",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "qte",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "qtUg",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "num",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateFabrication",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "peremption",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "peremptionstatus",
+      "fieldType": "Peremption",
+      "fieldValues": "PERIME,ENCOURS,ENABLE"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "commandeItem",
+      "otherEntityRelationshipName": "lot",
+      "relationshipName": "commandeItem",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200531174850",
+  "entityTableName": "lot",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

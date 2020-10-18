@@ -1,0 +1,108 @@
+{
+  "name": "Commande",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "num",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numRef",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "montantCmd",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantTva",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantHT",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantTTC",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantRegl",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantRestant",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "dateRegl",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "endDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateLivraison",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "statutFacture",
+      "fieldType": "StatutFacture",
+      "fieldValues": "PAID,UNPAID,HALFPAID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "OrderStatus",
+      "fieldValues": "SUGGESSIONMANNUEL,SUGGESSIONAUTOMATIK,COMMANDE,COMMANDEENCOURS,ENTREESTOCK,RECU"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "TypeOrder",
+      "fieldValues": "SUGGESSION,COMMANDE"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "commandeItem",
+      "otherEntityRelationshipName": "commande",
+      "relationshipName": "commandeItem"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "commande",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "commande",
+      "relationshipName": "createdBy",
+      "otherEntityField": "firstName"
+    }
+  ],
+  "changelogDate": "20200531180250",
+  "entityTableName": "commande",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

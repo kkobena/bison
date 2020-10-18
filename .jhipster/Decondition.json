@@ -1,0 +1,42 @@
+{
+  "name": "Decondition",
+  "fields": [
+    {
+      "fieldName": "qtyStock",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "qtyInit",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "decondition",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "decondition",
+      "relationshipName": "createdBy",
+      "otherEntityField": "firstName"
+    }
+  ],
+  "changelogDate": "20200531173950",
+  "entityTableName": "decondition",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

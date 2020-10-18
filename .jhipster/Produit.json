@@ -1,0 +1,182 @@
+{
+  "name": "Produit",
+  "fields": [
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "qtyAppro",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qtySeuilMini",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "etiquetable",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "dateperemption",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "chiffre",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "codeCip",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "codeEan",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "qtyDetails",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "deconditionnable",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "remisable",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "prixPaf",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "prixUni",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "prixMnp",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "produit",
+      "otherEntityRelationshipName": "parent",
+      "relationshipName": "produit"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "commandeItem",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "commandeItem"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "etiquette",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "etiquette"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "detailsAjustement",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "detailsAjustement"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stockProduit",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "stockProduit"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "produit",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "parent",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "laboratoire",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "laboratoire",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "formProduit",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "forme",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "typeEtiquette",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "typeEtyquette",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "familleProduit",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "famille",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "gammeProduit",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "gamme",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "fabriquant",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "fabriquant",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tva",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "tva",
+      "otherEntityField": "taux"
+    }
+  ],
+  "changelogDate": "20200531173850",
+  "entityTableName": "produit",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

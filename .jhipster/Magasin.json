@@ -1,0 +1,175 @@
+{
+  "name": "Magasin",
+  "fields": [
+    {
+      "fieldName": "typeMagasin",
+      "fieldType": "TypeMagasin",
+      "fieldValues": "PRINCIPAL,RAYON,DEPOT,RESERVE",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "nomCourt",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nomLong",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "addressePostal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mobile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "commentaire",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autreCommentaire",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "entete",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "compteContribuable",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "registreCommerce",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "registreImposition",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "centreImposition",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numComptable",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "ajustement",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "ajustement"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "paiement",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "paiement"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "inventaire",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "inventaire"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "retourFournisseur",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "retourFournisseur"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "rayon",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "rayon"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "vente",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "vente"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "decondition",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "decondition"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "facture",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "facture"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "mvtProduit",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "mvtProduit"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "commande",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "commande"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stockProduit",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "stockProduit"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "utilisateur"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "magasin"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "magasin",
+      "relationshipName": "manager",
+      "otherEntityField": "firstName"
+    }
+  ],
+  "changelogDate": "20200531173150",
+  "entityTableName": "magasin",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -18,7 +18,10 @@ logging:
     ROOT: INFO
     io.github.jhipster: INFO
     com.kobe.nucleus: INFO
-
+   file:
+     name: logs/nucleus.log
+file:
+  upload-dir: ./documents
 management:
   metrics:
     export:
@@ -34,8 +37,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/nucleus
-    username: nucleus
-    password:
+    username: postgres
+    password: 2802
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -78,7 +81,11 @@ server:
     enabled: true
     mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
     min-response-size: 1024
-
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 515MB
 # ===================================================================
 # JHipster specific properties
 #

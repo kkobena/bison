@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    
+    <!--
+        Added the entity Vente.
+    -->
+    <changeSet id="20200531181450-1" author="jhipster">
+        <createTable tableName="vente">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="created_at" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="date_mvt" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="status" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="nature_vente" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="type_vente" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="ref_vente" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="num_ticket" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="tauxremise" type="double">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_vente" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_tva" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_net" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="montan_remise" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="valeur_marge" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="avoir" type="boolean">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_paye" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_restant" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_tp" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_client" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_verse" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="montant_rendu" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="ref_bon" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="avoid_amount" type="integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="magasin_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_by_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="assure_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="ayant_droit_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="remise_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="mode_paiement_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+        <dropDefaultValue tableName="vente" columnName="created_at" columnDataType="datetime"/>
+        <dropDefaultValue tableName="vente" columnName="updated_at" columnDataType="datetime"/>
+    </changeSet>
+
+    <changeSet id="20200531181450-1-relations" author="jhipster">
+
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20200531181450-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/vente.csv"
+                  separator=";"
+                  tableName="vente">
+            <column name="id" type="numeric"/>
+            <column name="created_at" type="datetime"/>
+            <column name="updated_at" type="datetime"/>
+            <column name="date_mvt" type="date"/>
+            <column name="status" type="string"/>
+            <column name="nature_vente" type="string"/>
+            <column name="type_vente" type="string"/>
+            <column name="ref_vente" type="string"/>
+            <column name="num_ticket" type="string"/>
+            <column name="tauxremise" type="numeric"/>
+            <column name="montant_vente" type="numeric"/>
+            <column name="montant_tva" type="numeric"/>
+            <column name="montant_net" type="numeric"/>
+            <column name="montan_remise" type="numeric"/>
+            <column name="valeur_marge" type="numeric"/>
+            <column name="avoir" type="boolean"/>
+            <column name="montant_paye" type="numeric"/>
+            <column name="montant_restant" type="numeric"/>
+            <column name="montant_tp" type="numeric"/>
+            <column name="montant_client" type="numeric"/>
+            <column name="montant_verse" type="numeric"/>
+            <column name="montant_rendu" type="numeric"/>
+            <column name="ref_bon" type="string"/>
+            <column name="avoid_amount" type="numeric"/>
+            <column name="mode_paiement_id" type="numeric"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>

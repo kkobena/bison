@@ -1,0 +1,125 @@
+{
+  "name": "Facture",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "codeGroupe",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateDebut",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateFin",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "montantForfetaire",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantRemise",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantPaye",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantRestant",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantNet",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "statutFacture",
+      "fieldType": "StatutFacture",
+      "fieldValues": "PAID,UNPAID,HALFPAID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "typeFacture",
+      "fieldType": "TypeFacture",
+      "fieldValues": "GROUPE,INDIVIDUEL",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montantBrut",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "template",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "factureItem",
+      "otherEntityRelationshipName": "facture",
+      "relationshipName": "factureItem"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "facture",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "utilisateur",
+      "otherEntityRelationshipName": "facture",
+      "relationshipName": "createdBy",
+      "otherEntityField": "firstName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "groupeTierspayant",
+      "otherEntityRelationshipName": "facture",
+      "relationshipName": "groupetp",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tierspayant",
+      "otherEntityRelationshipName": "facture",
+      "relationshipValidateRules": "required",
+      "relationshipName": "tierpayant",
+      "otherEntityField": "libelCourt"
+    }
+  ],
+  "changelogDate": "20200531181050",
+  "entityTableName": "facture",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

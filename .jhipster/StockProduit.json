@@ -1,0 +1,99 @@
+{
+  "name": "StockProduit",
+  "fields": [
+    {
+      "fieldName": "qtyStock",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "qtyVirtual",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "qtyUG",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "codeCip",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixPaf",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "prixUni",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "stockReport",
+      "otherEntityRelationshipName": "stockProduit",
+      "relationshipName": "stockReport"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "mvtProduit",
+      "otherEntityRelationshipName": "produit",
+      "relationshipName": "mvtProduit"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "lignesVente",
+      "otherEntityRelationshipName": "produitStock",
+      "relationshipName": "lignesVente"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "stockProduit",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "rayon",
+      "otherEntityRelationshipName": "stockProduit",
+      "relationshipValidateRules": "required",
+      "relationshipName": "rayon",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "produit",
+      "otherEntityRelationshipName": "stockProduit",
+      "relationshipValidateRules": "required",
+      "relationshipName": "produit",
+      "otherEntityField": "libelle"
+    }
+  ],
+  "changelogDate": "20200531174050",
+  "entityTableName": "stock_produit",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

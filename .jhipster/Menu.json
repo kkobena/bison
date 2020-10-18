@@ -1,0 +1,66 @@
+{
+  "name": "Menu",
+  "fields": [
+    {
+      "fieldName": "menuName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "icon",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "TypeIcon",
+      "fieldValues": "IMAGE,ICONCLASS"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "menu",
+      "otherEntityRelationshipName": "parent",
+      "relationshipName": "menu"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "permission",
+      "otherEntityRelationshipName": "menu",
+      "relationshipName": "permission"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "menu",
+      "otherEntityRelationshipName": "menu",
+      "relationshipName": "parent",
+      "otherEntityField": "libelle"
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "roleUtilisateur",
+      "otherEntityRelationshipName": "menu",
+      "relationshipName": "roleUtilisateur",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20200531182250",
+  "entityTableName": "menu",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

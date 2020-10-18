@@ -1,0 +1,145 @@
+{
+  "name": "Utilisateur",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "firstName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "userName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "pword",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "enable",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "manager",
+      "relationshipName": "magasin"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "paiement",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "paiement"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "decondition",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "decondition"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "vente",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "vente"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "ajustement",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "ajustement"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "commande",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "commande"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "inventaire",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "inventaire"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "mvtProduit",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "mvtProduit"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "retourFournisseur",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "retourFournisseur"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "facture",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "facture"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "permission",
+      "otherEntityRelationshipName": "createdBy",
+      "relationshipName": "permission"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "roleUtilisateur",
+      "otherEntityRelationshipName": "utilisateur",
+      "relationshipName": "roleUtilisateur",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "magasin",
+      "otherEntityRelationshipName": "utilisateur",
+      "relationshipName": "magasin",
+      "otherEntityField": "nomCourt"
+    }
+  ],
+  "changelogDate": "20200531175550",
+  "entityTableName": "utilisateur",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

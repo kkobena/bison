@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Vente.
+    -->
+    <changeSet id="20200531181450-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="magasin_id"
+                                 baseTableName="vente"
+                                 constraintName="fk_vente_magasin_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="magasin"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id"
+                                 baseTableName="vente"
+                                 constraintName="fk_vente_created_by_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="utilisateur"/>
+
+        <addForeignKeyConstraint baseColumnNames="assure_id"
+                                 baseTableName="vente"
+                                 constraintName="fk_vente_assure_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="client"/>
+
+        <addForeignKeyConstraint baseColumnNames="ayant_droit_id"
+                                 baseTableName="vente"
+                                 constraintName="fk_vente_ayant_droit_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ayant_droit"/>
+
+        <addForeignKeyConstraint baseColumnNames="remise_id"
+                                 baseTableName="vente"
+                                 constraintName="fk_vente_remise_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="remise"/>
+
+        <addForeignKeyConstraint baseColumnNames="mode_paiement_id"
+                                 baseTableName="vente"
+                                 constraintName="fk_vente_mode_paiement_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mode_paiement"/>
+
+    </changeSet>
+</databaseChangeLog>

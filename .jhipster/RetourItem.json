@@ -1,0 +1,49 @@
+{
+  "name": "RetourItem",
+  "fields": [
+    {
+      "fieldName": "qteConfirme",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "qteRetourne",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "retourFournisseur",
+      "otherEntityRelationshipName": "retourItem",
+      "relationshipName": "retourFournisseur",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "commandeItem",
+      "otherEntityRelationshipName": "retourItem",
+      "relationshipName": "commandeItem",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200531180650",
+  "entityTableName": "retour_item",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

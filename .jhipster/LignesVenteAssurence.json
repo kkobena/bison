@@ -1,0 +1,64 @@
+{
+  "name": "LignesVenteAssurence",
+  "fields": [
+    {
+      "fieldName": "montant",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "refBon",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "taux",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantReste",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "statutFacture",
+      "fieldType": "StatutFacture",
+      "fieldValues": "PAID,UNPAID,HALFPAID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "vente",
+      "otherEntityRelationshipName": "lignesVenteAssurence",
+      "relationshipName": "vente",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "compteClient",
+      "otherEntityRelationshipName": "lignesVenteAssurence",
+      "relationshipName": "compteClient",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200531181550",
+  "entityTableName": "lignes_vente_assurence",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

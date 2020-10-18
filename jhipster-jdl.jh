@@ -1,0 +1,653 @@
+entity Magasin {
+    typeMagasin TypeMagasin required unique
+      nomCourt String
+     nomLong String required unique
+   addressePostal String
+ status Status required
+   phone String
+   mobile String
+    commentaire String
+     autreCommentaire String
+    entete String
+     compteContribuable String
+     registreCommerce String
+    registreImposition String
+   centreImposition String
+      numComptable String
+}
+entity Rayon{
+    createdAt Instant
+ updatedAt Instant
+     status Status required
+      code String required unique
+     libelle String required unique
+     typeRayon TypeEmplacement required
+}
+entity GroupeFournisseur{
+    libelle String required unique
+   addresspostale String
+      numFaxe String
+      email String
+      tel String
+      status Status required
+        odre Integer required unique
+}
+entity Fournisseur{
+    libelle String required unique
+ status Status required
+      addresspostale String
+      numFaxe String
+      addressePostal String
+       phone String
+   mobile String
+   site String
+   code String required unique
+}
+entity DetailsInventaire{
+    qty Integer required
+  qtyInit Integer required
+createdAt Instant  required
+ updatedAt Instant  required
+    isUpdated Boolean required
+}
+entity Ajustement{
+    libelle String required
+ createdAt Instant  required
+ updatedAt Instant  required
+    endDate LocalDate required
+}
+entity DetailsAjustement {
+    qteInit Integer required
+    qteFinale Integer required
+     qteAjuste Integer required
+createdAt Instant  required
+ updatedAt Instant  required
+}
+entity Produit{
+    libelle String required unique
+    status Status required
+createdAt Instant required
+ updatedAt Instant required
+   qtyAppro Integer
+     qtySeuilMini Integer
+    etiquetable Boolean
+  dateperemption Boolean
+ chiffre Boolean
+ codeCip String required unique
+      codeEan String
+qtyDetails Integer
+    deconditionnable Boolean required
+    remisable Boolean
+    prixPaf Integer required
+  prixUni Integer required
+  prixMnp Integer required
+}
+entity Decondition{
+    qtyStock Integer required
+qtyInit Integer required
+
+}
+entity StockProduit{
+    qtyStock Integer required
+qtyVirtual Integer required
+  qtyUG Integer required
+ status Status required
+ codeCip String required
+version Integer
+ prixPaf Integer required
+  prixUni Integer required
+}
+entity FormProduit {
+    code String required unique
+	libelle String required unique
+    status Status required
+}
+entity GammeProduit {
+    code String required unique
+	libelle String required unique
+    status Status required
+}
+entity Fabriquant {
+    code String required unique
+	libelle String required unique
+    status Status required
+}
+entity FamilleProduit {
+    code String required unique
+	libelle String required unique
+    status Status required
+}
+entity CategorieProduit {
+    code String required unique
+	libelle String unique required
+     status Status required
+}
+entity Tva{
+    taux Integer required
+
+}
+entity Remise{
+    valeur String
+remiseValue Float required  
+ status Status required
+}
+entity Lot{
+    createdAt Instant  required
+ updatedAt Instant  required
+     qte Integer required
+     qtUg Integer required
+     num String
+      dateFabrication LocalDate
+     peremption LocalDate
+     peremptionstatus Peremption
+}
+entity CodeGestion{
+    code String required
+jourcouverture Integer required
+ moishistorique Integer required
+datebutoir Integer required
+dateextrapolation Integer required
+seuilCmde Boolean required
+cofficientpmd Boolean required
+typeOptimisation Optimisation
+}
+entity MvtProduit{
+    mvtDate LocalDate required
+createdAt Instant required
+checked Boolean required
+ qteDebut Integer required
+ qteFinale Integer required
+  prixPaf Integer required
+  prixUni Integer required
+  valeurTva Integer required
+  montantTva Integer required
+  pkey String required unique
+}
+entity ModelFacture{
+    libelle String required unique
+code String required unique
+typeDataSource String required
+fichier String required unique
+fichierVariante String
+}
+entity CategorieAyantDroit{
+    code String required unique
+    libelle String required unique
+ status Status required
+
+}
+entity Client{
+    createdAt LocalDate  required
+    updatedAt LocalDate required
+ status Status required
+ num String
+ firstName String required
+lastName String
+  sexe String
+  codeInterne String required
+  datNaiss LocalDate
+  typeClient TypeClient required
+}
+enum TypeClient {
+    STANDARD, ASSURANCE,CARNET
+}
+entity AyantDroit{
+    createdAt LocalDate  required
+    updatedAt LocalDate required
+ status Status required
+    num String
+ firstName String required
+lastName String
+  sexe String
+  codeInterne String required
+
+   datNaiss LocalDate
+}
+entity Utilisateur{
+    createdAt LocalDate  required
+    updatedAt LocalDate required
+    lastName String
+firstName String required
+userName String required
+pword String required
+enable Boolean
+ phone String
+ status Status required
+   email String
+}
+entity RoleUtilisateur{
+    name String required
+desc String
+enable Boolean
+}
+entity Risque{
+    code String
+libelle String required unique
+ status Status required
+}
+entity Compagnie{
+    libelle String required unique
+ status Status required
+}
+entity Laboratoire{
+    libelle String required unique
+ status Status required
+}
+entity TypeRisque{
+    code String required unique
+    libelle String required unique
+ status Status required
+}
+entity TypeEtiquette{
+    libelle String required unique
+ status Status required
+}
+enum StatutFacture {
+    PAID, UNPAID, HALFPAID
+}
+entity Commande{
+    createdAt Instant  required
+    updatedAt Instant  required
+    num String
+    numRef String
+    montantCmd Integer
+    montantTva Integer
+    montantHT Integer
+    montantTTC Integer
+    montantRegl Integer
+    montantRestant Integer
+    dateRegl LocalDate
+    endDate LocalDate
+    dateLivraison LocalDate
+    statutFacture StatutFacture required
+    status OrderStatus
+    type TypeOrder
+
+}
+entity CommandeItem{
+    montantCmd Integer
+     prixPafCmd Integer
+     prixUniCmd Integer
+      qtecmde Integer
+      qterecu Integer
+      qteInit Integer
+       qtemaquant Integer
+       qtegratuite Integer
+       montantBon Integer
+       prixPafBon Integer
+       prixUniBon Integer
+       peremption LocalDate
+       dateFabrication LocalDate
+       createdAt Instant
+    updatedAt Instant
+    status Status required
+}
+entity TypeInventaire{
+    libelle String required unique
+ status Status required
+}
+entity RetourFournisseur{
+    description String
+answered Boolean required
+status RetourEnum
+createdAt Instant  required
+    updatedAt Instant  required
+    mvtDate LocalDate required
+}
+entity RetourItem{
+    qteConfirme Integer
+updatedAt Instant
+createdAt Instant  required
+qteRetourne Integer
+}
+entity Inventaire{
+    libelle String
+createdAt Instant  required
+    updatedAt Instant  required
+     status Status required
+     programmable Boolean
+      valeurAchatAvant Instant required
+       valeurAchatApres Instant required
+       valeurVenteAvant Instant required
+       valeurVenteApres Instant required
+       dateDebut LocalDate
+       dateFin LocalDate
+        endDate LocalDate
+}
+entity CompteClient{
+    createdAt Instant
+    updatedAt Instant
+    encours Integer
+    version Integer
+    plafondJournalier Integer
+    plafondMensuel Integer
+    consommation Integer
+    consoJournaliere Integer
+     taux Integer
+     principal Boolean
+     numMaticule String
+    enbale Boolean
+    bIsAbsolute Boolean
+    categorie CategorieAssurance
+     status Status required
+}
+entity Motif{
+    libelle String required unique
+   status Status required
+}
+enum TypeFacture {
+    GROUPE, INDIVIDUEL
+}
+enum GroupeModePayment {
+    COMPTANT, CREDIT
+}
+entity Facture{
+    createdAt Instant
+    updatedAt Instant
+code String required
+codeGroupe String
+status Status required
+dateDebut LocalDate
+dateFin LocalDate
+montantForfetaire Integer
+montantRemise Integer
+montantPaye Integer
+montantRestant Integer
+montantNet Integer
+statutFacture StatutFacture required
+typeFacture TypeFacture required
+montantBrut Integer
+template Boolean required
+}
+entity FactureItem{
+    createdAt Instant  required
+    updatedAt Instant   required
+montantRemise Integer
+montantPaye Integer
+statutFacture StatutFacture required
+montantRestant Integer
+montantNet Integer
+montantBrut Integer
+}
+entity GroupeTierspayant{
+    code String
+libelle String required
+ status Status required
+}
+entity Tierspayant{
+    createdAt Instant  required
+    updatedAt Instant   required
+ code String
+libelCourt String
+    libelLong String
+     plafond Integer
+    typePlafond Boolean
+    consoJournaliere Integer
+    consoMensuelle Integer
+    typeTp TypeTierspayant
+    codeComptable String
+    nbreBordereaux Integer
+    registrecommerce String
+    status Status required
+}
+enum NatureVente {
+    VO, VNO, DEPOT
+}
+entity Vente{
+    createdAt Instant  required
+    updatedAt Instant   required
+     dateMVT LocalDate
+      status Status required
+      natureVente NatureVente
+      typeVente TypeVente
+      refVente String
+      numTicket String
+      tauxremise Double
+      montantVente Integer
+      montantTva Integer
+      montantNet Integer
+      montanRemise Integer
+      valeurMarge Integer
+      avoir Boolean
+      montantPaye Integer
+      montantRestant Integer
+      montantTp Integer
+      montantClient Integer
+      montantVerse Integer
+      montantRendu Integer
+      refBon String
+      avoidAmount Integer required required
+}
+entity LignesVenteAssurence{
+    montant Integer
+refBon String
+taux Integer
+montantReste Integer
+statutFacture StatutFacture required
+ createdAt Instant  required
+    updatedAt Instant   required
+}
+entity LignesVente{
+    montant Integer
+qty Integer
+qtyServi Integer
+prixUni Integer
+prixPaf Integer
+montantremise Integer
+montantTva Integer
+valeurTva Integer
+montantNet Integer
+status Status required
+ createdAt Instant  required
+    updatedAt Instant   required
+    checked Boolean required
+}
+entity Permission{
+    description String
+name String
+}
+entity Paiement{
+    libelle String
+checked Boolean required
+pkey String required unique
+ createdAt Instant  required
+    updatedAt Instant   required
+    montantNet Integer required
+    montantBrut Integer required
+    montantRemise Integer required
+     montantDebit Integer required
+    montantCredit Integer required
+     montantVerse Integer required
+      montantRendu Integer required
+   montantRestant Integer  required
+    groupeMode GroupeModePayment
+    categorie CategorieTransaction
+    dateMVT LocalDate
+    ref String
+    organisme String
+}
+entity StockReport{
+    qty Integer required
+    mvtDate LocalDate required
+    prixPaf Integer required
+    prixUni Integer required
+    qtyUg Integer required
+    tva Integer required
+}
+entity PaiementItem{
+    codeRef String
+pkey String
+ createdAt Instant  required
+    updatedAt Instant   required
+montantAttendu Integer
+montantRegl Integer
+montantRestant Integer
+}
+entity Etiquette{
+    libelle String
+code String
+qty Integer
+  endDate LocalDate
+}
+entity Menu{
+    menuName String
+description String
+libelle String
+icon String
+type TypeIcon
+}
+entity ModePaiement {
+    libelle String required unique
+  status Status required
+}
+enum TypeEmplacement {
+    RAYON, ENTREPOT, RESERVE
+}
+enum TypeIcon {
+    IMAGE, ICONCLASS
+}
+entity TypeMvtCaisse{
+    libelle String required unique
+     code String required unique
+categorie CatMvtCaisse required
+status Status required
+}
+enum CategorieTransaction {
+    DEBIT, CREDIT
+}
+entity Banque{
+    libelle String
+refPaiement String
+lieux String
+}
+enum CatMvtCaisse {
+    ENTREE, SORTIE, FOND
+}
+enum RetourEnum {
+    NONCOMFIRME, CONFIRME
+}
+enum TypeVente {
+    VNO, VO
+}
+enum TypeTierspayant {
+    ASSURANCE, CARNET
+}
+enum CategorieAssurance {
+    RO, RC1, RC2, RC3
+}
+enum TypeOrder {
+    SUGGESSION, COMMANDE
+}
+enum Peremption {
+    PERIME, ENCOURS, ENABLE
+}
+enum OrderStatus {
+    SUGGESSIONMANNUEL, SUGGESSIONAUTOMATIK, COMMANDE, COMMANDEENCOURS, ENTREESTOCK,RECU
+}
+enum Optimisation {
+    MENSUEL, PONDERATION
+}
+enum TypeMagasin {
+    PRINCIPAL, RAYON, DEPOT, RESERVE
+}
+enum Status {
+    ACTIVE, ENATTENTE, ENTRAITEMENT, PERIME, VALIDE, DESACTIVE, PASSE, SUGGESTION, ENTREESTOCT, STOCK, SUPPRIME, LIVRE, NON_LIVRE
+}
+entity MvtsProduit {
+    libelle String required unique
+}
+relationship ManyToMany{
+    RoleUtilisateur to Menu
+}
+relationship OneToMany {
+    Magasin to Ajustement{magasin(nomCourt)}
+Magasin to Paiement{magasin(nomCourt)}
+Magasin to Inventaire{magasin(nomCourt)}
+Magasin to RetourFournisseur{magasin(nomCourt)}
+Magasin to Paiement{magasin(nomCourt)}
+Magasin to Rayon{magasin(nomCourt)}
+
+Magasin to Vente{magasin(nomCourt)}
+Magasin to Decondition{magasin(nomCourt)}
+Magasin to Facture{magasin(nomCourt)}
+Magasin to MvtProduit{magasin(nomCourt)}
+Magasin to Commande{magasin(nomCourt)}
+Magasin to StockProduit{magasin(nomCourt)}
+Magasin to Utilisateur{magasin(nomCourt)}
+Magasin to Magasin{magasin(nomCourt)}
+Inventaire to DetailsInventaire
+Utilisateur to Magasin{manager(firstName)}
+Utilisateur to Paiement{createdBy(firstName)}
+Utilisateur to Decondition{createdBy(firstName)}
+Utilisateur to Vente{createdBy(firstName)}
+Utilisateur to Ajustement{createdBy(firstName)}
+Utilisateur to Commande{createdBy(firstName)}
+Utilisateur to Inventaire{createdBy(firstName)}
+Utilisateur to Paiement{createdBy(firstName)}
+Utilisateur to MvtProduit{createdBy(firstName)}
+Utilisateur to RetourFournisseur{createdBy(firstName)}
+Utilisateur to Facture{createdBy(firstName)}
+Utilisateur to Permission{createdBy(firstName)}
+StockProduit to StockReport
+Commande to CommandeItem
+Vente to LignesVente
+Vente to LignesVenteAssurence
+CompteClient to LignesVenteAssurence
+Paiement to PaiementItem
+Banque to Paiement{banque(libelle)}
+RetourFournisseur to RetourItem
+Menu to Menu{parent(libelle)}
+Menu to Permission{menu(libelle)}
+CommandeItem to RetourItem
+Produit to Produit{parent(libelle)}
+Produit to CommandeItem{produit(libelle) required}
+Produit to Etiquette{produit(libelle)}
+Produit to DetailsAjustement{produit(libelle) required}
+StockProduit to MvtProduit{produit(codeCip) required}
+StockProduit to LignesVente{produitStock(codeCip) required}
+
+Laboratoire to Produit{laboratoire(libelle)}
+
+CommandeItem to Lot
+Rayon to StockProduit{rayon(libelle) required}
+
+
+Produit to StockProduit{produit(libelle) required}
+Facture to FactureItem
+GroupeTierspayant to Facture{groupetp(libelle)}
+GroupeTierspayant to Tierspayant{groupetp(libelle)}
+Tierspayant to Facture{tierpayant(libelCourt) required}
+Client to FactureItem
+AyantDroit to FactureItem
+Client to Vente{assure(firstName)}
+AyantDroit to Vente{ayantDroit(firstName)}
+Client to AyantDroit{assure(firstName) required}
+Risque to Tierspayant{risque(libelle)}
+Client to CompteClient
+Tierspayant to CompteClient
+TypeRisque to Risque{typerisque(libelle)required}
+Compagnie to Client{compagnie(libelle)}
+Motif to RetourFournisseur{motif(libelle)}
+CategorieAyantDroit to AyantDroit{categorie(libelle)}
+FormProduit to Produit{forme(libelle)}
+TypeEtiquette to Produit{typeEtyquette(libelle)}
+CategorieProduit to FamilleProduit{categorie(libelle)}
+FamilleProduit to Produit{famille(libelle)}
+GammeProduit to Produit{gamme(libelle)}
+Fabriquant to Produit{Fabriquant(libelle)}
+Tva to Produit{tva(taux)}
+Remise to Vente{remise(valeur)}
+ModePaiement to Vente{modePaiement(libelle) required}
+ ModelFacture to Tierspayant{modelFacture(libelle)}
+ Remise to Client{remise(valeur)}
+}
+relationship OneToOne {
+
+RoleUtilisateur to  Utilisateur
+}
+// Set pagination options
+paginate all with pagination
+dto * with mapstruct
+// Set service options to all except few
+service all with serviceImpl
+// Set an angular suffix

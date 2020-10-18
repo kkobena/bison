@@ -1,0 +1,111 @@
+{
+  "name": "CommandeItem",
+  "fields": [
+    {
+      "fieldName": "montantCmd",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixPafCmd",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixUniCmd",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qtecmde",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qterecu",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qteInit",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qtemaquant",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "qtegratuite",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantBon",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixPafBon",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "prixUniBon",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "peremption",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateFabrication",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "retourItem",
+      "otherEntityRelationshipName": "commandeItem",
+      "relationshipName": "retourItem"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "lot",
+      "otherEntityRelationshipName": "commandeItem",
+      "relationshipName": "lot"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "commande",
+      "otherEntityRelationshipName": "commandeItem",
+      "relationshipName": "commande",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "produit",
+      "otherEntityRelationshipName": "commandeItem",
+      "relationshipValidateRules": "required",
+      "relationshipName": "produit",
+      "otherEntityField": "libelle"
+    }
+  ],
+  "changelogDate": "20200531180350",
+  "entityTableName": "commande_item",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

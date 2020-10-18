@@ -1,0 +1,75 @@
+{
+  "name": "FactureItem",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montantRemise",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantPaye",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "statutFacture",
+      "fieldType": "StatutFacture",
+      "fieldValues": "PAID,UNPAID,HALFPAID",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montantRestant",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantNet",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "montantBrut",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "facture",
+      "otherEntityRelationshipName": "factureItem",
+      "relationshipName": "facture",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "client",
+      "otherEntityRelationshipName": "factureItem",
+      "relationshipName": "client",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "ayantDroit",
+      "otherEntityRelationshipName": "factureItem",
+      "relationshipName": "ayantDroit",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200531181150",
+  "entityTableName": "facture_item",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

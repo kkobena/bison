@@ -1,0 +1,29 @@
+{
+  "name": "Tva",
+  "fields": [
+    {
+      "fieldName": "taux",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "produit",
+      "otherEntityRelationshipName": "tva",
+      "relationshipName": "produit"
+    }
+  ],
+  "changelogDate": "20200531174650",
+  "entityTableName": "tva",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

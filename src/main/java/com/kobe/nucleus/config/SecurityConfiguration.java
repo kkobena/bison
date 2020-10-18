@@ -73,10 +73,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         // @formatter:off
+        http.csrf().disable();
         http
-            .csrf()
-            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-        .and()
+            .cors().disable()
+//        http
+//            .csrf()
+//            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+       // .and()
             .addFilterBefore(corsFilter, CsrfFilter.class)
             .exceptionHandling()
                 .authenticationEntryPoint(problemSupport)
@@ -114,7 +117,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/account/reset-password/init").permitAll()
             .antMatchers("/api/account/reset-password/finish").permitAll()
-            .antMatchers("/api/**").authenticated()
+//            .antMatchers("/api/**").authenticated()
+            .antMatchers("/api/**").permitAll()
             .antMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/websocket/**").permitAll()
             .antMatchers("/management/health").permitAll()

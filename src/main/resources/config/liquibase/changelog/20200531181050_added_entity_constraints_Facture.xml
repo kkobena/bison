@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+    <!--
+        Added the constraints for entity Facture.
+    -->
+    <changeSet id="20200531181050-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="magasin_id"
+                                 baseTableName="facture"
+                                 constraintName="fk_facture_magasin_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="magasin"/>
+
+        <addForeignKeyConstraint baseColumnNames="created_by_id"
+                                 baseTableName="facture"
+                                 constraintName="fk_facture_created_by_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="utilisateur"/>
+
+        <addForeignKeyConstraint baseColumnNames="groupetp_id"
+                                 baseTableName="facture"
+                                 constraintName="fk_facture_groupetp_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="groupe_tierspayant"/>
+
+        <addForeignKeyConstraint baseColumnNames="tierpayant_id"
+                                 baseTableName="facture"
+                                 constraintName="fk_facture_tierpayant_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tierspayant"/>
+
+    </changeSet>
+</databaseChangeLog>

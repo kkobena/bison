@@ -1,0 +1,50 @@
+{
+  "name": "GroupeTierspayant",
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "phone",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String",
+      "fieldValidateRules": []
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "facture",
+      "otherEntityRelationshipName": "groupetp",
+      "relationshipName": "facture"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "tierspayant",
+      "otherEntityRelationshipName": "groupetp",
+      "relationshipName": "tierspayant"
+    }
+  ],
+  "changelogDate": "20200531181250",
+  "entityTableName": "groupe_tierspayant",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
+}

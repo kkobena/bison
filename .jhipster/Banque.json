@@ -1,0 +1,36 @@
+{
+  "name": "Banque",
+  "fields": [
+    {
+      "fieldName": "libelle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "refPaiement",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "lieux",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "paiement",
+      "otherEntityRelationshipName": "banque",
+      "relationshipName": "paiement"
+    }
+  ],
+  "changelogDate": "20200531182550",
+  "entityTableName": "banque",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

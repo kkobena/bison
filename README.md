@@ -99,3 +99,10 @@ To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`)
 [running tests page]: https://www.jhipster.tech/documentation-archive/v6.9.0/running-tests/
 [code quality page]: https://www.jhipster.tech/documentation-archive/v6.9.0/code-quality/
 [setting up continuous integration]: https://www.jhipster.tech/documentation-archive/v6.9.0/setting-up-ci/
+
+## requete pour le fichier csv d'importation de la table tiers-payant de prestige 2
+SELECT p.str_FULLNAME,p.str_NAME,p.str_TELEPHONE,p.str_MOBILE,p.str_ADRESSE,
+p.str_REGISTRE_COMMERCE,p.int_NBRE_EXEMPLAIRE_BORD,p.b_IsAbsolute,
+p.dbl_PLAFOND_CREDIT,p.b_CANBEUSE,p.int_MONTANTFAC,p.dbl_REMISE_FORFETAIRE,r.str_CODE_RISQUE,t.str_CODE_TYPE_TIERS_PAYANT
+ FROM t_tiers_payant p , t_risque r,t_type_tiers_payant t WHERE p.lg_RISQUE_ID=r.lg_RISQUE_ID
+ AND t.lg_TYPE_TIERS_PAYANT_ID=p.lg_TYPE_TIERS_PAYANT_ID
