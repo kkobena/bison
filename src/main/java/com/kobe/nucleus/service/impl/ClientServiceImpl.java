@@ -1,8 +1,5 @@
 package com.kobe.nucleus.service.impl;
 
-import com.kobe.nucleus.domain.enumeration.Status;
-import com.kobe.nucleus.repository.util.Condition;
-import com.kobe.nucleus.repository.util.SpecificationBuilder;
 import com.kobe.nucleus.service.ClientService;
 import com.kobe.nucleus.domain.Client;
 import com.kobe.nucleus.repository.ClientRepository;
@@ -12,14 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -62,29 +55,11 @@ public class ClientServiceImpl implements ClientService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<ClientDTO> findAll(String search, Pageable pageable) {
-
+    public Page<ClientDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Clients");
-        Pageable page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
-            Sort.by(Sort.Direction.ASC, "firstName", "lastName"));
-        Specification<Client> spec=(root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("status"), Status.ACTIVE);
-
-        if (search != null && !search.isBlank()) {
-            SpecificationBuilder<Client> builder = new SpecificationBuilder<>();
-            Specification<Client> _spec  = builder
-                .with(new String[]{"firstName"}, search + "%", Condition.OperationType.LIKE, Condition.LogicalOperatorType.OR)
-                .with(new String[]{"firstName"}, search + "%", Condition.OperationType.LIKE, Condition.LogicalOperatorType.OR)
-                .with(new String[]{"num"}, search + "%", Condition.OperationType.LIKE, Condition.LogicalOperatorType.OR)
-                .with(new String[]{"codeInterne"}, search + "%", Condition.OperationType.LIKE, Condition.LogicalOperatorType.END)
-                .build();
-            spec=  spec.and(_spec);
-        }
-        spec = spec.and((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("status"), Status.ACTIVE));
-        return clientRepository.findAll(spec, page).map(clientMapper::toDto);
-
-
+        return clientRepository.findAll(pageable)
+            .map(clientMapper::toDto);
     }
-
 
     /**
      * Get one client by id.
@@ -108,12 +83,6 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Client : {}", id);
-
         clientRepository.deleteById(id);
-    }
-
-    @Override
-    public Page<ClientDTO> findAllByTiersPayant(@NotNull Integer tiersPayantId, String search, Pageable pageable) {
-        return null;
     }
 }

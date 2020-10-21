@@ -44,7 +44,7 @@ public class CategorieAyantDroit implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<AyantDroit> ayantDroits = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
         return id;
     }

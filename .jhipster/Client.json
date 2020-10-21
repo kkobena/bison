@@ -1,104 +1,107 @@
 {
-  "name": "Client",
-  "fields": [
-    {
-      "fieldName": "createdAt",
-      "fieldType": "LocalDate",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "updatedAt",
-      "fieldType": "LocalDate",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "status",
-      "fieldType": "Status",
-      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "num",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "firstName",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "lastName",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "sexe",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "codeInterne",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "datNaiss",
-      "fieldType": "LocalDate"
-    },
-    {
-      "fieldName": "typeClient",
-      "fieldType": "TypeClient",
-      "fieldValues": "STANDARD,ASSURANCE,CARNET",
-      "fieldValidateRules": ["required"]
-    }
-  ],
-  "relationships": [
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "factureItem",
-      "otherEntityRelationshipName": "client",
-      "relationshipName": "factureItem"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "vente",
-      "otherEntityRelationshipName": "assure",
-      "relationshipName": "vente"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "ayantDroit",
-      "otherEntityRelationshipName": "assure",
-      "relationshipName": "ayantDroit"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "compteClient",
-      "otherEntityRelationshipName": "client",
-      "relationshipName": "compteClient"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "compagnie",
-      "otherEntityRelationshipName": "client",
-      "relationshipName": "compagnie",
-      "otherEntityField": "libelle"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "remise",
-      "otherEntityRelationshipName": "client",
-      "relationshipName": "remise",
-      "otherEntityField": "valeur"
-    }
-  ],
-  "changelogDate": "20200531175350",
-  "entityTableName": "client",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "clientRootFolder": "",
-  "applications": "*"
+    "name": "Client",
+    "fields": [
+        {
+            "fieldName": "createdAt",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "updatedAt",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "firstName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sexe",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "datNaiss",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "typeClient",
+            "fieldType": "TypeClient",
+            "fieldValues": "STANDARD,ASSURANCE,CARNET",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "factureItem",
+            "otherEntityRelationshipName": "client",
+            "relationshipName": "factureItem"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "vente",
+            "otherEntityRelationshipName": "assure",
+            "relationshipName": "vente"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "ayantDroit",
+            "otherEntityRelationshipName": "assure",
+            "relationshipName": "ayantDroit"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "compteClient",
+            "otherEntityRelationshipName": "client",
+            "relationshipName": "compteClient"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "compagnie",
+            "otherEntityRelationshipName": "client",
+            "relationshipName": "compagnie",
+            "otherEntityField": "libelle"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "remise",
+            "otherEntityRelationshipName": "client",
+            "relationshipName": "remise",
+            "otherEntityField": "valeur"
+        }
+    ],
+    "changelogDate": "20200531175350",
+    "entityTableName": "client",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

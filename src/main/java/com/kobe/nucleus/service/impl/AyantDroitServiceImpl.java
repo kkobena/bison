@@ -61,7 +61,6 @@ public class AyantDroitServiceImpl implements AyantDroitService {
             .map(ayantDroitMapper::toDto);
     }
 
-
     /**
      * Get one ayantDroit by id.
      *
@@ -84,7 +83,6 @@ public class AyantDroitServiceImpl implements AyantDroitService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete AyantDroit : {}", id);
-
         ayantDroitRepository.deleteById(id);
     }
 }

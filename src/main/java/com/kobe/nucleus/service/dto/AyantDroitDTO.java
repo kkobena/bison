@@ -3,6 +3,7 @@ package com.kobe.nucleus.service.dto;
 import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Objects;
 import com.kobe.nucleus.domain.enumeration.Status;
 
 /**
@@ -29,9 +30,6 @@ public class AyantDroitDTO implements Serializable {
     private String lastName;
 
     private String sexe;
-
-    @NotNull
-    private String codeInterne;
 
     private LocalDate datNaiss;
 
@@ -108,14 +106,6 @@ public class AyantDroitDTO implements Serializable {
         this.sexe = sexe;
     }
 
-    public String getCodeInterne() {
-        return codeInterne;
-    }
-
-    public void setCodeInterne(String codeInterne) {
-        this.codeInterne = codeInterne;
-    }
-
     public LocalDate getDatNaiss() {
         return datNaiss;
     }
@@ -161,19 +151,22 @@ public class AyantDroitDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AyantDroitDTO)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
-        return id != null && id.equals(((AyantDroitDTO) o).id);
+        AyantDroitDTO ayantDroitDTO = (AyantDroitDTO) o;
+        if (ayantDroitDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), ayantDroitDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hashCode(getId());
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "AyantDroitDTO{" +
@@ -185,7 +178,6 @@ public class AyantDroitDTO implements Serializable {
             ", firstName='" + getFirstName() + "'" +
             ", lastName='" + getLastName() + "'" +
             ", sexe='" + getSexe() + "'" +
-            ", codeInterne='" + getCodeInterne() + "'" +
             ", datNaiss='" + getDatNaiss() + "'" +
             ", assureId=" + getAssureId() +
             ", assureFirstName='" + getAssureFirstName() + "'" +

@@ -33,6 +33,7 @@ import com.kobe.nucleus.domain.enumeration.TypeClient;
  * Integration tests for the {@link ClientResource} REST controller.
  */
 @SpringBootTest(classes = NucleusApp.class)
+
 @AutoConfigureMockMvc
 @WithMockUser
 public class ClientResourceIT {
@@ -46,9 +47,6 @@ public class ClientResourceIT {
     private static final Status DEFAULT_STATUS = Status.ACTIVE;
     private static final Status UPDATED_STATUS = Status.ENATTENTE;
 
-    private static final String DEFAULT_NUM = "AAAAAAAAAA";
-    private static final String UPDATED_NUM = "BBBBBBBBBB";
-
     private static final String DEFAULT_FIRST_NAME = "AAAAAAAAAA";
     private static final String UPDATED_FIRST_NAME = "BBBBBBBBBB";
 
@@ -57,9 +55,6 @@ public class ClientResourceIT {
 
     private static final String DEFAULT_SEXE = "AAAAAAAAAA";
     private static final String UPDATED_SEXE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_CODE_INTERNE = "AAAAAAAAAA";
-    private static final String UPDATED_CODE_INTERNE = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_DAT_NAISS = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DAT_NAISS = LocalDate.now(ZoneId.systemDefault());
@@ -95,11 +90,9 @@ public class ClientResourceIT {
             .createdAt(DEFAULT_CREATED_AT)
             .updatedAt(DEFAULT_UPDATED_AT)
             .status(DEFAULT_STATUS)
-            .num(DEFAULT_NUM)
             .firstName(DEFAULT_FIRST_NAME)
             .lastName(DEFAULT_LAST_NAME)
             .sexe(DEFAULT_SEXE)
-            .codeInterne(DEFAULT_CODE_INTERNE)
             .datNaiss(DEFAULT_DAT_NAISS)
             .typeClient(DEFAULT_TYPE_CLIENT);
         return client;
@@ -115,11 +108,9 @@ public class ClientResourceIT {
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
             .status(UPDATED_STATUS)
-            .num(UPDATED_NUM)
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
-            .codeInterne(UPDATED_CODE_INTERNE)
             .datNaiss(UPDATED_DAT_NAISS)
             .typeClient(UPDATED_TYPE_CLIENT);
         return client;
@@ -134,6 +125,7 @@ public class ClientResourceIT {
     @Transactional
     public void createClient() throws Exception {
         int databaseSizeBeforeCreate = clientRepository.findAll().size();
+
         // Create the Client
         ClientDTO clientDTO = clientMapper.toDto(client);
         restClientMockMvc.perform(post("/api/clients").with(csrf())
@@ -148,11 +140,9 @@ public class ClientResourceIT {
         assertThat(testClient.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testClient.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
         assertThat(testClient.getStatus()).isEqualTo(DEFAULT_STATUS);
-        assertThat(testClient.getNum()).isEqualTo(DEFAULT_NUM);
         assertThat(testClient.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testClient.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testClient.getSexe()).isEqualTo(DEFAULT_SEXE);
-        assertThat(testClient.getCodeInterne()).isEqualTo(DEFAULT_CODE_INTERNE);
         assertThat(testClient.getDatNaiss()).isEqualTo(DEFAULT_DAT_NAISS);
         assertThat(testClient.getTypeClient()).isEqualTo(DEFAULT_TYPE_CLIENT);
     }
@@ -188,7 +178,6 @@ public class ClientResourceIT {
         // Create the Client, which fails.
         ClientDTO clientDTO = clientMapper.toDto(client);
 
-
         restClientMockMvc.perform(post("/api/clients").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(clientDTO)))
@@ -207,7 +196,6 @@ public class ClientResourceIT {
 
         // Create the Client, which fails.
         ClientDTO clientDTO = clientMapper.toDto(client);
-
 
         restClientMockMvc.perform(post("/api/clients").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -228,7 +216,6 @@ public class ClientResourceIT {
         // Create the Client, which fails.
         ClientDTO clientDTO = clientMapper.toDto(client);
 
-
         restClientMockMvc.perform(post("/api/clients").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(clientDTO)))
@@ -248,27 +235,6 @@ public class ClientResourceIT {
         // Create the Client, which fails.
         ClientDTO clientDTO = clientMapper.toDto(client);
 
-
-        restClientMockMvc.perform(post("/api/clients").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(clientDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Client> clientList = clientRepository.findAll();
-        assertThat(clientList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCodeInterneIsRequired() throws Exception {
-        int databaseSizeBeforeTest = clientRepository.findAll().size();
-        // set the field null
-        client.setCodeInterne(null);
-
-        // Create the Client, which fails.
-        ClientDTO clientDTO = clientMapper.toDto(client);
-
-
         restClientMockMvc.perform(post("/api/clients").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(clientDTO)))
@@ -287,7 +253,6 @@ public class ClientResourceIT {
 
         // Create the Client, which fails.
         ClientDTO clientDTO = clientMapper.toDto(client);
-
 
         restClientMockMvc.perform(post("/api/clients").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -312,11 +277,9 @@ public class ClientResourceIT {
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].num").value(hasItem(DEFAULT_NUM)))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].sexe").value(hasItem(DEFAULT_SEXE)))
-            .andExpect(jsonPath("$.[*].codeInterne").value(hasItem(DEFAULT_CODE_INTERNE)))
             .andExpect(jsonPath("$.[*].datNaiss").value(hasItem(DEFAULT_DAT_NAISS.toString())))
             .andExpect(jsonPath("$.[*].typeClient").value(hasItem(DEFAULT_TYPE_CLIENT.toString())));
     }
@@ -335,14 +298,13 @@ public class ClientResourceIT {
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.num").value(DEFAULT_NUM))
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.sexe").value(DEFAULT_SEXE))
-            .andExpect(jsonPath("$.codeInterne").value(DEFAULT_CODE_INTERNE))
             .andExpect(jsonPath("$.datNaiss").value(DEFAULT_DAT_NAISS.toString()))
             .andExpect(jsonPath("$.typeClient").value(DEFAULT_TYPE_CLIENT.toString()));
     }
+
     @Test
     @Transactional
     public void getNonExistingClient() throws Exception {
@@ -367,11 +329,9 @@ public class ClientResourceIT {
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
             .status(UPDATED_STATUS)
-            .num(UPDATED_NUM)
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
-            .codeInterne(UPDATED_CODE_INTERNE)
             .datNaiss(UPDATED_DAT_NAISS)
             .typeClient(UPDATED_TYPE_CLIENT);
         ClientDTO clientDTO = clientMapper.toDto(updatedClient);
@@ -388,11 +348,9 @@ public class ClientResourceIT {
         assertThat(testClient.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testClient.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
         assertThat(testClient.getStatus()).isEqualTo(UPDATED_STATUS);
-        assertThat(testClient.getNum()).isEqualTo(UPDATED_NUM);
         assertThat(testClient.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testClient.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testClient.getSexe()).isEqualTo(UPDATED_SEXE);
-        assertThat(testClient.getCodeInterne()).isEqualTo(UPDATED_CODE_INTERNE);
         assertThat(testClient.getDatNaiss()).isEqualTo(UPDATED_DAT_NAISS);
         assertThat(testClient.getTypeClient()).isEqualTo(UPDATED_TYPE_CLIENT);
     }

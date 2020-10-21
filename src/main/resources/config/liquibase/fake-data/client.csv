@@ -1,11 +1,11 @@
-id;created_at;updated_at;status;num;first_name;last_name;sexe;code_interne;dat_naiss;type_client
-1;2020-05-31;2020-05-31;ENTREESTOCT;compressing;Arvilla;O'Hara;Rhode Island Administrator compressing;array;2020-05-30;CARNET
-2;2020-05-30;2020-05-30;ENTRAITEMENT;interfaces;Monroe;West;hard drive;fault-tolerant;2020-05-30;CARNET
-3;2020-05-31;2020-05-31;VALIDE;parsing Ergonomic quantify;Gabriella;Gottlieb;index e-markets Cambridgeshire;Customer-focused;2020-05-31;CARNET
-4;2020-05-31;2020-05-31;PASSE;Mill Ergonomic online;Adriana;Brakus;paradigms Dalasi Customer;Villages;2020-05-31;ASSURANCE
-5;2020-05-31;2020-05-31;NON_LIVRE;Bike Proactive bandwidth;Jaylan;Marvin;Forward overriding Product;Avon global;2020-05-31;STANDARD
-6;2020-05-30;2020-05-31;ENTRAITEMENT;Gorgeous Wooden Pants;Telly;Heidenreich;sexy Gorgeous;National Nicaragua Cambridgeshire;2020-05-31;CARNET
-7;2020-05-31;2020-05-30;NON_LIVRE;Sleek Rubber Computer invoice deposit;Carlee;Mitchell;Small;Latvian Lats Chief Berkshire;2020-05-31;ASSURANCE
-8;2020-05-31;2020-05-31;LIVRE;cohesive Director;Kelsi;Hirthe;generating;interfaces Fresh;2020-05-31;ASSURANCE
-9;2020-05-31;2020-05-31;SUPPRIME;1080p Chips synthesize;Marco;Reinger;embrace navigate;ivory;2020-05-31;CARNET
-10;2020-05-30;2020-05-31;STOCK;Ohio Granite;Kurt;Howell;Massachusetts haptic;Investor;2020-05-31;STANDARD
+id;created_at;updated_at;status;first_name;last_name;sexe;dat_naiss;type_client
+1;2020-05-31;2020-05-31;ENTREESTOCT;Brigitte;Smitham;Handcrafted;2020-05-30;STANDARD
+2;2020-05-31;2020-05-31;LIVRE;Tyler;Zemlak;Money Market Account invoice;2020-05-31;CARNET
+3;2020-05-30;2020-05-31;LIVRE;Pablo;Kub;Auto Loan Account;2020-05-30;CARNET
+4;2020-05-31;2020-05-31;SUPPRIME;Larissa;Hills;Legacy;2020-05-31;STANDARD
+5;2020-05-31;2020-05-31;SUPPRIME;Leila;Conn;grey;2020-05-31;STANDARD
+6;2020-05-31;2020-05-30;PASSE;Vallie;Osinski;Response orange Refined Plastic Table;2020-05-31;ASSURANCE
+7;2020-05-31;2020-05-31;ENTRAITEMENT;Deborah;Farrell;bandwidth Borders;2020-05-30;ASSURANCE
+8;2020-05-31;2020-05-31;ENTRAITEMENT;Martine;Bartoletti;Music dynamic Ball;2020-05-31;CARNET
+9;2020-05-31;2020-05-31;LIVRE;Francisca;Lehner;Cambridgeshire Wooden;2020-05-31;CARNET
+10;2020-05-31;2020-05-30;ENTREESTOCT;Tracey;O'Kon;Soap;2020-05-31;CARNET

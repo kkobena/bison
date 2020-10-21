@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -90,10 +89,10 @@ public class ClientResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clients in body.
      */
-    @GetMapping(value = "/clients",params = {"search"})
-    public ResponseEntity<List<ClientDTO>> getAllClients(@RequestParam("search") String search,Pageable pageable) {
+    @GetMapping("/clients")
+    public ResponseEntity<List<ClientDTO>> getAllClients(Pageable pageable) {
         log.debug("REST request to get a page of Clients");
-        Page<ClientDTO> page = clientService.findAll(search,pageable);
+        Page<ClientDTO> page = clientService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -120,16 +119,7 @@ public class ClientResource {
     @DeleteMapping("/clients/{id}")
     public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         log.debug("REST request to delete Client : {}", id);
-
         clientService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
-    }
-
-    @GetMapping(value ="/clients/tierspayant",params = {"search"})
-    public ResponseEntity<List<ClientDTO>> getAllClientsByTiersPayant(@RequestParam("search") String search,Pageable pageable) {
-        log.debug("REST request to get a page of Clients");
-        Page<ClientDTO> page = clientService.findAll(search,pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 }

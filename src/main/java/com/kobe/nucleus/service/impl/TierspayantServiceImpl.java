@@ -201,7 +201,6 @@ public class TierspayantServiceImpl implements TierspayantService {
 	@Override
 	public TierspayantDTO update(TierspayantDTO tierspayantDTO) {
 		log.debug("Request to update Tierspayant : {}", tierspayantDTO);
-		
 		final Tierspayant dto =tierspayantRepository.getOne(tierspayantDTO.getId());
 		dto.setUpdatedAt(Instant.now());
 		dto.setLibelLong(tierspayantDTO.getLibelLong());

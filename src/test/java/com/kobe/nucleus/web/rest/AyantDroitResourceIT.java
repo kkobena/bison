@@ -33,6 +33,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
  * Integration tests for the {@link AyantDroitResource} REST controller.
  */
 @SpringBootTest(classes = NucleusApp.class)
+
 @AutoConfigureMockMvc
 @WithMockUser
 public class AyantDroitResourceIT {
@@ -57,9 +58,6 @@ public class AyantDroitResourceIT {
 
     private static final String DEFAULT_SEXE = "AAAAAAAAAA";
     private static final String UPDATED_SEXE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_CODE_INTERNE = "AAAAAAAAAA";
-    private static final String UPDATED_CODE_INTERNE = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_DAT_NAISS = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DAT_NAISS = LocalDate.now(ZoneId.systemDefault());
@@ -96,7 +94,6 @@ public class AyantDroitResourceIT {
             .firstName(DEFAULT_FIRST_NAME)
             .lastName(DEFAULT_LAST_NAME)
             .sexe(DEFAULT_SEXE)
-            .codeInterne(DEFAULT_CODE_INTERNE)
             .datNaiss(DEFAULT_DAT_NAISS);
         // Add required entity
         Client client;
@@ -125,7 +122,6 @@ public class AyantDroitResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
-            .codeInterne(UPDATED_CODE_INTERNE)
             .datNaiss(UPDATED_DAT_NAISS);
         // Add required entity
         Client client;
@@ -149,6 +145,7 @@ public class AyantDroitResourceIT {
     @Transactional
     public void createAyantDroit() throws Exception {
         int databaseSizeBeforeCreate = ayantDroitRepository.findAll().size();
+
         // Create the AyantDroit
         AyantDroitDTO ayantDroitDTO = ayantDroitMapper.toDto(ayantDroit);
         restAyantDroitMockMvc.perform(post("/api/ayant-droits").with(csrf())
@@ -167,7 +164,6 @@ public class AyantDroitResourceIT {
         assertThat(testAyantDroit.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testAyantDroit.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testAyantDroit.getSexe()).isEqualTo(DEFAULT_SEXE);
-        assertThat(testAyantDroit.getCodeInterne()).isEqualTo(DEFAULT_CODE_INTERNE);
         assertThat(testAyantDroit.getDatNaiss()).isEqualTo(DEFAULT_DAT_NAISS);
     }
 
@@ -202,7 +198,6 @@ public class AyantDroitResourceIT {
         // Create the AyantDroit, which fails.
         AyantDroitDTO ayantDroitDTO = ayantDroitMapper.toDto(ayantDroit);
 
-
         restAyantDroitMockMvc.perform(post("/api/ayant-droits").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(ayantDroitDTO)))
@@ -221,7 +216,6 @@ public class AyantDroitResourceIT {
 
         // Create the AyantDroit, which fails.
         AyantDroitDTO ayantDroitDTO = ayantDroitMapper.toDto(ayantDroit);
-
 
         restAyantDroitMockMvc.perform(post("/api/ayant-droits").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -242,7 +236,6 @@ public class AyantDroitResourceIT {
         // Create the AyantDroit, which fails.
         AyantDroitDTO ayantDroitDTO = ayantDroitMapper.toDto(ayantDroit);
 
-
         restAyantDroitMockMvc.perform(post("/api/ayant-droits").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(ayantDroitDTO)))
@@ -261,27 +254,6 @@ public class AyantDroitResourceIT {
 
         // Create the AyantDroit, which fails.
         AyantDroitDTO ayantDroitDTO = ayantDroitMapper.toDto(ayantDroit);
-
-
-        restAyantDroitMockMvc.perform(post("/api/ayant-droits").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(ayantDroitDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<AyantDroit> ayantDroitList = ayantDroitRepository.findAll();
-        assertThat(ayantDroitList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCodeInterneIsRequired() throws Exception {
-        int databaseSizeBeforeTest = ayantDroitRepository.findAll().size();
-        // set the field null
-        ayantDroit.setCodeInterne(null);
-
-        // Create the AyantDroit, which fails.
-        AyantDroitDTO ayantDroitDTO = ayantDroitMapper.toDto(ayantDroit);
-
 
         restAyantDroitMockMvc.perform(post("/api/ayant-droits").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -310,7 +282,6 @@ public class AyantDroitResourceIT {
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].sexe").value(hasItem(DEFAULT_SEXE)))
-            .andExpect(jsonPath("$.[*].codeInterne").value(hasItem(DEFAULT_CODE_INTERNE)))
             .andExpect(jsonPath("$.[*].datNaiss").value(hasItem(DEFAULT_DAT_NAISS.toString())));
     }
     
@@ -332,9 +303,9 @@ public class AyantDroitResourceIT {
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.sexe").value(DEFAULT_SEXE))
-            .andExpect(jsonPath("$.codeInterne").value(DEFAULT_CODE_INTERNE))
             .andExpect(jsonPath("$.datNaiss").value(DEFAULT_DAT_NAISS.toString()));
     }
+
     @Test
     @Transactional
     public void getNonExistingAyantDroit() throws Exception {
@@ -363,7 +334,6 @@ public class AyantDroitResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
-            .codeInterne(UPDATED_CODE_INTERNE)
             .datNaiss(UPDATED_DAT_NAISS);
         AyantDroitDTO ayantDroitDTO = ayantDroitMapper.toDto(updatedAyantDroit);
 
@@ -383,7 +353,6 @@ public class AyantDroitResourceIT {
         assertThat(testAyantDroit.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testAyantDroit.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testAyantDroit.getSexe()).isEqualTo(UPDATED_SEXE);
-        assertThat(testAyantDroit.getCodeInterne()).isEqualTo(UPDATED_CODE_INTERNE);
         assertThat(testAyantDroit.getDatNaiss()).isEqualTo(UPDATED_DAT_NAISS);
     }
 

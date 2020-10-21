@@ -19,7 +19,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
  */
 @Entity
 @Table(name = "ayant_droit")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class AyantDroit implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,31 +55,27 @@ public class AyantDroit implements Serializable {
     @Column(name = "sexe")
     private String sexe;
 
-    @NotNull
-    @Column(name = "code_interne", nullable = false)
-    private String codeInterne;
-
     @Column(name = "dat_naiss")
     private LocalDate datNaiss;
 
     @OneToMany(mappedBy = "ayantDroit")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<FactureItem> factureItems = new HashSet<>();
 
     @OneToMany(mappedBy = "ayantDroit")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vente> ventes = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = "ayantDroits", allowSetters = true)
+    @JsonIgnoreProperties("ayantDroits")
     private Client assure;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = "ayantDroits", allowSetters = true)
+    @JsonIgnoreProperties("ayantDroits")
     private CategorieAyantDroit categorie;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -179,19 +175,6 @@ public class AyantDroit implements Serializable {
         this.sexe = sexe;
     }
 
-    public String getCodeInterne() {
-        return codeInterne;
-    }
-
-    public AyantDroit codeInterne(String codeInterne) {
-        this.codeInterne = codeInterne;
-        return this;
-    }
-
-    public void setCodeInterne(String codeInterne) {
-        this.codeInterne = codeInterne;
-    }
-
     public LocalDate getDatNaiss() {
         return datNaiss;
     }
@@ -280,7 +263,7 @@ public class AyantDroit implements Serializable {
     public void setCategorie(CategorieAyantDroit categorieAyantDroit) {
         this.categorie = categorieAyantDroit;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -298,7 +281,6 @@ public class AyantDroit implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "AyantDroit{" +
@@ -310,7 +292,6 @@ public class AyantDroit implements Serializable {
             ", firstName='" + getFirstName() + "'" +
             ", lastName='" + getLastName() + "'" +
             ", sexe='" + getSexe() + "'" +
-            ", codeInterne='" + getCodeInterne() + "'" +
             ", datNaiss='" + getDatNaiss() + "'" +
             "}";
     }

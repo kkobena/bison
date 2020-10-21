@@ -15,11 +15,12 @@
 
 logging:
   level:
-    ROOT: INFO
-    io.github.jhipster: INFO
-    com.kobe.nucleus: INFO
-   file:
-     name: logs/nucleus.log
+    ROOT: DEBUG
+    io.github.jhipster: DEBUG
+    com.kobe.nucleus: DEBUG
+  file:
+    name: logs/nucleus.log
+
 file:
   upload-dir: ./documents
 management:
