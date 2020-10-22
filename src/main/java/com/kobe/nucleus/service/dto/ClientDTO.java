@@ -39,11 +39,12 @@ public class ClientDTO implements Serializable {
 
 	private LocalDate datNaiss;
 	private String numMaticule;
+	private int encours;
 
 	@NotNull
 	private TypeClient typeClient;
 	private List<CompteClientDTO> compteClients = new ArrayList<>();
-	private List<AyantDroitDTO> ayantDroits= new ArrayList<>();
+	private List<AyantDroitDTO> ayantDroits = new ArrayList<>();
 
 	public List<CompteClientDTO> getCompteClients() {
 		return compteClients;
@@ -51,6 +52,11 @@ public class ClientDTO implements Serializable {
 
 	public void setCompteClients(List<CompteClientDTO> compteClients) {
 		this.compteClients = compteClients;
+	}
+
+	public ClientDTO compteClients(List<CompteClientDTO> compteClients) {
+		this.compteClients = compteClients;
+		return this;
 	}
 
 	private Long compagnieId;
@@ -218,8 +224,8 @@ public class ClientDTO implements Serializable {
 		this.sexe = client.getSexe();
 		this.datNaiss = client.getDatNaiss();
 		this.typeClient = client.getTypeClient();
-		this.compteClients = client.getCompteClients().stream().sorted(Comparator.comparing(c->c.getCategorie())).map(e -> new CompteClientDTO(e))
-				.collect(Collectors.toList());
+		this.compteClients = client.getCompteClients().stream().sorted(Comparator.comparing(c -> c.getCategorie()))
+				.map(e -> new CompteClientDTO(e)).collect(Collectors.toList());
 		this.compteClients.stream().filter(a -> a.isPrincipal()).findFirst().ifPresent(e -> {
 			this.numMaticule = e.getNumMaticule();
 		});
@@ -234,8 +240,8 @@ public class ClientDTO implements Serializable {
 			this.remiseId = remise.getId();
 			this.remiseValeur = remise.getValeur();
 		}
-		this.ayantDroits=client.getAyantDroits().stream().map(arg0)
-
+		this.ayantDroits = client.getAyantDroits().stream().map(e -> new AyantDroitDTO(e)).collect(Collectors.toList());
+		this.encours = this.compteClients.stream().map(e -> e.getEncours()).reduce(0, Integer::sum);
 	}
 
 	public List<AyantDroitDTO> getAyantDroits() {
@@ -244,6 +250,24 @@ public class ClientDTO implements Serializable {
 
 	public void setAyantDroits(List<AyantDroitDTO> ayantDroits) {
 		this.ayantDroits = ayantDroits;
+	}
+
+	public ClientDTO ayantDroits(List<AyantDroitDTO> ayantDroits) {
+		this.ayantDroits = ayantDroits;
+		return this;
+	}
+
+	public int getEncours() {
+		return encours;
+	}
+
+	public ClientDTO encours(int encours) {
+		this.encours = encours;
+		return this;
+	}
+
+	public void setEncours(int encours) {
+		this.encours = encours;
 	}
 
 }

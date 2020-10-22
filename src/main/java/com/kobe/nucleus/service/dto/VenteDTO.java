@@ -15,15 +15,15 @@ public class VenteDTO implements Serializable {
     
     private Long id;
 
-    @NotNull
+    
     private Instant createdAt;
 
-    @NotNull
+   
     private Instant updatedAt;
 
     private LocalDate dateMVT;
 
-    @NotNull
+   
     private Status status;
 
     private NatureVente natureVente;
@@ -62,7 +62,7 @@ public class VenteDTO implements Serializable {
 
     private String refBon;
 
-    @NotNull
+    
     private Integer avoidAmount;
 
 

@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+
+import com.kobe.nucleus.domain.AyantDroit;
+import com.kobe.nucleus.domain.CategorieAyantDroit;
+import com.kobe.nucleus.domain.Client;
 import com.kobe.nucleus.domain.enumeration.Status;
 
 /**
@@ -41,7 +45,7 @@ public class AyantDroitDTO implements Serializable {
     private Long categorieId;
 
     private String categorieLibelle;
-    
+    private Boolean principal;
     public Long getId() {
         return id;
     }
@@ -145,8 +149,50 @@ public class AyantDroitDTO implements Serializable {
     public void setCategorieLibelle(String categorieAyantDroitLibelle) {
         this.categorieLibelle = categorieAyantDroitLibelle;
     }
+    public AyantDroitDTO categorieAyantDroitLibelle( String categorieAyantDroitLibelle) {
+        this.categorieLibelle = categorieAyantDroitLibelle;
+        return this;
+    }
+    
+    public AyantDroitDTO principal(Boolean principal) {
+		this.principal = principal;
+		return this;
+	}
 
-    @Override
+    public Boolean getPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(Boolean principal) {
+		this.principal = principal;
+	}
+	public AyantDroitDTO() {
+		
+	}
+	public AyantDroitDTO(AyantDroit a) {
+		super();
+		this.id = a.getId();
+		this.createdAt = a.getCreatedAt();
+		this.updatedAt = a.getUpdatedAt();
+		this.status = a.getStatus();
+		this.num = a.getNum();
+		this.firstName = a.getFirstName();
+		this.lastName = a.getLastName();
+		this.sexe = a.getSexe();
+		this.datNaiss = a.getDatNaiss();
+		this.principal=a.isPrincipal();
+		Client c=a.getAssure();
+		this.assureId = a.getId();
+		this.assureFirstName = a.getFirstName()+" "+a.getLastName();
+		CategorieAyantDroit cat=a.getCategorie();
+		if(cat!=null) {
+			this.categorieId = cat.getId();
+			this.categorieLibelle = cat.getLibelle();
+		}
+		
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

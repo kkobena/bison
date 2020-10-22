@@ -1,10 +1,14 @@
 package com.kobe.nucleus.service;
 
+import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeClient;
 import com.kobe.nucleus.service.dto.ClientDTO;
+
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -42,4 +46,12 @@ public interface ClientService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    /**
+     * Get all the clients with ayantDroits and compteClients. 
+     *@search Search criteria 
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    List<ClientDTO> findAll(String search,TypeClient typeClient,Status status);
 }

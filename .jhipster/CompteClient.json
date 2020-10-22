@@ -77,6 +77,8 @@
       "otherEntityName": "client",
       "otherEntityRelationshipName": "compteClient",
       "relationshipName": "client",
+ "relationshipValidateRules": "required",
+
       "otherEntityField": "id"
     },
     {

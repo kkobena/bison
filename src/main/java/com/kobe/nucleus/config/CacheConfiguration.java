@@ -181,7 +181,7 @@ public class CacheConfiguration {
             createCache(cm, com.kobe.nucleus.domain.Banque.class.getName());
             createCache(cm, com.kobe.nucleus.domain.Banque.class.getName() + ".paiements");
             createCache(cm, com.kobe.nucleus.domain.MvtsProduit.class.getName());
-            // jhipster-needle-ehcache-add-entry
+
         };
     }
 

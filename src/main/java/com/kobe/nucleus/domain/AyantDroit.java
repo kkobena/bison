@@ -19,7 +19,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
  */
 @Entity
 @Table(name = "ayant_droit")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class AyantDroit implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,24 +58,28 @@ public class AyantDroit implements Serializable {
     @Column(name = "dat_naiss")
     private LocalDate datNaiss;
 
+    @NotNull
+    @Column(name = "principal", nullable = false)
+    private Boolean principal;
+
     @OneToMany(mappedBy = "ayantDroit")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<FactureItem> factureItems = new HashSet<>();
 
     @OneToMany(mappedBy = "ayantDroit")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Vente> ventes = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("ayantDroits")
+    @JsonIgnoreProperties(value = "ayantDroits", allowSetters = true)
     private Client assure;
 
     @ManyToOne
-    @JsonIgnoreProperties("ayantDroits")
+    @JsonIgnoreProperties(value = "ayantDroits", allowSetters = true)
     private CategorieAyantDroit categorie;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+  
     public Long getId() {
         return id;
     }
@@ -188,6 +192,19 @@ public class AyantDroit implements Serializable {
         this.datNaiss = datNaiss;
     }
 
+    public Boolean isPrincipal() {
+        return principal;
+    }
+
+    public AyantDroit principal(Boolean principal) {
+        this.principal = principal;
+        return this;
+    }
+
+    public void setPrincipal(Boolean principal) {
+        this.principal = principal;
+    }
+
     public Set<FactureItem> getFactureItems() {
         return factureItems;
     }
@@ -263,7 +280,7 @@ public class AyantDroit implements Serializable {
     public void setCategorie(CategorieAyantDroit categorieAyantDroit) {
         this.categorie = categorieAyantDroit;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
     public boolean equals(Object o) {
@@ -281,6 +298,7 @@ public class AyantDroit implements Serializable {
         return 31;
     }
 
+    // prettier-ignore
     @Override
     public String toString() {
         return "AyantDroit{" +
@@ -293,6 +311,7 @@ public class AyantDroit implements Serializable {
             ", lastName='" + getLastName() + "'" +
             ", sexe='" + getSexe() + "'" +
             ", datNaiss='" + getDatNaiss() + "'" +
+            ", principal='" + isPrincipal() + "'" +
             "}";
     }
 }

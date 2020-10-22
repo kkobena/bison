@@ -60,7 +60,7 @@ public class LignesVenteAssurence implements Serializable {
     @JsonIgnoreProperties(value = "lignesVenteAssurences", allowSetters = true)
     private CompteClient compteClient;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+   
     public Long getId() {
         return id;
     }

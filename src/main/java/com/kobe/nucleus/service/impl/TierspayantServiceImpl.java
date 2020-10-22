@@ -10,11 +10,9 @@ import com.kobe.nucleus.repository.GroupeTierspayantRepository;
 import com.kobe.nucleus.repository.ModelFactureRepository;
 import com.kobe.nucleus.repository.RisqueRepository;
 import com.kobe.nucleus.repository.TierspayantRepository;
+import com.kobe.nucleus.service.dto.ResponseDTO;
 import com.kobe.nucleus.service.dto.TierspayantDTO;
 import com.kobe.nucleus.service.mapper.TierspayantMapper;
-import com.kobe.nucleus.web.rest.dto.ResponseDTO;
-
-import liquibase.pro.packaged.gr;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -54,20 +52,18 @@ public class TierspayantServiceImpl implements TierspayantService {
 
 	private final TierspayantRepository tierspayantRepository;
 	private final RisqueRepository risqueRepository;
-    private final GroupeTierspayantRepository groupeTierspayantRepository;
-    private final ModelFactureRepository modeleFactureRepository;
+	private final GroupeTierspayantRepository groupeTierspayantRepository;
+	private final ModelFactureRepository modeleFactureRepository;
 	private final TierspayantMapper tierspayantMapper;
 
-	public TierspayantServiceImpl(TierspayantRepository tierspayantRepository, 
-			TierspayantMapper tierspayantMapper,
-			GroupeTierspayantRepository groupeTierspayantRepository,
-			ModelFactureRepository modeleFactureRepository,
+	public TierspayantServiceImpl(TierspayantRepository tierspayantRepository, TierspayantMapper tierspayantMapper,
+			GroupeTierspayantRepository groupeTierspayantRepository, ModelFactureRepository modeleFactureRepository,
 			RisqueRepository risqueRepository) {
 		this.tierspayantRepository = tierspayantRepository;
 		this.tierspayantMapper = tierspayantMapper;
 		this.risqueRepository = risqueRepository;
-		this.groupeTierspayantRepository=groupeTierspayantRepository;
-		this.modeleFactureRepository=modeleFactureRepository;
+		this.groupeTierspayantRepository = groupeTierspayantRepository;
+		this.modeleFactureRepository = modeleFactureRepository;
 	}
 
 	/**
@@ -181,7 +177,7 @@ public class TierspayantServiceImpl implements TierspayantService {
 //				});
 				TypeTierspayant typeTierspayant = TypeTierspayant.valueOfLabel(record.get(13));
 				dto.setTypeTp(typeTierspayant);
-				
+
 				Tierspayant tierspayant = tierspayantMapper.toEntity(dto);
 				tierspayantRepository.save(tierspayant);
 				count++;
@@ -201,7 +197,7 @@ public class TierspayantServiceImpl implements TierspayantService {
 	@Override
 	public TierspayantDTO update(TierspayantDTO tierspayantDTO) {
 		log.debug("Request to update Tierspayant : {}", tierspayantDTO);
-		final Tierspayant dto =tierspayantRepository.getOne(tierspayantDTO.getId());
+		final Tierspayant dto = tierspayantRepository.getOne(tierspayantDTO.getId());
 		dto.setUpdatedAt(Instant.now());
 		dto.setLibelLong(tierspayantDTO.getLibelLong());
 		dto.setLibelCourt(tierspayantDTO.getLibelCourt());
@@ -213,27 +209,27 @@ public class TierspayantServiceImpl implements TierspayantService {
 		dto.setMontantMaxFacture(tierspayantDTO.getMontantMaxFacture());
 		dto.setRemiseForfetaire(tierspayantDTO.getRemiseForfetaire());
 		dto.setCodeComptable(tierspayantDTO.getCodeComptable());
-		if(tierspayantDTO.getRisqueId()!=null) {
+		if (tierspayantDTO.getRisqueId() != null) {
 			risqueRepository.findById(tierspayantDTO.getRisqueId()).ifPresent(risque -> {
 				dto.setRisque(risque);
 
 			});
 		}
-		
-		if(tierspayantDTO.getGroupetpId()!=null) {
+
+		if (tierspayantDTO.getGroupetpId() != null) {
 			groupeTierspayantRepository.findById(tierspayantDTO.getGroupetpId()).ifPresent(groupe -> {
 				dto.setGroupetp(groupe);
-			});	
+			});
 		}
-		
-		dto.setTypeTp(tierspayantDTO.getTypeTp());	
-		if(tierspayantDTO.getModelFactureId()!=null) {
-			 modeleFactureRepository.findById(tierspayantDTO.getModelFactureId()).ifPresent(modelFacture -> {
-					dto.setModelFacture(modelFacture);
-				});
+
+		dto.setTypeTp(tierspayantDTO.getTypeTp());
+		if (tierspayantDTO.getModelFactureId() != null) {
+			modeleFactureRepository.findById(tierspayantDTO.getModelFactureId()).ifPresent(modelFacture -> {
+				dto.setModelFacture(modelFacture);
+			});
 		}
-	
-		 tierspayantRepository.save(dto);
+
+		tierspayantRepository.save(dto);
 		return tierspayantMapper.toDto(dto);
 	}
 }

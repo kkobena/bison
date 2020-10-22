@@ -1,5 +1,7 @@
 package com.kobe.nucleus.web.rest;
 
+import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeClient;
 import com.kobe.nucleus.service.ClientService;
 import com.kobe.nucleus.web.rest.errors.BadRequestAlertException;
 import com.kobe.nucleus.service.dto.ClientDTO;
@@ -90,11 +92,11 @@ public class ClientResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of clients in body.
      */
     @GetMapping("/clients")
-    public ResponseEntity<List<ClientDTO>> getAllClients(Pageable pageable) {
+    public ResponseEntity<List<ClientDTO>> getAllClients(String search, TypeClient typeClient,Status status) {
         log.debug("REST request to get a page of Clients");
-        Page<ClientDTO> page = clientService.findAll(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page.getContent());
+        List<ClientDTO> data = clientService.findAll(search,typeClient,status);
+       
+        return ResponseEntity.ok().body(data);
     }
 
     /**

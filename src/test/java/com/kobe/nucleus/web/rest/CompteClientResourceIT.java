@@ -2,6 +2,7 @@ package com.kobe.nucleus.web.rest;
 
 import com.kobe.nucleus.NucleusApp;
 import com.kobe.nucleus.domain.CompteClient;
+import com.kobe.nucleus.domain.Client;
 import com.kobe.nucleus.repository.CompteClientRepository;
 import com.kobe.nucleus.service.CompteClientService;
 import com.kobe.nucleus.service.dto.CompteClientDTO;
@@ -122,6 +123,16 @@ public class CompteClientResourceIT {
             .bIsAbsolute(DEFAULT_B_IS_ABSOLUTE)
             .categorie(DEFAULT_CATEGORIE)
             .status(DEFAULT_STATUS);
+        // Add required entity
+        Client client;
+        if (TestUtil.findAll(em, Client.class).isEmpty()) {
+            client = ClientResourceIT.createEntity(em);
+            em.persist(client);
+            em.flush();
+        } else {
+            client = TestUtil.findAll(em, Client.class).get(0);
+        }
+        compteClient.setClient(client);
         return compteClient;
     }
     /**
@@ -147,6 +158,16 @@ public class CompteClientResourceIT {
             .bIsAbsolute(UPDATED_B_IS_ABSOLUTE)
             .categorie(UPDATED_CATEGORIE)
             .status(UPDATED_STATUS);
+        // Add required entity
+        Client client;
+        if (TestUtil.findAll(em, Client.class).isEmpty()) {
+            client = ClientResourceIT.createUpdatedEntity(em);
+            em.persist(client);
+            em.flush();
+        } else {
+            client = TestUtil.findAll(em, Client.class).get(0);
+        }
+        compteClient.setClient(client);
         return compteClient;
     }
 

@@ -1,7 +1,8 @@
 package com.kobe.nucleus.service;
 
+import com.kobe.nucleus.service.dto.ResponseDTO;
 import com.kobe.nucleus.service.dto.TierspayantDTO;
-import com.kobe.nucleus.web.rest.dto.ResponseDTO;
+
 
 
 

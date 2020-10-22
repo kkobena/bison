@@ -1,4 +1,4 @@
-package com.kobe.nucleus.web.rest.dto;
+package com.kobe.nucleus.service.dto;
 
 import java.io.Serializable;
 import java.util.List;

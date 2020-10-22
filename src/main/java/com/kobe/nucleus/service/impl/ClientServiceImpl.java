@@ -2,9 +2,14 @@ package com.kobe.nucleus.service.impl;
 
 import com.kobe.nucleus.service.ClientService;
 import com.kobe.nucleus.domain.Client;
+import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeClient;
 import com.kobe.nucleus.repository.ClientRepository;
+import com.kobe.nucleus.repository.CustomizedClientService;
 import com.kobe.nucleus.service.dto.ClientDTO;
 import com.kobe.nucleus.service.mapper.ClientMapper;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,12 +31,13 @@ public class ClientServiceImpl implements ClientService {
     private final Logger log = LoggerFactory.getLogger(ClientServiceImpl.class);
 
     private final ClientRepository clientRepository;
-
+    private final CustomizedClientService customizedClientService;
     private final ClientMapper clientMapper;
 
-    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper) {
+    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper,CustomizedClientService customizedClientService) {
         this.clientRepository = clientRepository;
         this.clientMapper = clientMapper;
+        this.customizedClientService=customizedClientService;
     }
 
     /**
@@ -84,5 +91,19 @@ public class ClientServiceImpl implements ClientService {
     public void delete(Long id) {
         log.debug("Request to delete Client : {}", id);
         clientRepository.deleteById(id);
+    }
+    
+    /**
+     * Get all the clients with ayantDroits and compteClients. 
+     *@search Search criteria 
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<ClientDTO> findAll(String search,TypeClient typeClient,Status status) {
+        log.debug("Request to get all Clients");
+        return customizedClientService.findAll(search, typeClient,status);
+            
     }
 }

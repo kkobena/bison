@@ -69,7 +69,8 @@ public class Client implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Set<Vente> ventes = new HashSet<>();
 
-	@OneToMany(mappedBy = "assure")
+	@OneToMany(mappedBy = "assure", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.REFRESH,
+			CascadeType.REMOVE }, orphanRemoval = true)
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Set<AyantDroit> ayantDroits = new HashSet<>();
 

@@ -2,8 +2,9 @@ package com.kobe.nucleus.web.rest;
 
 import com.kobe.nucleus.domain.enumeration.Status;
 import com.kobe.nucleus.service.TierspayantService;
-import com.kobe.nucleus.web.rest.dto.ResponseDTO;
+
 import com.kobe.nucleus.web.rest.errors.BadRequestAlertException;
+import com.kobe.nucleus.service.dto.ResponseDTO;
 import com.kobe.nucleus.service.dto.TierspayantDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;

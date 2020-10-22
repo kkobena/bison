@@ -120,7 +120,6 @@ public class CompteClientResource {
     @DeleteMapping("/compte-clients/{id}")
     public ResponseEntity<Void> deleteCompteClient(@PathVariable Long id) {
         log.debug("REST request to delete CompteClient : {}", id);
-
         compteClientService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }

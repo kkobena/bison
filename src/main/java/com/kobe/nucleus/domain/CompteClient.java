@@ -88,8 +88,8 @@ public class CompteClient implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<LignesVenteAssurence> lignesVenteAssurences = new HashSet<>();
 
-	@ManyToOne
-	@Column(name = "client_id")
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "client_id")
 	@JsonIgnoreProperties(value = "compteClients", allowSetters = true)
 	private Client client;
 
