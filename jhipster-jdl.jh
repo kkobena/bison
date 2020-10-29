@@ -1,5 +1,5 @@
 entity Magasin {
-    typeMagasin TypeMagasin required unique
+	typeMagasin TypeMagasin required unique
       nomCourt String
      nomLong String required unique
    addressePostal String
@@ -16,7 +16,7 @@ entity Magasin {
       numComptable String
 }
 entity Rayon{
-    createdAt Instant
+	createdAt Instant
  updatedAt Instant
      status Status required
       code String required unique
@@ -24,7 +24,7 @@ entity Rayon{
      typeRayon TypeEmplacement required
 }
 entity GroupeFournisseur{
-    libelle String required unique
+	libelle String required unique
    addresspostale String
       numFaxe String
       email String
@@ -33,7 +33,7 @@ entity GroupeFournisseur{
         odre Integer required unique
 }
 entity Fournisseur{
-    libelle String required unique
+	libelle String required unique
  status Status required
       addresspostale String
       numFaxe String
@@ -44,27 +44,27 @@ entity Fournisseur{
    code String required unique
 }
 entity DetailsInventaire{
-    qty Integer required
+	qty Integer required
   qtyInit Integer required
 createdAt Instant  required
  updatedAt Instant  required
     isUpdated Boolean required
 }
 entity Ajustement{
-    libelle String required
+	libelle String required
  createdAt Instant  required
  updatedAt Instant  required
     endDate LocalDate required
 }
 entity DetailsAjustement {
-    qteInit Integer required
+	qteInit Integer required
     qteFinale Integer required
      qteAjuste Integer required
 createdAt Instant  required
  updatedAt Instant  required
 }
 entity Produit{
-    libelle String required unique
+	libelle String required unique
     status Status required
 createdAt Instant required
  updatedAt Instant required
@@ -83,12 +83,11 @@ qtyDetails Integer
   prixMnp Integer required
 }
 entity Decondition{
-    qtyStock Integer required
+	qtyStock Integer required
 qtyInit Integer required
-
 }
 entity StockProduit{
-    qtyStock Integer required
+	qtyStock Integer required
 qtyVirtual Integer required
   qtyUG Integer required
  status Status required
@@ -98,41 +97,40 @@ version Integer
   prixUni Integer required
 }
 entity FormProduit {
-    code String required unique
+	code String required unique
 	libelle String required unique
     status Status required
 }
 entity GammeProduit {
-    code String required unique
+	code String required unique
 	libelle String required unique
     status Status required
 }
 entity Fabriquant {
-    code String required unique
+	code String required unique
 	libelle String required unique
     status Status required
 }
 entity FamilleProduit {
-    code String required unique
+	code String required unique
 	libelle String required unique
     status Status required
 }
 entity CategorieProduit {
-    code String required unique
+	code String required unique
 	libelle String unique required
      status Status required
 }
 entity Tva{
-    taux Integer required
-
+	taux Integer required
 }
 entity Remise{
-    valeur String
+	valeur String
 remiseValue Float required  
  status Status required
 }
 entity Lot{
-    createdAt Instant  required
+	createdAt Instant  required
  updatedAt Instant  required
      qte Integer required
      qtUg Integer required
@@ -142,7 +140,7 @@ entity Lot{
      peremptionstatus Peremption
 }
 entity CodeGestion{
-    code String required
+	code String required
 jourcouverture Integer required
  moishistorique Integer required
 datebutoir Integer required
@@ -152,7 +150,7 @@ cofficientpmd Boolean required
 typeOptimisation Optimisation
 }
 entity MvtProduit{
-    mvtDate LocalDate required
+	mvtDate LocalDate required
 createdAt Instant required
 checked Boolean required
  qteDebut Integer required
@@ -164,20 +162,19 @@ checked Boolean required
   pkey String required unique
 }
 entity ModelFacture{
-    libelle String required unique
+	libelle String required unique
 code String required unique
 typeDataSource String required
 fichier String required unique
 fichierVariante String
 }
 entity CategorieAyantDroit{
-    code String required unique
+	code String required unique
     libelle String required unique
  status Status required
-
 }
 entity Client{
-    createdAt LocalDate  required
+	createdAt LocalDate  required
     updatedAt LocalDate required
  status Status required
  num String
@@ -189,10 +186,10 @@ lastName String
   typeClient TypeClient required
 }
 enum TypeClient {
-    STANDARD, ASSURANCE,CARNET
+	STANDARD, ASSURANCE, CARNET
 }
 entity AyantDroit{
-    createdAt LocalDate  required
+	createdAt LocalDate  required
     updatedAt LocalDate required
  status Status required
     num String
@@ -204,7 +201,7 @@ lastName String
    datNaiss LocalDate
 }
 entity Utilisateur{
-    createdAt LocalDate  required
+	createdAt LocalDate  required
     updatedAt LocalDate required
     lastName String
 firstName String required
@@ -216,37 +213,37 @@ enable Boolean
    email String
 }
 entity RoleUtilisateur{
-    name String required
+	name String required
 desc String
 enable Boolean
 }
 entity Risque{
-    code String
+	code String
 libelle String required unique
  status Status required
 }
 entity Compagnie{
-    libelle String required unique
+	libelle String required unique
  status Status required
 }
 entity Laboratoire{
-    libelle String required unique
+	libelle String required unique
  status Status required
 }
 entity TypeRisque{
-    code String required unique
+	code String required unique
     libelle String required unique
  status Status required
 }
 entity TypeEtiquette{
-    libelle String required unique
+	libelle String required unique
  status Status required
 }
 enum StatutFacture {
-    PAID, UNPAID, HALFPAID
+	PAID, UNPAID, HALFPAID
 }
 entity Commande{
-    createdAt Instant  required
+	createdAt Instant  required
     updatedAt Instant  required
     num String
     numRef String
@@ -262,10 +259,9 @@ entity Commande{
     statutFacture StatutFacture required
     status OrderStatus
     type TypeOrder
-
 }
 entity CommandeItem{
-    montantCmd Integer
+	montantCmd Integer
      prixPafCmd Integer
      prixUniCmd Integer
       qtecmde Integer
@@ -283,11 +279,11 @@ entity CommandeItem{
     status Status required
 }
 entity TypeInventaire{
-    libelle String required unique
+	libelle String required unique
  status Status required
 }
 entity RetourFournisseur{
-    description String
+	description String
 answered Boolean required
 status RetourEnum
 createdAt Instant  required
@@ -295,13 +291,13 @@ createdAt Instant  required
     mvtDate LocalDate required
 }
 entity RetourItem{
-    qteConfirme Integer
+	qteConfirme Integer
 updatedAt Instant
 createdAt Instant  required
 qteRetourne Integer
 }
 entity Inventaire{
-    libelle String
+	libelle String
 createdAt Instant  required
     updatedAt Instant  required
      status Status required
@@ -315,7 +311,7 @@ createdAt Instant  required
         endDate LocalDate
 }
 entity CompteClient{
-    createdAt Instant
+	createdAt Instant
     updatedAt Instant
     encours Integer
     version Integer
@@ -332,17 +328,17 @@ entity CompteClient{
      status Status required
 }
 entity Motif{
-    libelle String required unique
+	libelle String required unique
    status Status required
 }
 enum TypeFacture {
-    GROUPE, INDIVIDUEL
+	GROUPE, INDIVIDUEL
 }
 enum GroupeModePayment {
-    COMPTANT, CREDIT
+	COMPTANT, CREDIT
 }
 entity Facture{
-    createdAt Instant
+	createdAt Instant
     updatedAt Instant
 code String required
 codeGroupe String
@@ -360,7 +356,7 @@ montantBrut Integer
 template Boolean required
 }
 entity FactureItem{
-    createdAt Instant  required
+	createdAt Instant  required
     updatedAt Instant   required
 montantRemise Integer
 montantPaye Integer
@@ -370,12 +366,12 @@ montantNet Integer
 montantBrut Integer
 }
 entity GroupeTierspayant{
-    code String
+	code String
 libelle String required
  status Status required
 }
 entity Tierspayant{
-    createdAt Instant  required
+	createdAt Instant  required
     updatedAt Instant   required
  code String
 libelCourt String
@@ -391,10 +387,10 @@ libelCourt String
     status Status required
 }
 enum NatureVente {
-    VO, VNO, DEPOT
+	VO, VNO, DEPOT
 }
 entity Vente{
-    createdAt Instant  required
+	createdAt Instant  required
     updatedAt Instant   required
      dateMVT LocalDate
       status Status required
@@ -419,7 +415,7 @@ entity Vente{
       avoidAmount Integer required required
 }
 entity LignesVenteAssurence{
-    montant Integer
+	montant Integer
 refBon String
 taux Integer
 montantReste Integer
@@ -428,7 +424,7 @@ statutFacture StatutFacture required
     updatedAt Instant   required
 }
 entity LignesVente{
-    montant Integer
+	montant Integer
 qty Integer
 qtyServi Integer
 prixUni Integer
@@ -443,11 +439,11 @@ status Status required
     checked Boolean required
 }
 entity Permission{
-    description String
+	description String
 name String
 }
 entity Paiement{
-    libelle String
+	libelle String
 checked Boolean required
 pkey String required unique
  createdAt Instant  required
@@ -467,7 +463,7 @@ pkey String required unique
     organisme String
 }
 entity StockReport{
-    qty Integer required
+	qty Integer required
     mvtDate LocalDate required
     prixPaf Integer required
     prixUni Integer required
@@ -475,7 +471,7 @@ entity StockReport{
     tva Integer required
 }
 entity PaiementItem{
-    codeRef String
+	codeRef String
 pkey String
  createdAt Instant  required
     updatedAt Instant   required
@@ -484,83 +480,83 @@ montantRegl Integer
 montantRestant Integer
 }
 entity Etiquette{
-    libelle String
+	libelle String
 code String
 qty Integer
   endDate LocalDate
 }
 entity Menu{
-    menuName String
+	menuName String
 description String
 libelle String
 icon String
 type TypeIcon
 }
 entity ModePaiement {
-    libelle String required unique
+	libelle String required unique
   status Status required
 }
 enum TypeEmplacement {
-    RAYON, ENTREPOT, RESERVE
+	RAYON, ENTREPOT, RESERVE
 }
 enum TypeIcon {
-    IMAGE, ICONCLASS
+	IMAGE, ICONCLASS
 }
 entity TypeMvtCaisse{
-    libelle String required unique
+	libelle String required unique
      code String required unique
 categorie CatMvtCaisse required
 status Status required
 }
 enum CategorieTransaction {
-    DEBIT, CREDIT
+	DEBIT, CREDIT
 }
 entity Banque{
-    libelle String
+	libelle String
 refPaiement String
 lieux String
 }
 enum CatMvtCaisse {
-    ENTREE, SORTIE, FOND
+	ENTREE, SORTIE, FOND
 }
 enum RetourEnum {
-    NONCOMFIRME, CONFIRME
+	NONCOMFIRME, CONFIRME
 }
 enum TypeVente {
-    VNO, VO
+	VNO, VO
 }
 enum TypeTierspayant {
-    ASSURANCE, CARNET
+	ASSURANCE, CARNET
 }
 enum CategorieAssurance {
-    RO, RC1, RC2, RC3
+	RO, RC1, RC2, RC3
 }
 enum TypeOrder {
-    SUGGESSION, COMMANDE
+	SUGGESSION, COMMANDE
 }
 enum Peremption {
-    PERIME, ENCOURS, ENABLE
+	PERIME, ENCOURS, ENABLE
 }
 enum OrderStatus {
-    SUGGESSIONMANNUEL, SUGGESSIONAUTOMATIK, COMMANDE, COMMANDEENCOURS, ENTREESTOCK,RECU
+	SUGGESSIONMANNUEL, SUGGESSIONAUTOMATIK, COMMANDE, COMMANDEENCOURS, ENTREESTOCK, RECU
 }
 enum Optimisation {
-    MENSUEL, PONDERATION
+	MENSUEL, PONDERATION
 }
 enum TypeMagasin {
-    PRINCIPAL, RAYON, DEPOT, RESERVE
+	PRINCIPAL, RAYON, DEPOT, RESERVE
 }
 enum Status {
-    ACTIVE, ENATTENTE, ENTRAITEMENT, PERIME, VALIDE, DESACTIVE, PASSE, SUGGESTION, ENTREESTOCT, STOCK, SUPPRIME, LIVRE, NON_LIVRE
+	ACTIVE, ENATTENTE, ENTRAITEMENT, PERIME, VALIDE, DESACTIVE, PASSE, SUGGESTION, ENTREESTOCT, STOCK, SUPPRIME, LIVRE, NON_LIVRE
 }
 entity MvtsProduit {
-    libelle String required unique
+	libelle String required unique
 }
 relationship ManyToMany{
-    RoleUtilisateur to Menu
+	RoleUtilisateur to Menu
 }
 relationship OneToMany {
-    Magasin to Ajustement{magasin(nomCourt)}
+	Magasin to Ajustement{magasin(nomCourt)}
 Magasin to Paiement{magasin(nomCourt)}
 Magasin to Inventaire{magasin(nomCourt)}
 Magasin to RetourFournisseur{magasin(nomCourt)}
@@ -642,8 +638,7 @@ ModePaiement to Vente{modePaiement(libelle) required}
  Remise to Client{remise(valeur)}
 }
 relationship OneToOne {
-
-RoleUtilisateur to  Utilisateur
+	RoleUtilisateur to  Utilisateur
 }
 // Set pagination options
 paginate all with pagination

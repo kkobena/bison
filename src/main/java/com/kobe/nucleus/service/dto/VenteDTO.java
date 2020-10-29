@@ -17,8 +17,9 @@ public class VenteDTO implements Serializable {
 
     
     private Instant createdAt;
-
-   
+/*
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+    		pattern = DateProcessor.DATE_FORMAT)*/
     private Instant updatedAt;
 
     private LocalDate dateMVT;

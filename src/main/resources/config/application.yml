@@ -22,7 +22,7 @@ management:
         include: ['configprops', 'env', 'health', 'info', 'jhimetrics', 'logfile', 'loggers', 'prometheus', 'threaddump']
   endpoint:
     health:
-      show-details: when_authorized
+      show-details: when_authorized  #always
       roles: 'ROLE_ADMIN'
     jhimetrics:
       enabled: true
@@ -136,7 +136,7 @@ info:
 
 jhipster:
   clientApp:
-    name: 'nucleusApp'
+    name: 'nucleus'
   # By default CORS is disabled. Uncomment to enable.
   # cors:
   #     allowed-origins: "*"

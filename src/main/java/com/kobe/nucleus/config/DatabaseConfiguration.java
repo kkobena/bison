@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.sql.SQLException;
 
+
 @Configuration
 @EnableJpaRepositories("com.kobe.nucleus.repository")
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
@@ -27,6 +28,7 @@ public class DatabaseConfiguration {
 
     public DatabaseConfiguration(Environment env) {
         this.env = env;
+        
     }
 
     /**
