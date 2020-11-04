@@ -33,6 +33,12 @@ public class CompteClientServiceImpl implements CompteClientService {
         this.compteClientMapper = compteClientMapper;
     }
 
+    /**
+     * Save a compteClient.
+     *
+     * @param compteClientDTO the entity to save.
+     * @return the persisted entity.
+     */
     @Override
     public CompteClientDTO save(CompteClientDTO compteClientDTO) {
         log.debug("Request to save CompteClient : {}", compteClientDTO);
@@ -41,6 +47,12 @@ public class CompteClientServiceImpl implements CompteClientService {
         return compteClientMapper.toDto(compteClient);
     }
 
+    /**
+     * Get all the compteClients.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
     @Override
     @Transactional(readOnly = true)
     public Page<CompteClientDTO> findAll(Pageable pageable) {
@@ -49,7 +61,12 @@ public class CompteClientServiceImpl implements CompteClientService {
             .map(compteClientMapper::toDto);
     }
 
-
+    /**
+     * Get one compteClient by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
     @Override
     @Transactional(readOnly = true)
     public Optional<CompteClientDTO> findOne(Long id) {
@@ -58,6 +75,11 @@ public class CompteClientServiceImpl implements CompteClientService {
             .map(compteClientMapper::toDto);
     }
 
+    /**
+     * Delete the compteClient by id.
+     *
+     * @param id the id of the entity.
+     */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete CompteClient : {}", id);

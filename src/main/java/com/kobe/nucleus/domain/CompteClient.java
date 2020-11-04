@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,13 +21,18 @@ import com.kobe.nucleus.domain.enumeration.Status;
  * A CompteClient.
  */
 @Entity
-@Table(name = "compte_client", uniqueConstraints = {
-		@UniqueConstraint(name = "UNQ_compte_client_cat", columnNames = { "client_id", "categorie" }),
-		@UniqueConstraint(name = "UNQ_compte_client", columnNames = { "client_id", "principal" }) }, indexes = {
-				@Index(name = "numMaticule", columnList = "num_maticule")
+@Table(name = "compte_client", indexes = { @Index(name = "compte_num_maticule", columnList = "num_maticule"),
+		@Index(name = "compte_client_enbale", columnList = "enbale"),
+		@Index(name = "compte_client_status", columnList = "status"),
+		@Index(name = "compte_client_categorie", columnList = "categorie") }, uniqueConstraints = {
+				@UniqueConstraint(name = "UNQ_compte_client_client_tierspayant", columnNames = { "client_id",
+						"tierspayant_id" }),
+				@UniqueConstraint(name = "UNQ_compte_client_categorie", columnNames = { "client_id", "categorie" }),
+				@UniqueConstraint(name = "UNQ_compte_client_num_maticule", columnNames = { "client_id",
+						"num_maticule" }) }
 
-})
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class CompteClient implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -63,19 +69,13 @@ public class CompteClient implements Serializable {
 	@Column(name = "taux")
 	private Integer taux;
 
-	@Column(name = "principal")
-	private Boolean principal;
-
 	@Column(name = "num_maticule")
 	private String numMaticule;
 
 	@Column(name = "enbale")
 	private Boolean enbale;
 
-	@Column(name = "b_is_absolute")
-	private Boolean bIsAbsolute;
-
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	@Column(name = "categorie")
 	private CategorieAssurance categorie;
 
@@ -84,17 +84,21 @@ public class CompteClient implements Serializable {
 	@Column(name = "status", nullable = false)
 	private Status status;
 
+	@NotNull
+	@Column(name = "absolute", nullable = false)
+	private Boolean absolute;
+
 	@OneToMany(mappedBy = "compteClient")
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	private Set<LignesVenteAssurence> lignesVenteAssurences = new HashSet<>();
 
 	@ManyToOne(optional = false)
-	@JoinColumn(name = "client_id")
-	@JsonIgnoreProperties(value = "compteClients", allowSetters = true)
+	@NotNull
+	@JsonIgnoreProperties("compteClients")
 	private Client client;
 
 	@ManyToOne
-	@JsonIgnoreProperties(value = "compteClients", allowSetters = true)
+	@JsonIgnoreProperties("compteClients")
 	private Tierspayant tierspayant;
 
 	public Long getId() {
@@ -222,19 +226,6 @@ public class CompteClient implements Serializable {
 		this.taux = taux;
 	}
 
-	public Boolean isPrincipal() {
-		return principal;
-	}
-
-	public CompteClient principal(Boolean principal) {
-		this.principal = principal;
-		return this;
-	}
-
-	public void setPrincipal(Boolean principal) {
-		this.principal = principal;
-	}
-
 	public String getNumMaticule() {
 		return numMaticule;
 	}
@@ -261,19 +252,6 @@ public class CompteClient implements Serializable {
 		this.enbale = enbale;
 	}
 
-	public Boolean isbIsAbsolute() {
-		return bIsAbsolute;
-	}
-
-	public CompteClient bIsAbsolute(Boolean bIsAbsolute) {
-		this.bIsAbsolute = bIsAbsolute;
-		return this;
-	}
-
-	public void setbIsAbsolute(Boolean bIsAbsolute) {
-		this.bIsAbsolute = bIsAbsolute;
-	}
-
 	public CategorieAssurance getCategorie() {
 		return categorie;
 	}
@@ -298,6 +276,19 @@ public class CompteClient implements Serializable {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Boolean isAbsolute() {
+		return absolute;
+	}
+
+	public CompteClient absolute(Boolean absolute) {
+		this.absolute = absolute;
+		return this;
+	}
+
+	public void setAbsolute(Boolean absolute) {
+		this.absolute = absolute;
 	}
 
 	public Set<LignesVenteAssurence> getLignesVenteAssurences() {
@@ -351,7 +342,7 @@ public class CompteClient implements Serializable {
 		this.tierspayant = tierspayant;
 	}
 	// jhipster-needle-entity-add-getters-setters - JHipster will add getters and
-	// setters here
+	// setters here, do not remove
 
 	@Override
 	public boolean equals(Object o) {
@@ -369,15 +360,14 @@ public class CompteClient implements Serializable {
 		return 31;
 	}
 
-	// prettier-ignore
 	@Override
 	public String toString() {
 		return "CompteClient{" + "id=" + getId() + ", createdAt='" + getCreatedAt() + "'" + ", updatedAt='"
 				+ getUpdatedAt() + "'" + ", encours=" + getEncours() + ", version=" + getVersion()
 				+ ", plafondJournalier=" + getPlafondJournalier() + ", plafondMensuel=" + getPlafondMensuel()
 				+ ", consommation=" + getConsommation() + ", consoJournaliere=" + getConsoJournaliere() + ", taux="
-				+ getTaux() + ", principal='" + isPrincipal() + "'" + ", numMaticule='" + getNumMaticule() + "'"
-				+ ", enbale='" + isEnbale() + "'" + ", bIsAbsolute='" + isbIsAbsolute() + "'" + ", categorie='"
-				+ getCategorie() + "'" + ", status='" + getStatus() + "'" + "}";
+				+ getTaux() + ", numMaticule='" + getNumMaticule() + "'" + ", enbale='" + isEnbale() + "'"
+				+ ", categorie='" + getCategorie() + "'" + ", status='" + getStatus() + "'" + ", absolute='"
+				+ isAbsolute() + "'" + "}";
 	}
 }

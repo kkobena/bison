@@ -34,6 +34,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
  * Integration tests for the {@link CompteClientResource} REST controller.
  */
 @SpringBootTest(classes = NucleusApp.class)
+
 @AutoConfigureMockMvc
 @WithMockUser
 public class CompteClientResourceIT {
@@ -65,23 +66,20 @@ public class CompteClientResourceIT {
     private static final Integer DEFAULT_TAUX = 1;
     private static final Integer UPDATED_TAUX = 2;
 
-    private static final Boolean DEFAULT_PRINCIPAL = false;
-    private static final Boolean UPDATED_PRINCIPAL = true;
-
     private static final String DEFAULT_NUM_MATICULE = "AAAAAAAAAA";
     private static final String UPDATED_NUM_MATICULE = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_ENBALE = false;
     private static final Boolean UPDATED_ENBALE = true;
 
-    private static final Boolean DEFAULT_B_IS_ABSOLUTE = false;
-    private static final Boolean UPDATED_B_IS_ABSOLUTE = true;
-
     private static final CategorieAssurance DEFAULT_CATEGORIE = CategorieAssurance.RO;
     private static final CategorieAssurance UPDATED_CATEGORIE = CategorieAssurance.RC1;
 
     private static final Status DEFAULT_STATUS = Status.ACTIVE;
     private static final Status UPDATED_STATUS = Status.ENATTENTE;
+
+    private static final Boolean DEFAULT_ABSOLUTE = false;
+    private static final Boolean UPDATED_ABSOLUTE = true;
 
     @Autowired
     private CompteClientRepository compteClientRepository;
@@ -117,12 +115,11 @@ public class CompteClientResourceIT {
             .consommation(DEFAULT_CONSOMMATION)
             .consoJournaliere(DEFAULT_CONSO_JOURNALIERE)
             .taux(DEFAULT_TAUX)
-            .principal(DEFAULT_PRINCIPAL)
             .numMaticule(DEFAULT_NUM_MATICULE)
             .enbale(DEFAULT_ENBALE)
-            .bIsAbsolute(DEFAULT_B_IS_ABSOLUTE)
             .categorie(DEFAULT_CATEGORIE)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .absolute(DEFAULT_ABSOLUTE);
         // Add required entity
         Client client;
         if (TestUtil.findAll(em, Client.class).isEmpty()) {
@@ -152,12 +149,11 @@ public class CompteClientResourceIT {
             .consommation(UPDATED_CONSOMMATION)
             .consoJournaliere(UPDATED_CONSO_JOURNALIERE)
             .taux(UPDATED_TAUX)
-            .principal(UPDATED_PRINCIPAL)
             .numMaticule(UPDATED_NUM_MATICULE)
             .enbale(UPDATED_ENBALE)
-            .bIsAbsolute(UPDATED_B_IS_ABSOLUTE)
             .categorie(UPDATED_CATEGORIE)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .absolute(UPDATED_ABSOLUTE);
         // Add required entity
         Client client;
         if (TestUtil.findAll(em, Client.class).isEmpty()) {
@@ -180,6 +176,7 @@ public class CompteClientResourceIT {
     @Transactional
     public void createCompteClient() throws Exception {
         int databaseSizeBeforeCreate = compteClientRepository.findAll().size();
+
         // Create the CompteClient
         CompteClientDTO compteClientDTO = compteClientMapper.toDto(compteClient);
         restCompteClientMockMvc.perform(post("/api/compte-clients").with(csrf())
@@ -200,12 +197,11 @@ public class CompteClientResourceIT {
         assertThat(testCompteClient.getConsommation()).isEqualTo(DEFAULT_CONSOMMATION);
         assertThat(testCompteClient.getConsoJournaliere()).isEqualTo(DEFAULT_CONSO_JOURNALIERE);
         assertThat(testCompteClient.getTaux()).isEqualTo(DEFAULT_TAUX);
-        assertThat(testCompteClient.isPrincipal()).isEqualTo(DEFAULT_PRINCIPAL);
         assertThat(testCompteClient.getNumMaticule()).isEqualTo(DEFAULT_NUM_MATICULE);
         assertThat(testCompteClient.isEnbale()).isEqualTo(DEFAULT_ENBALE);
-        assertThat(testCompteClient.isbIsAbsolute()).isEqualTo(DEFAULT_B_IS_ABSOLUTE);
         assertThat(testCompteClient.getCategorie()).isEqualTo(DEFAULT_CATEGORIE);
         assertThat(testCompteClient.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testCompteClient.isAbsolute()).isEqualTo(DEFAULT_ABSOLUTE);
     }
 
     @Test
@@ -239,6 +235,24 @@ public class CompteClientResourceIT {
         // Create the CompteClient, which fails.
         CompteClientDTO compteClientDTO = compteClientMapper.toDto(compteClient);
 
+        restCompteClientMockMvc.perform(post("/api/compte-clients").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(compteClientDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<CompteClient> compteClientList = compteClientRepository.findAll();
+        assertThat(compteClientList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkAbsoluteIsRequired() throws Exception {
+        int databaseSizeBeforeTest = compteClientRepository.findAll().size();
+        // set the field null
+        compteClient.setAbsolute(null);
+
+        // Create the CompteClient, which fails.
+        CompteClientDTO compteClientDTO = compteClientMapper.toDto(compteClient);
 
         restCompteClientMockMvc.perform(post("/api/compte-clients").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -269,12 +283,11 @@ public class CompteClientResourceIT {
             .andExpect(jsonPath("$.[*].consommation").value(hasItem(DEFAULT_CONSOMMATION)))
             .andExpect(jsonPath("$.[*].consoJournaliere").value(hasItem(DEFAULT_CONSO_JOURNALIERE)))
             .andExpect(jsonPath("$.[*].taux").value(hasItem(DEFAULT_TAUX)))
-            .andExpect(jsonPath("$.[*].principal").value(hasItem(DEFAULT_PRINCIPAL.booleanValue())))
             .andExpect(jsonPath("$.[*].numMaticule").value(hasItem(DEFAULT_NUM_MATICULE)))
             .andExpect(jsonPath("$.[*].enbale").value(hasItem(DEFAULT_ENBALE.booleanValue())))
-            .andExpect(jsonPath("$.[*].bIsAbsolute").value(hasItem(DEFAULT_B_IS_ABSOLUTE.booleanValue())))
             .andExpect(jsonPath("$.[*].categorie").value(hasItem(DEFAULT_CATEGORIE.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].absolute").value(hasItem(DEFAULT_ABSOLUTE.booleanValue())));
     }
     
     @Test
@@ -297,13 +310,13 @@ public class CompteClientResourceIT {
             .andExpect(jsonPath("$.consommation").value(DEFAULT_CONSOMMATION))
             .andExpect(jsonPath("$.consoJournaliere").value(DEFAULT_CONSO_JOURNALIERE))
             .andExpect(jsonPath("$.taux").value(DEFAULT_TAUX))
-            .andExpect(jsonPath("$.principal").value(DEFAULT_PRINCIPAL.booleanValue()))
             .andExpect(jsonPath("$.numMaticule").value(DEFAULT_NUM_MATICULE))
             .andExpect(jsonPath("$.enbale").value(DEFAULT_ENBALE.booleanValue()))
-            .andExpect(jsonPath("$.bIsAbsolute").value(DEFAULT_B_IS_ABSOLUTE.booleanValue()))
             .andExpect(jsonPath("$.categorie").value(DEFAULT_CATEGORIE.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.absolute").value(DEFAULT_ABSOLUTE.booleanValue()));
     }
+
     @Test
     @Transactional
     public void getNonExistingCompteClient() throws Exception {
@@ -334,12 +347,11 @@ public class CompteClientResourceIT {
             .consommation(UPDATED_CONSOMMATION)
             .consoJournaliere(UPDATED_CONSO_JOURNALIERE)
             .taux(UPDATED_TAUX)
-            .principal(UPDATED_PRINCIPAL)
             .numMaticule(UPDATED_NUM_MATICULE)
             .enbale(UPDATED_ENBALE)
-            .bIsAbsolute(UPDATED_B_IS_ABSOLUTE)
             .categorie(UPDATED_CATEGORIE)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .absolute(UPDATED_ABSOLUTE);
         CompteClientDTO compteClientDTO = compteClientMapper.toDto(updatedCompteClient);
 
         restCompteClientMockMvc.perform(put("/api/compte-clients").with(csrf())
@@ -360,12 +372,11 @@ public class CompteClientResourceIT {
         assertThat(testCompteClient.getConsommation()).isEqualTo(UPDATED_CONSOMMATION);
         assertThat(testCompteClient.getConsoJournaliere()).isEqualTo(UPDATED_CONSO_JOURNALIERE);
         assertThat(testCompteClient.getTaux()).isEqualTo(UPDATED_TAUX);
-        assertThat(testCompteClient.isPrincipal()).isEqualTo(UPDATED_PRINCIPAL);
         assertThat(testCompteClient.getNumMaticule()).isEqualTo(UPDATED_NUM_MATICULE);
         assertThat(testCompteClient.isEnbale()).isEqualTo(UPDATED_ENBALE);
-        assertThat(testCompteClient.isbIsAbsolute()).isEqualTo(UPDATED_B_IS_ABSOLUTE);
         assertThat(testCompteClient.getCategorie()).isEqualTo(UPDATED_CATEGORIE);
         assertThat(testCompteClient.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testCompteClient.isAbsolute()).isEqualTo(UPDATED_ABSOLUTE);
     }
 
     @Test

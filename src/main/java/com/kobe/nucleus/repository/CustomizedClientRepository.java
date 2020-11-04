@@ -11,34 +11,29 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Fetch;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-
 import com.kobe.nucleus.domain.Client;
 import com.kobe.nucleus.domain.CompteClient;
 import com.kobe.nucleus.domain.enumeration.Status;
 import com.kobe.nucleus.domain.enumeration.TypeClient;
 import com.kobe.nucleus.service.dto.ClientDTO;
 import com.kobe.nucleus.service.dto.VenteDTO;
-import com.kobe.nucleus.web.rest.EtiquetteResource;
 
 
-import liquibase.pro.packaged.iF;
+
+
 
 @Repository
 @Transactional
