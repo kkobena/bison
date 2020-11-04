@@ -39,6 +39,12 @@
             <column name="type_client" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="mobile" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="mail" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
             <column name="compagnie_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -76,6 +82,8 @@
             <column name="sexe" type="string"/>
             <column name="dat_naiss" type="date"/>
             <column name="type_client" type="string"/>
+            <column name="mobile" type="string"/>
+            <column name="mail" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

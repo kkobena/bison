@@ -62,6 +62,12 @@ public class ClientResourceIT {
     private static final TypeClient DEFAULT_TYPE_CLIENT = TypeClient.STANDARD;
     private static final TypeClient UPDATED_TYPE_CLIENT = TypeClient.ASSURANCE;
 
+    private static final String DEFAULT_MOBILE = "AAAAAAAAAA";
+    private static final String UPDATED_MOBILE = "BBBBBBBBBB";
+
+    private static final String DEFAULT_MAIL = "AAAAAAAAAA";
+    private static final String UPDATED_MAIL = "BBBBBBBBBB";
+
     @Autowired
     private ClientRepository clientRepository;
 
@@ -94,7 +100,9 @@ public class ClientResourceIT {
             .lastName(DEFAULT_LAST_NAME)
             .sexe(DEFAULT_SEXE)
             .datNaiss(DEFAULT_DAT_NAISS)
-            .typeClient(DEFAULT_TYPE_CLIENT);
+            .typeClient(DEFAULT_TYPE_CLIENT)
+            .mobile(DEFAULT_MOBILE)
+            .mail(DEFAULT_MAIL);
         return client;
     }
     /**
@@ -112,7 +120,9 @@ public class ClientResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
             .datNaiss(UPDATED_DAT_NAISS)
-            .typeClient(UPDATED_TYPE_CLIENT);
+            .typeClient(UPDATED_TYPE_CLIENT)
+            .mobile(UPDATED_MOBILE)
+            .mail(UPDATED_MAIL);
         return client;
     }
 
@@ -145,6 +155,8 @@ public class ClientResourceIT {
         assertThat(testClient.getSexe()).isEqualTo(DEFAULT_SEXE);
         assertThat(testClient.getDatNaiss()).isEqualTo(DEFAULT_DAT_NAISS);
         assertThat(testClient.getTypeClient()).isEqualTo(DEFAULT_TYPE_CLIENT);
+        assertThat(testClient.getMobile()).isEqualTo(DEFAULT_MOBILE);
+        assertThat(testClient.getMail()).isEqualTo(DEFAULT_MAIL);
     }
 
     @Test
@@ -281,7 +293,9 @@ public class ClientResourceIT {
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].sexe").value(hasItem(DEFAULT_SEXE)))
             .andExpect(jsonPath("$.[*].datNaiss").value(hasItem(DEFAULT_DAT_NAISS.toString())))
-            .andExpect(jsonPath("$.[*].typeClient").value(hasItem(DEFAULT_TYPE_CLIENT.toString())));
+            .andExpect(jsonPath("$.[*].typeClient").value(hasItem(DEFAULT_TYPE_CLIENT.toString())))
+            .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE)))
+            .andExpect(jsonPath("$.[*].mail").value(hasItem(DEFAULT_MAIL)));
     }
     
     @Test
@@ -302,7 +316,9 @@ public class ClientResourceIT {
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.sexe").value(DEFAULT_SEXE))
             .andExpect(jsonPath("$.datNaiss").value(DEFAULT_DAT_NAISS.toString()))
-            .andExpect(jsonPath("$.typeClient").value(DEFAULT_TYPE_CLIENT.toString()));
+            .andExpect(jsonPath("$.typeClient").value(DEFAULT_TYPE_CLIENT.toString()))
+            .andExpect(jsonPath("$.mobile").value(DEFAULT_MOBILE))
+            .andExpect(jsonPath("$.mail").value(DEFAULT_MAIL));
     }
 
     @Test
@@ -333,7 +349,9 @@ public class ClientResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
             .datNaiss(UPDATED_DAT_NAISS)
-            .typeClient(UPDATED_TYPE_CLIENT);
+            .typeClient(UPDATED_TYPE_CLIENT)
+            .mobile(UPDATED_MOBILE)
+            .mail(UPDATED_MAIL);
         ClientDTO clientDTO = clientMapper.toDto(updatedClient);
 
         restClientMockMvc.perform(put("/api/clients").with(csrf())
@@ -353,6 +371,8 @@ public class ClientResourceIT {
         assertThat(testClient.getSexe()).isEqualTo(UPDATED_SEXE);
         assertThat(testClient.getDatNaiss()).isEqualTo(UPDATED_DAT_NAISS);
         assertThat(testClient.getTypeClient()).isEqualTo(UPDATED_TYPE_CLIENT);
+        assertThat(testClient.getMobile()).isEqualTo(UPDATED_MOBILE);
+        assertThat(testClient.getMail()).isEqualTo(UPDATED_MAIL);
     }
 
     @Test

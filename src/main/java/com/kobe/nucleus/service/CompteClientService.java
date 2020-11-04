@@ -28,7 +28,6 @@ public interface CompteClientService {
      */
     Page<CompteClientDTO> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" compteClient.
      *
