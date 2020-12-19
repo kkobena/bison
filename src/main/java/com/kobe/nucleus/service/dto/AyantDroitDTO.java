@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+
 import com.kobe.nucleus.domain.AyantDroit;
-import com.kobe.nucleus.domain.CategorieAyantDroit;
 import com.kobe.nucleus.domain.Client;
 import com.kobe.nucleus.domain.enumeration.Status;
 
@@ -13,166 +13,156 @@ import com.kobe.nucleus.domain.enumeration.Status;
  * A DTO for the {@link com.kobe.nucleus.domain.AyantDroit} entity.
  */
 public class AyantDroitDTO implements Serializable {
+    
+    private Long id;
 
-	private Long id;
+    @NotNull
+    private LocalDate createdAt;
 
-	@NotNull
-	private LocalDate createdAt;
+    @NotNull
+    private LocalDate updatedAt;
 
-	@NotNull
-	private LocalDate updatedAt;
+    @NotNull
+    private Status status;
 
-	@NotNull
-	private Status status;
+    private String num;
 
-	private String num;
+    @NotNull
+    private String firstName;
 
-	@NotNull
-	private String firstName;
+    private String lastName;
 
-	private String lastName;
+    private String sexe;
 
-	private String sexe;
+    private LocalDate datNaiss;
 
-	private LocalDate datNaiss;
+    private String mobile;
 
-	private Long assureId;
 
-	private String assureFirstName;
+    private Long assureId;
 
-	private Long categorieId;
+    private String assureFirstName;
+    
+    public Long getId() {
+        return id;
+    }
 
-	private String categorieLibelle;
-	private Boolean principal;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Long getId() {
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
 
-		return id;
-	}
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
 
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
+    public Status getStatus() {
+        return status;
+    }
 
-	public LocalDate getUpdatedAt() {
-		return updatedAt;
-	}
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
-	public void setUpdatedAt(LocalDate updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+    public String getNum() {
+        return num;
+    }
 
-	public Status getStatus() {
-		return status;
-	}
+    public void setNum(String num) {
+        this.num = num;
+    }
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getNum() {
-		return num;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setNum(String num) {
-		this.num = num;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getSexe() {
+        return sexe;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public LocalDate getDatNaiss() {
+        return datNaiss;
+    }
 
-	public String getSexe() {
-		return sexe;
-	}
+    public void setDatNaiss(LocalDate datNaiss) {
+        this.datNaiss = datNaiss;
+    }
 
-	public void setSexe(String sexe) {
-		this.sexe = sexe;
-	}
+    public String getMobile() {
+        return mobile;
+    }
 
-	public LocalDate getDatNaiss() {
-		return datNaiss;
-	}
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
 
-	public void setDatNaiss(LocalDate datNaiss) {
-		this.datNaiss = datNaiss;
-	}
+    public Long getAssureId() {
+        return assureId;
+    }
 
-	public Long getAssureId() {
-		return assureId;
-	}
+    public void setAssureId(Long clientId) {
+        this.assureId = clientId;
+    }
 
-	public void setAssureId(Long clientId) {
-		this.assureId = clientId;
-	}
+    public String getAssureFirstName() {
+        return assureFirstName;
+    }
 
-	public String getAssureFirstName() {
-		return assureFirstName;
-	}
+    public void setAssureFirstName(String clientFirstName) {
+        this.assureFirstName = clientFirstName;
+    }
 
-	public void setAssureFirstName(String clientFirstName) {
-		this.assureFirstName = clientFirstName;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-	public Long getCategorieId() {
-		return categorieId;
-	}
+        AyantDroitDTO ayantDroitDTO = (AyantDroitDTO) o;
+        if (ayantDroitDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), ayantDroitDTO.getId());
+    }
 
-	public void setCategorieId(Long categorieAyantDroitId) {
-		this.categorieId = categorieAyantDroitId;
-	}
-
-	public String getCategorieLibelle() {
-		return categorieLibelle;
-	}
-
-	public void setCategorieLibelle(String categorieAyantDroitLibelle) {
-		this.categorieLibelle = categorieAyantDroitLibelle;
-	}
-
-	public AyantDroitDTO categorieAyantDroitLibelle(String categorieAyantDroitLibelle) {
-		this.categorieLibelle = categorieAyantDroitLibelle;
-		return this;
-	}
-
-	public AyantDroitDTO principal(Boolean principal) {
-		this.principal = principal;
-		return this;
-	}
-
-	public Boolean getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(Boolean principal) {
-		this.principal = principal;
-	}
-
-	public AyantDroitDTO() {
-
-	}
-
-	public AyantDroitDTO(AyantDroit a) {
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getId());
+    }
+    public AyantDroitDTO() {
+    	
+    }
+    public AyantDroitDTO(AyantDroit a) {
 		super();
 		this.id = a.getId();
 		this.createdAt = a.getCreatedAt();
@@ -183,46 +173,27 @@ public class AyantDroitDTO implements Serializable {
 		this.lastName = a.getLastName();
 		this.sexe = a.getSexe();
 		this.datNaiss = a.getDatNaiss();
-		this.principal = a.isPrincipal();
 		Client c = a.getAssure();
-		this.assureId = a.getId();
-		this.assureFirstName = a.getFirstName() + " " + a.getLastName();
-		CategorieAyantDroit cat = a.getCategorie();
-		if (cat != null) {
-			this.categorieId = cat.getId();
-			this.categorieLibelle = cat.getLibelle();
-		}
+		this.assureId = c.getId();
+		this.assureFirstName = c.getFirstName() + " " + c.getLastName();
+		
 
 	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-
-		AyantDroitDTO ayantDroitDTO = (AyantDroitDTO) o;
-		if (ayantDroitDTO.getId() == null || getId() == null) {
-			return false;
-		}
-		return Objects.equals(getId(), ayantDroitDTO.getId());
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(getId());
-	}
-
-	@Override
-	public String toString() {
-		return "AyantDroitDTO{" + "id=" + getId() + ", createdAt='" + getCreatedAt() + "'" + ", updatedAt='"
-				+ getUpdatedAt() + "'" + ", status='" + getStatus() + "'" + ", num='" + getNum() + "'" + ", firstName='"
-				+ getFirstName() + "'" + ", lastName='" + getLastName() + "'" + ", sexe='" + getSexe() + "'"
-				+ ", datNaiss='" + getDatNaiss() + "'" + ", assureId=" + getAssureId() + ", assureFirstName='"
-				+ getAssureFirstName() + "'" + ", categorieId=" + getCategorieId() + ", categorieLibelle='"
-				+ getCategorieLibelle() + "'" + "}";
-	}
+    @Override
+    public String toString() {
+        return "AyantDroitDTO{" +
+            "id=" + getId() +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", updatedAt='" + getUpdatedAt() + "'" +
+            ", status='" + getStatus() + "'" +
+            ", num='" + getNum() + "'" +
+            ", firstName='" + getFirstName() + "'" +
+            ", lastName='" + getLastName() + "'" +
+            ", sexe='" + getSexe() + "'" +
+            ", datNaiss='" + getDatNaiss() + "'" +
+            ", mobile='" + getMobile() + "'" +
+            ", assureId=" + getAssureId() +
+            ", assureFirstName='" + getAssureFirstName() + "'" +
+            "}";
+    }
 }

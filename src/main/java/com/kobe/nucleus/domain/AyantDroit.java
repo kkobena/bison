@@ -19,7 +19,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
  */
 @Entity
 @Table(name = "ayant_droit")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class AyantDroit implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,28 +58,23 @@ public class AyantDroit implements Serializable {
     @Column(name = "dat_naiss")
     private LocalDate datNaiss;
 
-    @NotNull
-    @Column(name = "principal", nullable = false)
-    private Boolean principal;
+    @Column(name = "mobile")
+    private String mobile;
 
     @OneToMany(mappedBy = "ayantDroit")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<FactureItem> factureItems = new HashSet<>();
 
     @OneToMany(mappedBy = "ayantDroit")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vente> ventes = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties(value = "ayantDroits", allowSetters = true)
+    @JsonIgnoreProperties("ayantDroits")
     private Client assure;
 
-    @ManyToOne
-    @JsonIgnoreProperties(value = "ayantDroits", allowSetters = true)
-    private CategorieAyantDroit categorie;
-
-  
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -192,17 +187,17 @@ public class AyantDroit implements Serializable {
         this.datNaiss = datNaiss;
     }
 
-    public Boolean isPrincipal() {
-        return principal;
+    public String getMobile() {
+        return mobile;
     }
 
-    public AyantDroit principal(Boolean principal) {
-        this.principal = principal;
+    public AyantDroit mobile(String mobile) {
+        this.mobile = mobile;
         return this;
     }
 
-    public void setPrincipal(Boolean principal) {
-        this.principal = principal;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public Set<FactureItem> getFactureItems() {
@@ -267,20 +262,7 @@ public class AyantDroit implements Serializable {
     public void setAssure(Client client) {
         this.assure = client;
     }
-
-    public CategorieAyantDroit getCategorie() {
-        return categorie;
-    }
-
-    public AyantDroit categorie(CategorieAyantDroit categorieAyantDroit) {
-        this.categorie = categorieAyantDroit;
-        return this;
-    }
-
-    public void setCategorie(CategorieAyantDroit categorieAyantDroit) {
-        this.categorie = categorieAyantDroit;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -298,7 +280,6 @@ public class AyantDroit implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "AyantDroit{" +
@@ -311,7 +292,7 @@ public class AyantDroit implements Serializable {
             ", lastName='" + getLastName() + "'" +
             ", sexe='" + getSexe() + "'" +
             ", datNaiss='" + getDatNaiss() + "'" +
-            ", principal='" + isPrincipal() + "'" +
+            ", mobile='" + getMobile() + "'" +
             "}";
     }
 }

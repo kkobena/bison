@@ -33,6 +33,12 @@ public class AyantDroitServiceImpl implements AyantDroitService {
         this.ayantDroitMapper = ayantDroitMapper;
     }
 
+    /**
+     * Save a ayantDroit.
+     *
+     * @param ayantDroitDTO the entity to save.
+     * @return the persisted entity.
+     */
     @Override
     public AyantDroitDTO save(AyantDroitDTO ayantDroitDTO) {
         log.debug("Request to save AyantDroit : {}", ayantDroitDTO);
@@ -41,6 +47,12 @@ public class AyantDroitServiceImpl implements AyantDroitService {
         return ayantDroitMapper.toDto(ayantDroit);
     }
 
+    /**
+     * Get all the ayantDroits.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
     @Override
     @Transactional(readOnly = true)
     public Page<AyantDroitDTO> findAll(Pageable pageable) {
@@ -49,7 +61,12 @@ public class AyantDroitServiceImpl implements AyantDroitService {
             .map(ayantDroitMapper::toDto);
     }
 
-
+    /**
+     * Get one ayantDroit by id.
+     *
+     * @param id the id of the entity.
+     * @return the entity.
+     */
     @Override
     @Transactional(readOnly = true)
     public Optional<AyantDroitDTO> findOne(Long id) {
@@ -58,6 +75,11 @@ public class AyantDroitServiceImpl implements AyantDroitService {
             .map(ayantDroitMapper::toDto);
     }
 
+    /**
+     * Delete the ayantDroit by id.
+     *
+     * @param id the id of the entity.
+     */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete AyantDroit : {}", id);

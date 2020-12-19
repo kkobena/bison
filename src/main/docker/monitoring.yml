@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   nucleus-prometheus:
     image: prom/prometheus:v2.18.1

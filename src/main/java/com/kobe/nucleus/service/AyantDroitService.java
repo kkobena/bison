@@ -28,7 +28,6 @@ public interface AyantDroitService {
      */
     Page<AyantDroitDTO> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" ayantDroit.
      *

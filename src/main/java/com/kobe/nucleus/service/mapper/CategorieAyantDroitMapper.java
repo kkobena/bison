@@ -13,9 +13,6 @@ import org.mapstruct.*;
 public interface CategorieAyantDroitMapper extends EntityMapper<CategorieAyantDroitDTO, CategorieAyantDroit> {
 
 
-    @Mapping(target = "ayantDroits", ignore = true)
-    @Mapping(target = "removeAyantDroit", ignore = true)
-    CategorieAyantDroit toEntity(CategorieAyantDroitDTO categorieAyantDroitDTO);
 
     default CategorieAyantDroit fromId(Long id) {
         if (id == null) {

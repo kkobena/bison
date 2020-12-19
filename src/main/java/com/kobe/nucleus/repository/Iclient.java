@@ -1,9 +1,11 @@
 package com.kobe.nucleus.repository;
 
-import com.kobe.nucleus.domain.Client;
-import com.kobe.nucleus.service.dto.ClientDTO;
+
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import com.kobe.nucleus.service.dto.ClientDTO;
 
 import javax.validation.constraints.NotNull;
 

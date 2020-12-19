@@ -100,7 +100,7 @@ public class ClientResourceIT {
             .lastName(DEFAULT_LAST_NAME)
             .sexe(DEFAULT_SEXE)
             .datNaiss(DEFAULT_DAT_NAISS)
-            .typeClient(DEFAULT_TYPE_CLIENT)
+            
             .mobile(DEFAULT_MOBILE)
             .mail(DEFAULT_MAIL);
         return client;
@@ -120,7 +120,7 @@ public class ClientResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
             .datNaiss(UPDATED_DAT_NAISS)
-            .typeClient(UPDATED_TYPE_CLIENT)
+           
             .mobile(UPDATED_MOBILE)
             .mail(UPDATED_MAIL);
         return client;
@@ -154,7 +154,7 @@ public class ClientResourceIT {
         assertThat(testClient.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testClient.getSexe()).isEqualTo(DEFAULT_SEXE);
         assertThat(testClient.getDatNaiss()).isEqualTo(DEFAULT_DAT_NAISS);
-        assertThat(testClient.getTypeClient()).isEqualTo(DEFAULT_TYPE_CLIENT);
+      
         assertThat(testClient.getMobile()).isEqualTo(DEFAULT_MOBILE);
         assertThat(testClient.getMail()).isEqualTo(DEFAULT_MAIL);
     }
@@ -256,25 +256,7 @@ public class ClientResourceIT {
         assertThat(clientList).hasSize(databaseSizeBeforeTest);
     }
 
-    @Test
-    @Transactional
-    public void checkTypeClientIsRequired() throws Exception {
-        int databaseSizeBeforeTest = clientRepository.findAll().size();
-        // set the field null
-        client.setTypeClient(null);
-
-        // Create the Client, which fails.
-        ClientDTO clientDTO = clientMapper.toDto(client);
-
-        restClientMockMvc.perform(post("/api/clients").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(clientDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Client> clientList = clientRepository.findAll();
-        assertThat(clientList).hasSize(databaseSizeBeforeTest);
-    }
-
+ 
     @Test
     @Transactional
     public void getAllClients() throws Exception {
@@ -293,7 +275,6 @@ public class ClientResourceIT {
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].sexe").value(hasItem(DEFAULT_SEXE)))
             .andExpect(jsonPath("$.[*].datNaiss").value(hasItem(DEFAULT_DAT_NAISS.toString())))
-            .andExpect(jsonPath("$.[*].typeClient").value(hasItem(DEFAULT_TYPE_CLIENT.toString())))
             .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE)))
             .andExpect(jsonPath("$.[*].mail").value(hasItem(DEFAULT_MAIL)));
     }
@@ -349,7 +330,6 @@ public class ClientResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
             .datNaiss(UPDATED_DAT_NAISS)
-            .typeClient(UPDATED_TYPE_CLIENT)
             .mobile(UPDATED_MOBILE)
             .mail(UPDATED_MAIL);
         ClientDTO clientDTO = clientMapper.toDto(updatedClient);
@@ -370,7 +350,6 @@ public class ClientResourceIT {
         assertThat(testClient.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testClient.getSexe()).isEqualTo(UPDATED_SEXE);
         assertThat(testClient.getDatNaiss()).isEqualTo(UPDATED_DAT_NAISS);
-        assertThat(testClient.getTypeClient()).isEqualTo(UPDATED_TYPE_CLIENT);
         assertThat(testClient.getMobile()).isEqualTo(UPDATED_MOBILE);
         assertThat(testClient.getMail()).isEqualTo(UPDATED_MAIL);
     }

@@ -30,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.kobe.nucleus.domain.enumeration.CategorieAssurance;
 import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeClient;
 /**
  * Integration tests for the {@link CompteClientResource} REST controller.
  */
@@ -81,6 +82,9 @@ public class CompteClientResourceIT {
     private static final Boolean DEFAULT_ABSOLUTE = false;
     private static final Boolean UPDATED_ABSOLUTE = true;
 
+    private static final TypeClient DEFAULT_TYPE_CLIENT = TypeClient.STANDARD;
+    private static final TypeClient UPDATED_TYPE_CLIENT =TypeClient.ASSURANCE;
+
     @Autowired
     private CompteClientRepository compteClientRepository;
 
@@ -119,7 +123,8 @@ public class CompteClientResourceIT {
             .enbale(DEFAULT_ENBALE)
             .categorie(DEFAULT_CATEGORIE)
             .status(DEFAULT_STATUS)
-            .absolute(DEFAULT_ABSOLUTE);
+            .absolute(DEFAULT_ABSOLUTE)
+            .typeClient(DEFAULT_TYPE_CLIENT);
         // Add required entity
         Client client;
         if (TestUtil.findAll(em, Client.class).isEmpty()) {
@@ -153,7 +158,8 @@ public class CompteClientResourceIT {
             .enbale(UPDATED_ENBALE)
             .categorie(UPDATED_CATEGORIE)
             .status(UPDATED_STATUS)
-            .absolute(UPDATED_ABSOLUTE);
+            .absolute(UPDATED_ABSOLUTE)
+            .typeClient(UPDATED_TYPE_CLIENT);
         // Add required entity
         Client client;
         if (TestUtil.findAll(em, Client.class).isEmpty()) {
@@ -202,6 +208,7 @@ public class CompteClientResourceIT {
         assertThat(testCompteClient.getCategorie()).isEqualTo(DEFAULT_CATEGORIE);
         assertThat(testCompteClient.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testCompteClient.isAbsolute()).isEqualTo(DEFAULT_ABSOLUTE);
+        assertThat(testCompteClient.getTypeClient()).isEqualTo(DEFAULT_TYPE_CLIENT);
     }
 
     @Test
@@ -265,6 +272,25 @@ public class CompteClientResourceIT {
 
     @Test
     @Transactional
+    public void checkTypeClientIsRequired() throws Exception {
+        int databaseSizeBeforeTest = compteClientRepository.findAll().size();
+        // set the field null
+        compteClient.setTypeClient(null);
+
+        // Create the CompteClient, which fails.
+        CompteClientDTO compteClientDTO = compteClientMapper.toDto(compteClient);
+
+        restCompteClientMockMvc.perform(post("/api/compte-clients").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(compteClientDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<CompteClient> compteClientList = compteClientRepository.findAll();
+        assertThat(compteClientList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllCompteClients() throws Exception {
         // Initialize the database
         compteClientRepository.saveAndFlush(compteClient);
@@ -287,7 +313,8 @@ public class CompteClientResourceIT {
             .andExpect(jsonPath("$.[*].enbale").value(hasItem(DEFAULT_ENBALE.booleanValue())))
             .andExpect(jsonPath("$.[*].categorie").value(hasItem(DEFAULT_CATEGORIE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].absolute").value(hasItem(DEFAULT_ABSOLUTE.booleanValue())));
+            .andExpect(jsonPath("$.[*].absolute").value(hasItem(DEFAULT_ABSOLUTE.booleanValue())))
+            .andExpect(jsonPath("$.[*].typeClient").value(hasItem(DEFAULT_TYPE_CLIENT)));
     }
     
     @Test
@@ -314,7 +341,8 @@ public class CompteClientResourceIT {
             .andExpect(jsonPath("$.enbale").value(DEFAULT_ENBALE.booleanValue()))
             .andExpect(jsonPath("$.categorie").value(DEFAULT_CATEGORIE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.absolute").value(DEFAULT_ABSOLUTE.booleanValue()));
+            .andExpect(jsonPath("$.absolute").value(DEFAULT_ABSOLUTE.booleanValue()))
+            .andExpect(jsonPath("$.typeClient").value(DEFAULT_TYPE_CLIENT));
     }
 
     @Test
@@ -351,7 +379,8 @@ public class CompteClientResourceIT {
             .enbale(UPDATED_ENBALE)
             .categorie(UPDATED_CATEGORIE)
             .status(UPDATED_STATUS)
-            .absolute(UPDATED_ABSOLUTE);
+            .absolute(UPDATED_ABSOLUTE)
+            .typeClient(UPDATED_TYPE_CLIENT);
         CompteClientDTO compteClientDTO = compteClientMapper.toDto(updatedCompteClient);
 
         restCompteClientMockMvc.perform(put("/api/compte-clients").with(csrf())
@@ -377,6 +406,7 @@ public class CompteClientResourceIT {
         assertThat(testCompteClient.getCategorie()).isEqualTo(UPDATED_CATEGORIE);
         assertThat(testCompteClient.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testCompteClient.isAbsolute()).isEqualTo(UPDATED_ABSOLUTE);
+        assertThat(testCompteClient.getTypeClient()).isEqualTo(UPDATED_TYPE_CLIENT);
     }
 
     @Test

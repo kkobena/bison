@@ -2,6 +2,7 @@ package com.kobe.nucleus.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.Objects;
 import com.kobe.nucleus.domain.enumeration.Status;
 
 /**
@@ -58,19 +59,22 @@ public class CategorieAyantDroitDTO implements Serializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof CategorieAyantDroitDTO)) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
-        return id != null && id.equals(((CategorieAyantDroitDTO) o).id);
+        CategorieAyantDroitDTO categorieAyantDroitDTO = (CategorieAyantDroitDTO) o;
+        if (categorieAyantDroitDTO.getId() == null || getId() == null) {
+            return false;
+        }
+        return Objects.equals(getId(), categorieAyantDroitDTO.getId());
     }
 
     @Override
     public int hashCode() {
-        return 31;
+        return Objects.hashCode(getId());
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "CategorieAyantDroitDTO{" +

@@ -120,7 +120,6 @@ public class CategorieAyantDroitResource {
     @DeleteMapping("/categorie-ayant-droits/{id}")
     public ResponseEntity<Void> deleteCategorieAyantDroit(@PathVariable Long id) {
         log.debug("REST request to delete CategorieAyantDroit : {}", id);
-
         categorieAyantDroitService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
     }

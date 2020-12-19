@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +15,7 @@ import java.util.Set;
 import com.kobe.nucleus.domain.enumeration.CategorieAssurance;
 
 import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeClient;
 
 /**
  * A CompteClient.
@@ -75,7 +75,7 @@ public class CompteClient implements Serializable {
 	@Column(name = "enbale")
 	private Boolean enbale;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(name = "categorie")
 	private CategorieAssurance categorie;
 
@@ -100,9 +100,26 @@ public class CompteClient implements Serializable {
 	@ManyToOne
 	@JsonIgnoreProperties("compteClients")
 	private Tierspayant tierspayant;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type_client", nullable = false)
+	private TypeClient typeClient;
 
 	public Long getId() {
 		return id;
+	}
+
+	public TypeClient getTypeClient() {
+		return typeClient;
+	}
+
+	public CompteClient typeClient(TypeClient typeClient) {
+		this.typeClient = typeClient;
+		return this;
+	}
+
+	public void setTypeClient(TypeClient typeClient) {
+		this.typeClient = typeClient;
 	}
 
 	public void setId(Long id) {

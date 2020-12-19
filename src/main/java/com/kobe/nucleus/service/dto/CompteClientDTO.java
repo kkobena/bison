@@ -9,6 +9,7 @@ import com.kobe.nucleus.domain.CompteClient;
 import com.kobe.nucleus.domain.Tierspayant;
 import com.kobe.nucleus.domain.enumeration.CategorieAssurance;
 import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeClient;
 
 /**
  * A DTO for the {@link com.kobe.nucleus.domain.CompteClient} entity.
@@ -41,15 +42,17 @@ public class CompteClientDTO implements Serializable {
 
     private CategorieAssurance categorie;
 
-    @NotNull
+    
     private Status status;
 
-    @NotNull
+  
     private Boolean absolute;
-
+    @NotNull
+	private TypeClient typeClient;
 
     private Long clientId;
     private String libelleTiersPayantF;
+    
     private Long tierspayantId;
     public String getLibelleTiersPayantF() {
 		return libelleTiersPayantF;
@@ -190,7 +193,24 @@ public class CompteClientDTO implements Serializable {
         return tierspayantId;
     }
 
-    public void setTierspayantId(Long tierspayantId) {
+    
+    public TypeClient getTypeClient() {
+		return typeClient;
+	}
+
+	public void setTypeClient(TypeClient typeClient) {
+		this.typeClient = typeClient;
+	}
+
+	public Boolean getEnbale() {
+		return enbale;
+	}
+
+	public Boolean getAbsolute() {
+		return absolute;
+	}
+
+	public void setTierspayantId(Long tierspayantId) {
         this.tierspayantId = tierspayantId;
     }
     public CompteClientDTO() {
@@ -208,12 +228,13 @@ public class CompteClientDTO implements Serializable {
 		this.consommation = cmp.getConsommation();
 		this.consoJournaliere = cmp.getPlafondJournalier();
 		this.taux = cmp.getTaux();
-		
+		this.typeClient=cmp.getTypeClient();
 		this.numMaticule = cmp.getNumMaticule();
 		this.enbale = cmp.isEnbale();
 		this.absolute = cmp.isAbsolute();
 		this.categorie = cmp.getCategorie();
 		this.status = cmp.getStatus();
+		this.typeClient=cmp.getTypeClient();
 		Tierspayant tierspayant = cmp.getTierspayant();
 		if (tierspayant != null) {
 			this.tierspayantId = tierspayant.getId();

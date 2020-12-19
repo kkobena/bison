@@ -1,89 +1,89 @@
 {
-  "name": "AyantDroit",
-  "fields": [
-    {
-      "fieldName": "createdAt",
-      "fieldType": "LocalDate",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "updatedAt",
-      "fieldType": "LocalDate",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "status",
-      "fieldType": "Status",
-      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "num",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "firstName",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "lastName",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "sexe",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "datNaiss",
-      "fieldType": "LocalDate"
-    },
-    {
-      "fieldName": "principal",
-      "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
-    }
-  ],
-  "relationships": [
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "factureItem",
-      "otherEntityRelationshipName": "ayantDroit",
-      "relationshipName": "factureItem"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "vente",
-      "otherEntityRelationshipName": "ayantDroit",
-      "relationshipName": "vente"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "client",
-      "otherEntityRelationshipName": "ayantDroit",
-      "relationshipValidateRules": "required",
-      "relationshipName": "assure",
-      "otherEntityField": "firstName"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "categorieAyantDroit",
-      "otherEntityRelationshipName": "ayantDroit",
-      "relationshipName": "categorie",
-      "otherEntityField": "libelle"
-    }
-  ],
-  "changelogDate": "20200531175450",
-  "entityTableName": "ayant_droit",
-  "dto": "mapstruct",
-  "pagination": "pagination",
-  "service": "serviceImpl",
-  "jpaMetamodelFiltering": false,
-  "fluentMethods": true,
-  "readOnly": false,
-  "embedded": false,
-  "clientRootFolder": "",
-  "applications": "*",
-  "searchEngine": false,
-  "databaseType": "sql"
+    "name": "AyantDroit",
+    "fields": [
+        {
+            "fieldName": "createdAt",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "updatedAt",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "num",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "firstName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "sexe",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "datNaiss",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "mobile",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "factureItem",
+            "otherEntityRelationshipName": "ayantDroit",
+            "relationshipName": "factureItem"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "vente",
+            "otherEntityRelationshipName": "ayantDroit",
+            "relationshipName": "vente"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "client",
+            "otherEntityRelationshipName": "ayantDroit",
+            "relationshipValidateRules": "required",
+            "relationshipName": "assure",
+            "otherEntityField": "firstName"
+        }
+    ],
+    "changelogDate": "20200531175450",
+    "entityTableName": "ayant_droit",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "searchEngine": false,
+    "databaseType": "sql"
 }

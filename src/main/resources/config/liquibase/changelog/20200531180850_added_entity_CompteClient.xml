@@ -57,6 +57,9 @@
             <column name="absolute" type="boolean">
                 <constraints nullable="false" />
             </column>
+            <column name="type_client" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
             <column name="client_id" type="bigint">
                 <constraints nullable="false" />
             </column>
@@ -102,6 +105,7 @@
             <column name="categorie" type="string"/>
             <column name="status" type="string"/>
             <column name="absolute" type="boolean"/>
+            <column name="type_client" type="string"/>
             <column name="client_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>

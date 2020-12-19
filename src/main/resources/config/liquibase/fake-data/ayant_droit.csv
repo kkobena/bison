@@ -1,11 +1,11 @@
-id;created_at;updated_at;status;num;first_name;last_name;sexe;dat_naiss;principal;assure_id
-1;2020-05-31;2020-05-31;ENTRAITEMENT;architectures Soft cross-platform;Margie;Cassin;withdrawal override payment;2020-05-31;false;1
-2;2020-05-30;2020-05-30;VALIDE;purple;Desmond;Hammes;card;2020-05-31;true;2
-3;2020-05-31;2020-05-31;LIVRE;Sports;Kip;Ruecker;Granite;2020-05-31;false;3
-4;2020-05-31;2020-05-31;STOCK;markets deposit;Vladimir;Muller;system Borders Awesome;2020-05-30;false;4
-5;2020-05-30;2020-05-30;PASSE;ivory Jewelery Fantastic Granite Shirt;Sonya;Wehner;Cote d'Ivoire;2020-05-31;false;5
-6;2020-05-31;2020-05-30;ACTIVE;withdrawal payment calculate;Al;Prohaska;composite invoice Soap;2020-05-31;false;6
-7;2020-05-31;2020-05-31;SUGGESTION;Avon encryption Handmade Concrete Mouse;Maximilian;Sawayn;Rubber Refined;2020-05-31;false;7
-8;2020-05-31;2020-05-31;PERIME;solid state;Marley;Dickens;Human Berkshire;2020-05-31;true;8
-9;2020-05-31;2020-05-31;VALIDE;EXE Tasty;Mohamed;Bergnaum;index;2020-05-31;true;9
-10;2020-05-31;2020-05-31;DESACTIVE;Checking Account demand-driven;Clementina;Marquardt;District Berkshire multi-byte;2020-05-31;false;10
+id;created_at;updated_at;status;num;first_name;last_name;sexe;dat_naiss;mobile;assure_id
+1;2020-05-31;2020-05-31;ENTRAITEMENT;architectures Soft cross-platform;Margie;Cassin;withdrawal override payment;2020-05-31;neural;1
+2;2020-05-31;2020-05-31;VALIDE;purple;Desmond;Hammes;card;2020-05-31;Kwanza Car cutting-edge;2
+3;2020-05-31;2020-05-31;ENATTENTE;users dedicated;Violette;Rowe;International Jamaica Generic;2020-05-31;Auto Loan Account system Borders;3
+4;2020-05-31;2020-05-31;SUPPRIME;paradigm Buckinghamshire;Ciara;Ruecker;auxiliary;2020-05-31;e-enable Security;4
+5;2020-05-31;2020-05-31;SUPPRIME;Fantastic Licensed Metal Shirt;Luigi;Monahan;deposit US Dollar composite;2020-05-31;Soap Ecuador withdrawal;5
+6;2020-05-31;2020-05-31;PERIME;Handmade Concrete Mouse;Maximilian;Sawayn;Rubber Refined;2020-05-31;Intelligent Ball;6
+7;2020-05-30;2020-05-31;ENTREESTOCT;e-business;Sonya;Kuvalis;Generic Cotton Towels impactful;2020-05-30;cross-platform invoice Belize;7
+8;2020-05-30;2020-05-31;DESACTIVE;protocol Rustic Concrete Bacon content;Laurianne;Abernathy;Distributed;2020-05-31;District Berkshire multi-byte;8
+9;2020-05-31;2020-05-31;PASSE;Wooden;Melissa;Dietrich;Investor applications;2020-05-31;solutions;9
+10;2020-05-31;2020-05-30;STOCK;compressing azure program;Leanna;Carter;Pennsylvania calculate white;2020-05-30;Granite asynchronous Principal;10
