@@ -8,12 +8,6 @@
     -->
     <changeSet id="20200531174050-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="magasin_id"
-                                 baseTableName="stock_produit"
-                                 constraintName="fk_stock_produit_magasin_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="magasin"/>
-
         <addForeignKeyConstraint baseColumnNames="rayon_id"
                                  baseTableName="stock_produit"
                                  constraintName="fk_stock_produit_rayon_id"

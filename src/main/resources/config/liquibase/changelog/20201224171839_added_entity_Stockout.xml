@@ -8,27 +8,27 @@
 
     
     <!--
-        Added the entity Fabriquant.
+        Added the entity Stockout.
     -->
-    <changeSet id="20200531174350-1" author="jhipster">
-        <createTable tableName="fabriquant">
+    <changeSet id="20201224171839-1" author="jhipster">
+        <createTable tableName="stockout">
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="code" type="varchar(255)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="ux_fabriquant_code" />
+            <column name="mvt_day" type="date">
+                <constraints nullable="false" />
             </column>
-            <column name="libelle" type="varchar(255)">
-                <constraints nullable="false" unique="true" uniqueConstraintName="ux_fabriquant_libelle" />
+            <column name="qty" type="integer">
+                <constraints nullable="false" />
             </column>
-            <column name="status" type="varchar(255)">
+            <column name="produit_id" type="bigint">
                 <constraints nullable="false" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
 
-    <changeSet id="20200531174350-1-relations" author="jhipster">
+    <changeSet id="20201224171839-1-relations" author="jhipster">
 
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
@@ -41,15 +41,15 @@
           This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
           Spring Boot configuration key.
     -->
-    <changeSet id="20200531174350-1-data" author="jhipster" context="faker">
+    <changeSet id="20201224171839-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/fake-data/fabriquant.csv"
+                  file="config/liquibase/fake-data/stockout.csv"
                   separator=";"
-                  tableName="fabriquant">
+                  tableName="stockout">
             <column name="id" type="numeric"/>
-            <column name="code" type="string"/>
-            <column name="libelle" type="string"/>
-            <column name="status" type="string"/>
+            <column name="mvt_day" type="date"/>
+            <column name="qty" type="numeric"/>
+            <column name="produit_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

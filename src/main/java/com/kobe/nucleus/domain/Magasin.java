@@ -48,7 +48,7 @@ public class Magasin implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     @Column(name = "phone")
     private String phone;
@@ -80,50 +80,12 @@ public class Magasin implements Serializable {
     @Column(name = "num_comptable")
     private String numComptable;
 
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Ajustement> ajustements = new HashSet<>();
-
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Paiement> paiements = new HashSet<>();
-
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Inventaire> inventaires = new HashSet<>();
-
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<RetourFournisseur> retourFournisseurs = new HashSet<>();
-
+   
     @OneToMany(mappedBy = "magasin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Rayon> rayons = new HashSet<>();
 
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Vente> ventes = new HashSet<>();
-
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Decondition> deconditions = new HashSet<>();
-
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Facture> factures = new HashSet<>();
-
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<MvtProduit> mvtProduits = new HashSet<>();
-
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Commande> commandes = new HashSet<>();
-
-    @OneToMany(mappedBy = "magasin")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<StockProduit> stockProduits = new HashSet<>();
-
+   
     @OneToMany(mappedBy = "magasin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Utilisateur> utilisateurs = new HashSet<>();
@@ -140,7 +102,7 @@ public class Magasin implements Serializable {
     @JsonIgnoreProperties(value = "magasins", allowSetters = true)
     private Utilisateur manager;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+ 
     public Long getId() {
         return id;
     }
@@ -344,106 +306,8 @@ public class Magasin implements Serializable {
         this.numComptable = numComptable;
     }
 
-    public Set<Ajustement> getAjustements() {
-        return ajustements;
-    }
 
-    public Magasin ajustements(Set<Ajustement> ajustements) {
-        this.ajustements = ajustements;
-        return this;
-    }
-
-    public Magasin addAjustement(Ajustement ajustement) {
-        this.ajustements.add(ajustement);
-        ajustement.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeAjustement(Ajustement ajustement) {
-        this.ajustements.remove(ajustement);
-        ajustement.setMagasin(null);
-        return this;
-    }
-
-    public void setAjustements(Set<Ajustement> ajustements) {
-        this.ajustements = ajustements;
-    }
-
-    public Set<Paiement> getPaiements() {
-        return paiements;
-    }
-
-    public Magasin paiements(Set<Paiement> paiements) {
-        this.paiements = paiements;
-        return this;
-    }
-
-    public Magasin addPaiement(Paiement paiement) {
-        this.paiements.add(paiement);
-        paiement.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removePaiement(Paiement paiement) {
-        this.paiements.remove(paiement);
-        paiement.setMagasin(null);
-        return this;
-    }
-
-    public void setPaiements(Set<Paiement> paiements) {
-        this.paiements = paiements;
-    }
-
-    public Set<Inventaire> getInventaires() {
-        return inventaires;
-    }
-
-    public Magasin inventaires(Set<Inventaire> inventaires) {
-        this.inventaires = inventaires;
-        return this;
-    }
-
-    public Magasin addInventaire(Inventaire inventaire) {
-        this.inventaires.add(inventaire);
-        inventaire.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeInventaire(Inventaire inventaire) {
-        this.inventaires.remove(inventaire);
-        inventaire.setMagasin(null);
-        return this;
-    }
-
-    public void setInventaires(Set<Inventaire> inventaires) {
-        this.inventaires = inventaires;
-    }
-
-    public Set<RetourFournisseur> getRetourFournisseurs() {
-        return retourFournisseurs;
-    }
-
-    public Magasin retourFournisseurs(Set<RetourFournisseur> retourFournisseurs) {
-        this.retourFournisseurs = retourFournisseurs;
-        return this;
-    }
-
-    public Magasin addRetourFournisseur(RetourFournisseur retourFournisseur) {
-        this.retourFournisseurs.add(retourFournisseur);
-        retourFournisseur.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeRetourFournisseur(RetourFournisseur retourFournisseur) {
-        this.retourFournisseurs.remove(retourFournisseur);
-        retourFournisseur.setMagasin(null);
-        return this;
-    }
-
-    public void setRetourFournisseurs(Set<RetourFournisseur> retourFournisseurs) {
-        this.retourFournisseurs = retourFournisseurs;
-    }
-
+   
     public Set<Rayon> getRayons() {
         return rayons;
     }
@@ -469,155 +333,7 @@ public class Magasin implements Serializable {
         this.rayons = rayons;
     }
 
-    public Set<Vente> getVentes() {
-        return ventes;
-    }
-
-    public Magasin ventes(Set<Vente> ventes) {
-        this.ventes = ventes;
-        return this;
-    }
-
-    public Magasin addVente(Vente vente) {
-        this.ventes.add(vente);
-        vente.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeVente(Vente vente) {
-        this.ventes.remove(vente);
-        vente.setMagasin(null);
-        return this;
-    }
-
-    public void setVentes(Set<Vente> ventes) {
-        this.ventes = ventes;
-    }
-
-    public Set<Decondition> getDeconditions() {
-        return deconditions;
-    }
-
-    public Magasin deconditions(Set<Decondition> deconditions) {
-        this.deconditions = deconditions;
-        return this;
-    }
-
-    public Magasin addDecondition(Decondition decondition) {
-        this.deconditions.add(decondition);
-        decondition.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeDecondition(Decondition decondition) {
-        this.deconditions.remove(decondition);
-        decondition.setMagasin(null);
-        return this;
-    }
-
-    public void setDeconditions(Set<Decondition> deconditions) {
-        this.deconditions = deconditions;
-    }
-
-    public Set<Facture> getFactures() {
-        return factures;
-    }
-
-    public Magasin factures(Set<Facture> factures) {
-        this.factures = factures;
-        return this;
-    }
-
-    public Magasin addFacture(Facture facture) {
-        this.factures.add(facture);
-        facture.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeFacture(Facture facture) {
-        this.factures.remove(facture);
-        facture.setMagasin(null);
-        return this;
-    }
-
-    public void setFactures(Set<Facture> factures) {
-        this.factures = factures;
-    }
-
-    public Set<MvtProduit> getMvtProduits() {
-        return mvtProduits;
-    }
-
-    public Magasin mvtProduits(Set<MvtProduit> mvtProduits) {
-        this.mvtProduits = mvtProduits;
-        return this;
-    }
-
-    public Magasin addMvtProduit(MvtProduit mvtProduit) {
-        this.mvtProduits.add(mvtProduit);
-        mvtProduit.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeMvtProduit(MvtProduit mvtProduit) {
-        this.mvtProduits.remove(mvtProduit);
-        mvtProduit.setMagasin(null);
-        return this;
-    }
-
-    public void setMvtProduits(Set<MvtProduit> mvtProduits) {
-        this.mvtProduits = mvtProduits;
-    }
-
-    public Set<Commande> getCommandes() {
-        return commandes;
-    }
-
-    public Magasin commandes(Set<Commande> commandes) {
-        this.commandes = commandes;
-        return this;
-    }
-
-    public Magasin addCommande(Commande commande) {
-        this.commandes.add(commande);
-        commande.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeCommande(Commande commande) {
-        this.commandes.remove(commande);
-        commande.setMagasin(null);
-        return this;
-    }
-
-    public void setCommandes(Set<Commande> commandes) {
-        this.commandes = commandes;
-    }
-
-    public Set<StockProduit> getStockProduits() {
-        return stockProduits;
-    }
-
-    public Magasin stockProduits(Set<StockProduit> stockProduits) {
-        this.stockProduits = stockProduits;
-        return this;
-    }
-
-    public Magasin addStockProduit(StockProduit stockProduit) {
-        this.stockProduits.add(stockProduit);
-        stockProduit.setMagasin(this);
-        return this;
-    }
-
-    public Magasin removeStockProduit(StockProduit stockProduit) {
-        this.stockProduits.remove(stockProduit);
-        stockProduit.setMagasin(null);
-        return this;
-    }
-
-    public void setStockProduits(Set<StockProduit> stockProduits) {
-        this.stockProduits = stockProduits;
-    }
+ 
 
     public Set<Utilisateur> getUtilisateurs() {
         return utilisateurs;
@@ -694,7 +410,7 @@ public class Magasin implements Serializable {
     public void setManager(Utilisateur utilisateur) {
         this.manager = utilisateur;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+
 
     @Override
     public boolean equals(Object o) {
@@ -712,7 +428,7 @@ public class Magasin implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
+ 
     @Override
     public String toString() {
         return "Magasin{" +

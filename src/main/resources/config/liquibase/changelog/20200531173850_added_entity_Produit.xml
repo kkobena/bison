@@ -84,9 +84,6 @@
             <column name="gamme_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="fabriquant_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <column name="tva_id" type="bigint">
                 <constraints nullable="true" />
             </column>

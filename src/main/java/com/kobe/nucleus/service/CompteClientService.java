@@ -18,7 +18,7 @@ public interface CompteClientService {
      * @param compteClientDTO the entity to save.
      * @return the persisted entity.
      */
-    CompteClientDTO save(CompteClientDTO compteClientDTO);
+    CompteClientDTO save(CompteClientDTO compteClientDTO) throws Exception;
 
     /**
      * Get all the compteClients.

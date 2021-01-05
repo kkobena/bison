@@ -51,9 +51,8 @@ public class MvtProduitDTO implements Serializable {
 
     private String createdByFirstName;
 
-    private Long produitId;
+ 
 
-    private String produitCodeCip;
     
     public Long getId() {
         return id;
@@ -175,22 +174,9 @@ public class MvtProduitDTO implements Serializable {
         this.createdByFirstName = utilisateurFirstName;
     }
 
-    public Long getProduitId() {
-        return produitId;
-    }
+   
 
-    public void setProduitId(Long stockProduitId) {
-        this.produitId = stockProduitId;
-    }
-
-    public String getProduitCodeCip() {
-        return produitCodeCip;
-    }
-
-    public void setProduitCodeCip(String stockProduitCodeCip) {
-        this.produitCodeCip = stockProduitCodeCip;
-    }
-
+   
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -227,8 +213,8 @@ public class MvtProduitDTO implements Serializable {
             ", magasinNomCourt='" + getMagasinNomCourt() + "'" +
             ", createdById=" + getCreatedById() +
             ", createdByFirstName='" + getCreatedByFirstName() + "'" +
-            ", produitId=" + getProduitId() +
-            ", produitCodeCip='" + getProduitCodeCip() + "'" +
+        
+        
             "}";
     }
 }

@@ -14,8 +14,6 @@ import java.util.Set;
 
 import com.kobe.nucleus.domain.enumeration.Status;
 
-import com.kobe.nucleus.domain.enumeration.TypeEmplacement;
-
 /**
  * A Rayon.
  */
@@ -50,20 +48,16 @@ public class Rayon implements Serializable {
     @Column(name = "libelle", nullable = false, unique = true)
     private String libelle;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type_rayon", nullable = false)
-    private TypeEmplacement typeRayon;
-
     @OneToMany(mappedBy = "rayon")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<StockProduit> stockProduits = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @NotNull
     @JsonIgnoreProperties(value = "rayons", allowSetters = true)
     private Magasin magasin;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+   
     public Long getId() {
         return id;
     }
@@ -137,19 +131,6 @@ public class Rayon implements Serializable {
         this.libelle = libelle;
     }
 
-    public TypeEmplacement getTypeRayon() {
-        return typeRayon;
-    }
-
-    public Rayon typeRayon(TypeEmplacement typeRayon) {
-        this.typeRayon = typeRayon;
-        return this;
-    }
-
-    public void setTypeRayon(TypeEmplacement typeRayon) {
-        this.typeRayon = typeRayon;
-    }
-
     public Set<StockProduit> getStockProduits() {
         return stockProduits;
     }
@@ -215,7 +196,6 @@ public class Rayon implements Serializable {
             ", status='" + getStatus() + "'" +
             ", code='" + getCode() + "'" +
             ", libelle='" + getLibelle() + "'" +
-            ", typeRayon='" + getTypeRayon() + "'" +
             "}";
     }
 }

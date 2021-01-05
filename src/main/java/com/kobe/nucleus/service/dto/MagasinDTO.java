@@ -10,7 +10,12 @@ import com.kobe.nucleus.domain.enumeration.Status;
  */
 public class MagasinDTO implements Serializable {
     
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
     @NotNull
     private TypeMagasin typeMagasin;
@@ -22,7 +27,7 @@ public class MagasinDTO implements Serializable {
 
     private String addressePostal;
 
-    @NotNull
+  
     private Status status;
 
     private String phone;

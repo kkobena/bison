@@ -14,7 +14,6 @@ public interface LignesVenteMapper extends EntityMapper<LignesVenteDTO, LignesVe
 
     @Mapping(source = "vente.id", target = "venteId")
     @Mapping(source = "produitStock.id", target = "produitStockId")
-    @Mapping(source = "produitStock.codeCip", target = "produitStockCodeCip")
     LignesVenteDTO toDto(LignesVente lignesVente);
 
     @Mapping(source = "venteId", target = "vente")

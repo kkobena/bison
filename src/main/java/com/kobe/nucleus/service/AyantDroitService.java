@@ -18,7 +18,7 @@ public interface AyantDroitService {
      * @param ayantDroitDTO the entity to save.
      * @return the persisted entity.
      */
-    AyantDroitDTO save(AyantDroitDTO ayantDroitDTO);
+    AyantDroitDTO save(AyantDroitDTO ayantDroitDTO) throws Exception;
 
     /**
      * Get all the ayantDroits.

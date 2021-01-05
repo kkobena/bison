@@ -6,7 +6,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -14,18 +13,11 @@ import java.util.Set;
 
 import com.kobe.nucleus.domain.enumeration.Status;
 
-
-
 /**
  * A Client.
  */
 @Entity
-@Table(name = "client", indexes = {
-	//	  @Index(name = "client_type_client", columnList = "type_client"),
-        @Index(name = "client_first_name", columnList = "first_name"),
-        @Index(name = "client_status", columnList = "status"),
-        @Index(name = "client_last_name", columnList = "last_name")
-    })
+@Table(name = "client")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Client implements Serializable {
 
@@ -62,8 +54,6 @@ public class Client implements Serializable {
     @Column(name = "dat_naiss")
     private LocalDate datNaiss;
 
- 
-
     @Column(name = "mobile")
     private String mobile;
 
@@ -78,12 +68,12 @@ public class Client implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Vente> ventes = new HashSet<>();
 
-    @OneToMany(mappedBy = "assure")
+    @OneToMany(mappedBy = "assure",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AyantDroit> ayantDroits = new HashSet<>();
 
-    @OneToMany(mappedBy = "client")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @OneToMany(mappedBy = "client",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
+   @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CompteClient> compteClients = new HashSet<>();
 
     @ManyToOne
@@ -94,7 +84,7 @@ public class Client implements Serializable {
     @JsonIgnoreProperties("clients")
     private Remise remise;
 
-  
+    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
@@ -194,7 +184,6 @@ public class Client implements Serializable {
         this.datNaiss = datNaiss;
     }
 
-  
     public String getMobile() {
         return mobile;
     }
@@ -346,7 +335,7 @@ public class Client implements Serializable {
     public void setRemise(Remise remise) {
         this.remise = remise;
     }
-   
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -375,7 +364,6 @@ public class Client implements Serializable {
             ", lastName='" + getLastName() + "'" +
             ", sexe='" + getSexe() + "'" +
             ", datNaiss='" + getDatNaiss() + "'" +
-           
             ", mobile='" + getMobile() + "'" +
             ", mail='" + getMail() + "'" +
             "}";

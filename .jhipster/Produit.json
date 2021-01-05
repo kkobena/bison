@@ -155,13 +155,6 @@
     },
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "fabriquant",
-      "otherEntityRelationshipName": "produit",
-      "relationshipName": "fabriquant",
-      "otherEntityField": "libelle"
-    },
-    {
-      "relationshipType": "many-to-one",
       "otherEntityName": "tva",
       "otherEntityRelationshipName": "produit",
       "relationshipName": "tva",
@@ -178,5 +171,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

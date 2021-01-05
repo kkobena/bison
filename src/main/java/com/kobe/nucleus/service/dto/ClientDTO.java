@@ -20,14 +20,16 @@ import com.kobe.nucleus.domain.enumeration.Status;
  */
 public class ClientDTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 
-	
 	private LocalDate createdAt;
 
-	
 	private LocalDate updatedAt;
-
 
 	private Status status;
 
@@ -46,6 +48,8 @@ public class ClientDTO implements Serializable {
 	private String fullName;
 	private List<CompteClientDTO> compteClients = new ArrayList<>();
 	private List<AyantDroitDTO> ayantDroits = new ArrayList<>();
+
+	private CompteClientDTO compteClient;
 
 	public String getNumMaticule() {
 		return numMaticule;
@@ -240,6 +244,8 @@ public class ClientDTO implements Serializable {
 		this.status = client.getStatus();
 		this.firstName = client.getFirstName();
 		this.lastName = client.getLastName();
+		this.mail=client.getMail();
+		this.mobile=client.getMobile();
 		this.sexe = client.getSexe();
 		this.datNaiss = client.getDatNaiss();
 		this.fullName = client.getFirstName() + " " + client.getLastName();
@@ -247,6 +253,7 @@ public class ClientDTO implements Serializable {
 				.map(e -> new CompteClientDTO(e)).collect(Collectors.toList());
 		this.compteClients.stream().filter(a -> a.getCategorie() == CategorieAssurance.RO).findFirst().ifPresent(e -> {
 			this.numMaticule = e.getNumMaticule();
+			this.compteClient=e;
 		});
 		;
 		Compagnie compagnie = client.getCompagnie();
@@ -293,4 +300,18 @@ public class ClientDTO implements Serializable {
 				+ getCompagnieId() + ", compagnieLibelle='" + getCompagnieLibelle() + "'" + ", remiseId="
 				+ getRemiseId() + ", remiseValeur='" + getRemiseValeur() + "'" + "}";
 	}
+
+	public CompteClientDTO getCompteClient() {
+		return compteClient;
+	}
+
+	public void setCompteClient(CompteClientDTO compteClient) {
+		this.compteClient = compteClient;
+	}
+
+	public ClientDTO compteClient(CompteClientDTO compteClient) {
+		this.compteClient = compteClient;
+		return this;
+	}
+
 }

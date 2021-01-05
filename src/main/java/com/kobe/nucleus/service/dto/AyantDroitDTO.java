@@ -14,15 +14,21 @@ import com.kobe.nucleus.domain.enumeration.Status;
  */
 public class AyantDroitDTO implements Serializable {
     
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    @NotNull
+
+	private Long id;
+
+  
     private LocalDate createdAt;
 
-    @NotNull
+    
     private LocalDate updatedAt;
 
-    @NotNull
+  
     private Status status;
 
     private String num;
@@ -169,6 +175,7 @@ public class AyantDroitDTO implements Serializable {
 		this.updatedAt = a.getUpdatedAt();
 		this.status = a.getStatus();
 		this.num = a.getNum();
+		this.mobile=a.getMobile();
 		this.firstName = a.getFirstName();
 		this.lastName = a.getLastName();
 		this.sexe = a.getSexe();

@@ -26,8 +26,13 @@ public class DetailsInventaireDTO implements Serializable {
     @NotNull
     private Boolean isUpdated;
 
+    @NotNull
+    private Float taux;
+
 
     private Long inventaireId;
+
+    private Long stockProduitId;
     
     public Long getId() {
         return id;
@@ -77,12 +82,28 @@ public class DetailsInventaireDTO implements Serializable {
         this.isUpdated = isUpdated;
     }
 
+    public Float getTaux() {
+        return taux;
+    }
+
+    public void setTaux(Float taux) {
+        this.taux = taux;
+    }
+
     public Long getInventaireId() {
         return inventaireId;
     }
 
     public void setInventaireId(Long inventaireId) {
         this.inventaireId = inventaireId;
+    }
+
+    public Long getStockProduitId() {
+        return stockProduitId;
+    }
+
+    public void setStockProduitId(Long stockProduitId) {
+        this.stockProduitId = stockProduitId;
     }
 
     @Override
@@ -112,7 +133,9 @@ public class DetailsInventaireDTO implements Serializable {
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             ", isUpdated='" + isIsUpdated() + "'" +
+            ", taux=" + getTaux() +
             ", inventaireId=" + getInventaireId() +
+            ", stockProduitId=" + getStockProduitId() +
             "}";
     }
 }

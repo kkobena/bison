@@ -1,6 +1,7 @@
 package com.kobe.nucleus.web.rest;
 
 import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeTierspayant;
 import com.kobe.nucleus.service.TierspayantService;
 
 import com.kobe.nucleus.web.rest.errors.BadRequestAlertException;
@@ -18,7 +19,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +33,6 @@ import java.text.ParseException;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * REST controller for managing {@link com.kobe.nucleus.domain.Tierspayant}.
@@ -71,13 +70,10 @@ public class TierspayantResource {
 		if (tierspayantDTO.getId() != null) {
 			throw new BadRequestAlertException("A new tierspayant cannot already have an ID", ENTITY_NAME, "idexists");
 		}
-		TierspayantDTO result = tierspayantService.save(tierspayantDTO
-				.code(RandomStringUtils.random(4, true, true).toUpperCase())
-				.enable(true)
-				.status(Status.ACTIVE)
-				.createdAt(Instant.now())
-				.updatedAt(Instant.now())
-				
+		TierspayantDTO result = tierspayantService
+				.save(tierspayantDTO.code(RandomStringUtils.random(4, true, true).toUpperCase()).enable(true)
+						.status(Status.ACTIVE).createdAt(Instant.now()).updatedAt(Instant.now())
+
 				);
 		return ResponseEntity
 				.created(new URI("/api/tierspayants/" + result.getId())).headers(HeaderUtil
@@ -117,6 +113,7 @@ public class TierspayantResource {
 	 */
 	@GetMapping(value = "/tierspayants", params = { "search" })
 	public ResponseEntity<List<TierspayantDTO>> getAllTierspayants(@RequestParam("search") String search,
+
 			Pageable pageable) {
 		log.debug("REST request to get a page of Tierspayants");
 		Page<TierspayantDTO> page = tierspayantService.findAll(search, pageable);
@@ -167,6 +164,16 @@ public class TierspayantResource {
 			throw new BadRequestAlertException("Erreur importation de fichier csv", ENTITY_NAME, "idexists");
 		}
 
+	}
+
+	@GetMapping(value = "/tierspayants/types", params = { "search", "typeTp" })
+	public ResponseEntity<List<TierspayantDTO>> getAllTierspayantsByType(@RequestParam("search") String search,
+			@RequestParam("typeTp") TypeTierspayant typeTp, Pageable pageable) {
+		log.debug("REST request to get a page of Tierspayants");
+		Page<TierspayantDTO> page = tierspayantService.findAll(search, typeTp,pageable);
+		HttpHeaders headers = PaginationUtil
+				.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+		return ResponseEntity.ok().headers(headers).body(page.getContent());
 	}
 
 }

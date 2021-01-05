@@ -25,6 +25,11 @@
       "fieldName": "isUpdated",
       "fieldType": "Boolean",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "taux",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
@@ -34,6 +39,14 @@
       "otherEntityRelationshipName": "detailsInventaire",
       "relationshipName": "inventaire",
       "otherEntityField": "id"
+    },
+    {
+      "relationshipName": "stockProduit",
+      "otherEntityName": "stockProduit",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": ["required"],
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "detailsInventaire"
     }
   ],
   "changelogDate": "20200531173550",
@@ -46,5 +59,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

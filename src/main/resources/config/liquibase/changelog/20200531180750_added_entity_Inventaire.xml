@@ -30,18 +30,6 @@
             <column name="programmable" type="boolean">
                 <constraints nullable="true" />
             </column>
-            <column name="valeur_achat_avant" type="datetime">
-                <constraints nullable="false" />
-            </column>
-            <column name="valeur_achat_apres" type="datetime">
-                <constraints nullable="false" />
-            </column>
-            <column name="valeur_vente_avant" type="datetime">
-                <constraints nullable="false" />
-            </column>
-            <column name="valeur_vente_apres" type="datetime">
-                <constraints nullable="false" />
-            </column>
             <column name="date_debut" type="date">
                 <constraints nullable="true" />
             </column>
@@ -50,6 +38,24 @@
             </column>
             <column name="end_date" type="date">
                 <constraints nullable="true" />
+            </column>
+            <column name="beginnin" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="ending" type="datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="valeur_achat_avant" type="double">
+                <constraints nullable="false" />
+            </column>
+            <column name="valeur_achat_apres" type="double">
+                <constraints nullable="false" />
+            </column>
+            <column name="valeur_vente_avant" type="double">
+                <constraints nullable="false" />
+            </column>
+            <column name="valeur_vente_apres" type="double">
+                <constraints nullable="false" />
             </column>
             <column name="magasin_id" type="bigint">
                 <constraints nullable="true" />
@@ -61,10 +67,8 @@
         </createTable>
         <dropDefaultValue tableName="inventaire" columnName="created_at" columnDataType="datetime"/>
         <dropDefaultValue tableName="inventaire" columnName="updated_at" columnDataType="datetime"/>
-        <dropDefaultValue tableName="inventaire" columnName="valeur_achat_avant" columnDataType="datetime"/>
-        <dropDefaultValue tableName="inventaire" columnName="valeur_achat_apres" columnDataType="datetime"/>
-        <dropDefaultValue tableName="inventaire" columnName="valeur_vente_avant" columnDataType="datetime"/>
-        <dropDefaultValue tableName="inventaire" columnName="valeur_vente_apres" columnDataType="datetime"/>
+        <dropDefaultValue tableName="inventaire" columnName="beginnin" columnDataType="datetime"/>
+        <dropDefaultValue tableName="inventaire" columnName="ending" columnDataType="datetime"/>
     </changeSet>
 
     <changeSet id="20200531180750-1-relations" author="jhipster">
@@ -91,13 +95,15 @@
             <column name="updated_at" type="datetime"/>
             <column name="status" type="string"/>
             <column name="programmable" type="boolean"/>
-            <column name="valeur_achat_avant" type="datetime"/>
-            <column name="valeur_achat_apres" type="datetime"/>
-            <column name="valeur_vente_avant" type="datetime"/>
-            <column name="valeur_vente_apres" type="datetime"/>
             <column name="date_debut" type="date"/>
             <column name="date_fin" type="date"/>
             <column name="end_date" type="date"/>
+            <column name="beginnin" type="datetime"/>
+            <column name="ending" type="datetime"/>
+            <column name="valeur_achat_avant" type="numeric"/>
+            <column name="valeur_achat_apres" type="numeric"/>
+            <column name="valeur_vente_avant" type="numeric"/>
+            <column name="valeur_vente_apres" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

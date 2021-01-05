@@ -46,7 +46,7 @@ public class RoleUtilisateur implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"))
     private Set<Menu> menus = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+   
     public Long getId() {
         return id;
     }

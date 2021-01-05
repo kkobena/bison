@@ -26,7 +26,6 @@
     <include file="config/liquibase/changelog/20200531174050_added_entity_StockProduit.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531174150_added_entity_FormProduit.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531174250_added_entity_GammeProduit.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20200531174350_added_entity_Fabriquant.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531174450_added_entity_FamilleProduit.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531174550_added_entity_CategorieProduit.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531174650_added_entity_Tva.xml" relativeToChangelogFile="false"/>
@@ -71,6 +70,8 @@
     <include file="config/liquibase/changelog/20200531182550_added_entity_Banque.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531182650_added_entity_MvtsProduit.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201022122438_added_entity_Medecin.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201224171839_added_entity_Stockout.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201229193243_added_entity_FournisseurProduit.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20200531173150_added_entity_constraints_Magasin.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531173250_added_entity_constraints_Rayon.xml" relativeToChangelogFile="false"/>
@@ -107,6 +108,8 @@
     <include file="config/liquibase/changelog/20200531182150_added_entity_constraints_Etiquette.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531182250_added_entity_constraints_Menu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20200531173450_added_entity_constraints_Fournisseur.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201224171839_added_entity_constraints_Stockout.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201229193243_added_entity_constraints_FournisseurProduit.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

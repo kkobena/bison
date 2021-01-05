@@ -9,7 +9,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Vente} and its DTO {@link VenteDTO}.
  */
-@Mapper(componentModel = "spring", uses = {MagasinMapper.class, UtilisateurMapper.class, ClientMapper.class, AyantDroitMapper.class, RemiseMapper.class, ModePaiementMapper.class})
+@Mapper(componentModel = "spring", uses = {MagasinMapper.class, UtilisateurMapper.class, ClientMapper.class, AyantDroitMapper.class, RemiseMapper.class, ModePaiementMapper.class, MedecinMapper.class})
 public interface VenteMapper extends EntityMapper<VenteDTO, Vente> {
 
     @Mapping(source = "magasin.id", target = "magasinId")
@@ -24,6 +24,7 @@ public interface VenteMapper extends EntityMapper<VenteDTO, Vente> {
     @Mapping(source = "remise.valeur", target = "remiseValeur")
     @Mapping(source = "modePaiement.id", target = "modePaiementId")
     @Mapping(source = "modePaiement.libelle", target = "modePaiementLibelle")
+    @Mapping(source = "medecin.id", target = "medecinId")
     VenteDTO toDto(Vente vente);
 
     @Mapping(target = "lignesVentes", ignore = true)
@@ -36,6 +37,7 @@ public interface VenteMapper extends EntityMapper<VenteDTO, Vente> {
     @Mapping(source = "ayantDroitId", target = "ayantDroit")
     @Mapping(source = "remiseId", target = "remise")
     @Mapping(source = "modePaiementId", target = "modePaiement")
+    @Mapping(source = "medecinId", target = "medecin")
     Vente toEntity(VenteDTO venteDTO);
 
     default Vente fromId(Long id) {

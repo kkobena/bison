@@ -9,11 +9,9 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link StockProduit} and its DTO {@link StockProduitDTO}.
  */
-@Mapper(componentModel = "spring", uses = {MagasinMapper.class, RayonMapper.class, ProduitMapper.class})
+@Mapper(componentModel = "spring", uses = {RayonMapper.class, ProduitMapper.class})
 public interface StockProduitMapper extends EntityMapper<StockProduitDTO, StockProduit> {
 
-    @Mapping(source = "magasin.id", target = "magasinId")
-    @Mapping(source = "magasin.nomCourt", target = "magasinNomCourt")
     @Mapping(source = "rayon.id", target = "rayonId")
     @Mapping(source = "rayon.libelle", target = "rayonLibelle")
     @Mapping(source = "produit.id", target = "produitId")
@@ -24,9 +22,6 @@ public interface StockProduitMapper extends EntityMapper<StockProduitDTO, StockP
     @Mapping(target = "removeStockReport", ignore = true)
     @Mapping(target = "mvtProduits", ignore = true)
     @Mapping(target = "removeMvtProduit", ignore = true)
-    @Mapping(target = "lignesVentes", ignore = true)
-    @Mapping(target = "removeLignesVente", ignore = true)
-    @Mapping(source = "magasinId", target = "magasin")
     @Mapping(source = "rayonId", target = "rayon")
     @Mapping(source = "produitId", target = "produit")
     StockProduit toEntity(StockProduitDTO stockProduitDTO);

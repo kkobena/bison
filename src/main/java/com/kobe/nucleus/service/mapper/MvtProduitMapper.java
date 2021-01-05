@@ -16,13 +16,12 @@ public interface MvtProduitMapper extends EntityMapper<MvtProduitDTO, MvtProduit
     @Mapping(source = "magasin.nomCourt", target = "magasinNomCourt")
     @Mapping(source = "createdBy.id", target = "createdById")
     @Mapping(source = "createdBy.firstName", target = "createdByFirstName")
-    @Mapping(source = "produit.id", target = "produitId")
-    @Mapping(source = "produit.codeCip", target = "produitCodeCip")
+
     MvtProduitDTO toDto(MvtProduit mvtProduit);
 
     @Mapping(source = "magasinId", target = "magasin")
     @Mapping(source = "createdById", target = "createdBy")
-    @Mapping(source = "produitId", target = "produit")
+   
     MvtProduit toEntity(MvtProduitDTO mvtProduitDTO);
 
     default MvtProduit fromId(Long id) {

@@ -36,7 +36,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
 public class MagasinResourceIT {
 
     private static final TypeMagasin DEFAULT_TYPE_MAGASIN = TypeMagasin.PRINCIPAL;
-    private static final TypeMagasin UPDATED_TYPE_MAGASIN = TypeMagasin.RAYON;
+    private static final TypeMagasin UPDATED_TYPE_MAGASIN = TypeMagasin.POINT_DE_VENTE;
 
     private static final String DEFAULT_NOM_COURT = "AAAAAAAAAA";
     private static final String UPDATED_NOM_COURT = "BBBBBBBBBB";

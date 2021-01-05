@@ -28,7 +28,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.kobe.nucleus.domain.enumeration.Status;
-import com.kobe.nucleus.domain.enumeration.TypeClient;
 /**
  * Integration tests for the {@link ClientResource} REST controller.
  */
@@ -58,9 +57,6 @@ public class ClientResourceIT {
 
     private static final LocalDate DEFAULT_DAT_NAISS = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DAT_NAISS = LocalDate.now(ZoneId.systemDefault());
-
-    private static final TypeClient DEFAULT_TYPE_CLIENT = TypeClient.STANDARD;
-    private static final TypeClient UPDATED_TYPE_CLIENT = TypeClient.ASSURANCE;
 
     private static final String DEFAULT_MOBILE = "AAAAAAAAAA";
     private static final String UPDATED_MOBILE = "BBBBBBBBBB";
@@ -100,7 +96,6 @@ public class ClientResourceIT {
             .lastName(DEFAULT_LAST_NAME)
             .sexe(DEFAULT_SEXE)
             .datNaiss(DEFAULT_DAT_NAISS)
-            
             .mobile(DEFAULT_MOBILE)
             .mail(DEFAULT_MAIL);
         return client;
@@ -120,7 +115,6 @@ public class ClientResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .sexe(UPDATED_SEXE)
             .datNaiss(UPDATED_DAT_NAISS)
-           
             .mobile(UPDATED_MOBILE)
             .mail(UPDATED_MAIL);
         return client;
@@ -154,7 +148,6 @@ public class ClientResourceIT {
         assertThat(testClient.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testClient.getSexe()).isEqualTo(DEFAULT_SEXE);
         assertThat(testClient.getDatNaiss()).isEqualTo(DEFAULT_DAT_NAISS);
-      
         assertThat(testClient.getMobile()).isEqualTo(DEFAULT_MOBILE);
         assertThat(testClient.getMail()).isEqualTo(DEFAULT_MAIL);
     }
@@ -256,7 +249,6 @@ public class ClientResourceIT {
         assertThat(clientList).hasSize(databaseSizeBeforeTest);
     }
 
- 
     @Test
     @Transactional
     public void getAllClients() throws Exception {
@@ -297,7 +289,6 @@ public class ClientResourceIT {
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.sexe").value(DEFAULT_SEXE))
             .andExpect(jsonPath("$.datNaiss").value(DEFAULT_DAT_NAISS.toString()))
-            .andExpect(jsonPath("$.typeClient").value(DEFAULT_TYPE_CLIENT.toString()))
             .andExpect(jsonPath("$.mobile").value(DEFAULT_MOBILE))
             .andExpect(jsonPath("$.mail").value(DEFAULT_MAIL));
     }

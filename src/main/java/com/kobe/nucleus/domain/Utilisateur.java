@@ -119,7 +119,7 @@ public class Utilisateur implements Serializable {
     @JsonIgnoreProperties(value = "utilisateurs", allowSetters = true)
     private Magasin magasin;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
         return id;
     }

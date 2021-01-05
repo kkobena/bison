@@ -37,7 +37,7 @@ public class CategorieAyantDroit implements Serializable {
     @Column(name = "status", nullable = false)
     private Status status;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+
     public Long getId() {
         return id;
     }

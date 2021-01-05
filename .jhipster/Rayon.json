@@ -24,12 +24,6 @@
       "fieldName": "libelle",
       "fieldType": "String",
       "fieldValidateRules": ["required", "unique"]
-    },
-    {
-      "fieldName": "typeRayon",
-      "fieldType": "TypeEmplacement",
-      "fieldValues": "RAYON,ENTREPOT,RESERVE",
-      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
@@ -57,5 +51,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

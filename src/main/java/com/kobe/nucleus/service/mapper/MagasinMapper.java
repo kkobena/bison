@@ -18,28 +18,12 @@ public interface MagasinMapper extends EntityMapper<MagasinDTO, Magasin> {
     @Mapping(source = "manager.firstName", target = "managerFirstName")
     MagasinDTO toDto(Magasin magasin);
 
-    @Mapping(target = "ajustements", ignore = true)
-    @Mapping(target = "removeAjustement", ignore = true)
-    @Mapping(target = "paiements", ignore = true)
-    @Mapping(target = "removePaiement", ignore = true)
-    @Mapping(target = "inventaires", ignore = true)
-    @Mapping(target = "removeInventaire", ignore = true)
-    @Mapping(target = "retourFournisseurs", ignore = true)
-    @Mapping(target = "removeRetourFournisseur", ignore = true)
+    
+
     @Mapping(target = "rayons", ignore = true)
     @Mapping(target = "removeRayon", ignore = true)
-    @Mapping(target = "ventes", ignore = true)
-    @Mapping(target = "removeVente", ignore = true)
-    @Mapping(target = "deconditions", ignore = true)
-    @Mapping(target = "removeDecondition", ignore = true)
-    @Mapping(target = "factures", ignore = true)
-    @Mapping(target = "removeFacture", ignore = true)
-    @Mapping(target = "mvtProduits", ignore = true)
-    @Mapping(target = "removeMvtProduit", ignore = true)
-    @Mapping(target = "commandes", ignore = true)
-    @Mapping(target = "removeCommande", ignore = true)
-    @Mapping(target = "stockProduits", ignore = true)
-    @Mapping(target = "removeStockProduit", ignore = true)
+
+
     @Mapping(target = "utilisateurs", ignore = true)
     @Mapping(target = "removeUtilisateur", ignore = true)
     @Mapping(target = "magasins", ignore = true)

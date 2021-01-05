@@ -45,9 +45,19 @@ public class DetailsInventaire implements Serializable {
     @Column(name = "is_updated", nullable = false)
     private Boolean isUpdated;
 
+    @NotNull
+    @Column(name = "taux", nullable = false)
+    //taux d'accepation ecart
+    private Float taux;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "detailsInventaires", allowSetters = true)
     private Inventaire inventaire;
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties(value = "detailsInventaires", allowSetters = true)
+    private StockProduit stockProduit;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -123,6 +133,19 @@ public class DetailsInventaire implements Serializable {
         this.isUpdated = isUpdated;
     }
 
+    public Float getTaux() {
+        return taux;
+    }
+
+    public DetailsInventaire taux(Float taux) {
+        this.taux = taux;
+        return this;
+    }
+
+    public void setTaux(Float taux) {
+        this.taux = taux;
+    }
+
     public Inventaire getInventaire() {
         return inventaire;
     }
@@ -134,6 +157,19 @@ public class DetailsInventaire implements Serializable {
 
     public void setInventaire(Inventaire inventaire) {
         this.inventaire = inventaire;
+    }
+
+    public StockProduit getStockProduit() {
+        return stockProduit;
+    }
+
+    public DetailsInventaire stockProduit(StockProduit stockProduit) {
+        this.stockProduit = stockProduit;
+        return this;
+    }
+
+    public void setStockProduit(StockProduit stockProduit) {
+        this.stockProduit = stockProduit;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -163,6 +199,7 @@ public class DetailsInventaire implements Serializable {
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
             ", isUpdated='" + isIsUpdated() + "'" +
+            ", taux=" + getTaux() +
             "}";
     }
 }

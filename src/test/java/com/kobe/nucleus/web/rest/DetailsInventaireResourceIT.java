@@ -2,6 +2,7 @@ package com.kobe.nucleus.web.rest;
 
 import com.kobe.nucleus.NucleusApp;
 import com.kobe.nucleus.domain.DetailsInventaire;
+import com.kobe.nucleus.domain.StockProduit;
 import com.kobe.nucleus.repository.DetailsInventaireRepository;
 import com.kobe.nucleus.service.DetailsInventaireService;
 import com.kobe.nucleus.service.dto.DetailsInventaireDTO;
@@ -50,6 +51,9 @@ public class DetailsInventaireResourceIT {
     private static final Boolean DEFAULT_IS_UPDATED = false;
     private static final Boolean UPDATED_IS_UPDATED = true;
 
+    private static final Float DEFAULT_TAUX = 1F;
+    private static final Float UPDATED_TAUX = 2F;
+
     @Autowired
     private DetailsInventaireRepository detailsInventaireRepository;
 
@@ -79,7 +83,18 @@ public class DetailsInventaireResourceIT {
             .qtyInit(DEFAULT_QTY_INIT)
             .createdAt(DEFAULT_CREATED_AT)
             .updatedAt(DEFAULT_UPDATED_AT)
-            .isUpdated(DEFAULT_IS_UPDATED);
+            .isUpdated(DEFAULT_IS_UPDATED)
+            .taux(DEFAULT_TAUX);
+        // Add required entity
+        StockProduit stockProduit;
+        if (TestUtil.findAll(em, StockProduit.class).isEmpty()) {
+            stockProduit = StockProduitResourceIT.createEntity(em);
+            em.persist(stockProduit);
+            em.flush();
+        } else {
+            stockProduit = TestUtil.findAll(em, StockProduit.class).get(0);
+        }
+        detailsInventaire.setStockProduit(stockProduit);
         return detailsInventaire;
     }
     /**
@@ -94,7 +109,18 @@ public class DetailsInventaireResourceIT {
             .qtyInit(UPDATED_QTY_INIT)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
-            .isUpdated(UPDATED_IS_UPDATED);
+            .isUpdated(UPDATED_IS_UPDATED)
+            .taux(UPDATED_TAUX);
+        // Add required entity
+        StockProduit stockProduit;
+        if (TestUtil.findAll(em, StockProduit.class).isEmpty()) {
+            stockProduit = StockProduitResourceIT.createUpdatedEntity(em);
+            em.persist(stockProduit);
+            em.flush();
+        } else {
+            stockProduit = TestUtil.findAll(em, StockProduit.class).get(0);
+        }
+        detailsInventaire.setStockProduit(stockProduit);
         return detailsInventaire;
     }
 
@@ -123,6 +149,7 @@ public class DetailsInventaireResourceIT {
         assertThat(testDetailsInventaire.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testDetailsInventaire.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
         assertThat(testDetailsInventaire.isIsUpdated()).isEqualTo(DEFAULT_IS_UPDATED);
+        assertThat(testDetailsInventaire.getTaux()).isEqualTo(DEFAULT_TAUX);
     }
 
     @Test
@@ -248,6 +275,26 @@ public class DetailsInventaireResourceIT {
 
     @Test
     @Transactional
+    public void checkTauxIsRequired() throws Exception {
+        int databaseSizeBeforeTest = detailsInventaireRepository.findAll().size();
+        // set the field null
+        detailsInventaire.setTaux(null);
+
+        // Create the DetailsInventaire, which fails.
+        DetailsInventaireDTO detailsInventaireDTO = detailsInventaireMapper.toDto(detailsInventaire);
+
+
+        restDetailsInventaireMockMvc.perform(post("/api/details-inventaires").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(detailsInventaireDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<DetailsInventaire> detailsInventaireList = detailsInventaireRepository.findAll();
+        assertThat(detailsInventaireList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllDetailsInventaires() throws Exception {
         // Initialize the database
         detailsInventaireRepository.saveAndFlush(detailsInventaire);
@@ -261,7 +308,8 @@ public class DetailsInventaireResourceIT {
             .andExpect(jsonPath("$.[*].qtyInit").value(hasItem(DEFAULT_QTY_INIT)))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].isUpdated").value(hasItem(DEFAULT_IS_UPDATED.booleanValue())));
+            .andExpect(jsonPath("$.[*].isUpdated").value(hasItem(DEFAULT_IS_UPDATED.booleanValue())))
+            .andExpect(jsonPath("$.[*].taux").value(hasItem(DEFAULT_TAUX.doubleValue())));
     }
     
     @Test
@@ -279,7 +327,8 @@ public class DetailsInventaireResourceIT {
             .andExpect(jsonPath("$.qtyInit").value(DEFAULT_QTY_INIT))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
-            .andExpect(jsonPath("$.isUpdated").value(DEFAULT_IS_UPDATED.booleanValue()));
+            .andExpect(jsonPath("$.isUpdated").value(DEFAULT_IS_UPDATED.booleanValue()))
+            .andExpect(jsonPath("$.taux").value(DEFAULT_TAUX.doubleValue()));
     }
     @Test
     @Transactional
@@ -306,7 +355,8 @@ public class DetailsInventaireResourceIT {
             .qtyInit(UPDATED_QTY_INIT)
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
-            .isUpdated(UPDATED_IS_UPDATED);
+            .isUpdated(UPDATED_IS_UPDATED)
+            .taux(UPDATED_TAUX);
         DetailsInventaireDTO detailsInventaireDTO = detailsInventaireMapper.toDto(updatedDetailsInventaire);
 
         restDetailsInventaireMockMvc.perform(put("/api/details-inventaires").with(csrf())
@@ -323,6 +373,7 @@ public class DetailsInventaireResourceIT {
         assertThat(testDetailsInventaire.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testDetailsInventaire.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
         assertThat(testDetailsInventaire.isIsUpdated()).isEqualTo(UPDATED_IS_UPDATED);
+        assertThat(testDetailsInventaire.getTaux()).isEqualTo(UPDATED_TAUX);
     }
 
     @Test

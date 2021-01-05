@@ -4,30 +4,30 @@ import java.time.Instant;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import com.kobe.nucleus.domain.enumeration.Status;
-import com.kobe.nucleus.domain.enumeration.TypeEmplacement;
 
 /**
  * A DTO for the {@link com.kobe.nucleus.domain.Rayon} entity.
  */
 public class RayonDTO implements Serializable {
     
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8538723222419813431L;
+
+	private Long id;
 
     private Instant createdAt;
 
     private Instant updatedAt;
 
-    @NotNull
     private Status status;
 
-    @NotNull
+
     private String code;
 
     @NotNull
     private String libelle;
-
-    @NotNull
-    private TypeEmplacement typeRayon;
 
 
     private Long magasinId;
@@ -82,14 +82,6 @@ public class RayonDTO implements Serializable {
         this.libelle = libelle;
     }
 
-    public TypeEmplacement getTypeRayon() {
-        return typeRayon;
-    }
-
-    public void setTypeRayon(TypeEmplacement typeRayon) {
-        this.typeRayon = typeRayon;
-    }
-
     public Long getMagasinId() {
         return magasinId;
     }
@@ -133,7 +125,6 @@ public class RayonDTO implements Serializable {
             ", status='" + getStatus() + "'" +
             ", code='" + getCode() + "'" +
             ", libelle='" + getLibelle() + "'" +
-            ", typeRayon='" + getTypeRayon() + "'" +
             ", magasinId=" + getMagasinId() +
             ", magasinNomCourt='" + getMagasinNomCourt() + "'" +
             "}";

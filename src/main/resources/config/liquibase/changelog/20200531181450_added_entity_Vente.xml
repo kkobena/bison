@@ -21,9 +21,6 @@
             <column name="updated_at" type="datetime">
                 <constraints nullable="false" />
             </column>
-            <column name="date_mvt" type="date">
-                <constraints nullable="true" />
-            </column>
             <column name="status" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
@@ -84,6 +81,9 @@
             <column name="avoid_amount" type="integer">
                 <constraints nullable="false" />
             </column>
+            <column name="cost_amount" type="double">
+                <constraints nullable="false" />
+            </column>
             <column name="magasin_id" type="bigint">
                 <constraints nullable="true" />
             </column>
@@ -101,6 +101,9 @@
             </column>
             <column name="mode_paiement_id" type="bigint">
                 <constraints nullable="false" />
+            </column>
+            <column name="medecin_id" type="bigint">
+                <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -129,7 +132,6 @@
             <column name="id" type="numeric"/>
             <column name="created_at" type="datetime"/>
             <column name="updated_at" type="datetime"/>
-            <column name="date_mvt" type="date"/>
             <column name="status" type="string"/>
             <column name="nature_vente" type="string"/>
             <column name="type_vente" type="string"/>
@@ -150,6 +152,7 @@
             <column name="montant_rendu" type="numeric"/>
             <column name="ref_bon" type="string"/>
             <column name="avoid_amount" type="numeric"/>
+            <column name="cost_amount" type="numeric"/>
             <column name="mode_paiement_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

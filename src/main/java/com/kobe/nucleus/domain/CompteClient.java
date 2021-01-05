@@ -27,11 +27,15 @@ import com.kobe.nucleus.domain.enumeration.TypeClient;
 		@Index(name = "compte_client_categorie", columnList = "categorie") }, uniqueConstraints = {
 				@UniqueConstraint(name = "UNQ_compte_client_client_tierspayant", columnNames = { "client_id",
 						"tierspayant_id" }),
-				@UniqueConstraint(name = "UNQ_compte_client_categorie", columnNames = { "client_id", "categorie" }),
-				@UniqueConstraint(name = "UNQ_compte_client_num_maticule", columnNames = { "client_id",
-						"num_maticule" }) }
+
+				@UniqueConstraint(name = "UNQ_compte_client_num_maticule", columnNames = { "client_id", "num_maticule",
+						"tierspayant_id" }) }
 
 )
+@NamedQueries({
+		@NamedQuery(name = "CompteClient.findByClientAndTiersPayant", query = "SELECT c FROM CompteClient c WHERE c.client.id =:clientId AND c.tierspayant.id=:tierspayantId"),
+
+})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class CompteClient implements Serializable {
 
@@ -73,7 +77,7 @@ public class CompteClient implements Serializable {
 	private String numMaticule;
 
 	@Column(name = "enbale")
-	private Boolean enbale;
+	private Boolean enbale = true;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "categorie")
@@ -82,11 +86,11 @@ public class CompteClient implements Serializable {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
-	private Status status;
+	private Status status = Status.ACTIVE;
 
 	@NotNull
 	@Column(name = "absolute", nullable = false)
-	private Boolean absolute;
+	private Boolean absolute = false;
 
 	@OneToMany(mappedBy = "compteClient")
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

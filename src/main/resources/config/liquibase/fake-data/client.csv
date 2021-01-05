@@ -1,11 +1,11 @@
-id;created_at;updated_at;status;first_name;last_name;sexe;dat_naiss;type_client;mobile;mail
-1;2020-05-31;2020-05-31;ENTREESTOCT;Brigitte;Smitham;Handcrafted;2020-05-30;STANDARD;array;foreground strategy Metrics
-2;2020-05-31;2020-05-31;DESACTIVE;Laisha;Rempel;Handcrafted Rubber Car fault-tolerant Internal;2020-05-30;ASSURANCE;quantify Jewelery;Internal
-3;2020-05-30;2020-05-31;VALIDE;Dusty;Volkman;content Home Loan Account Corporate;2020-05-31;CARNET;Solomon Islands Dollar;Savings Account Mouse back-end
-4;2020-05-30;2020-05-31;ACTIVE;Beatrice;Rolfson;Handcrafted Plastic Salad Idaho;2020-05-31;STANDARD;hub Gibraltar regional;Chair Via
-5;2020-05-31;2020-05-30;PASSE;Kimberly;Wolff;neural Up-sized migration;2020-05-31;STANDARD;magenta;Solutions
-6;2020-05-31;2020-05-31;LIVRE;Fay;Metz;Avon Reduced;2020-05-30;STANDARD;metrics;wireless SCSI Wyoming
-7;2020-05-31;2020-05-30;ENTREESTOCT;Tracey;O'Kon;Soap;2020-05-31;CARNET;Berkshire cutting-edge matrix;optical
-8;2020-05-30;2020-05-31;DESACTIVE;Lucy;Turner;cohesive Director;2020-05-31;ASSURANCE;Fresh Sausages;Cheese reintermediate action-items
-9;2020-05-31;2020-05-31;SUPPRIME;Sherman;Schmeler;Chips synthesize Saint Helena Pound;2020-05-31;STANDARD;Philippine Peso Money Market Account Ergonomic;FTP Handmade Rubber Fish Mexico
-10;2020-05-31;2020-05-31;DESACTIVE;Rachael;Lehner;Investor;2020-05-31;STANDARD;panel;Grocery
+id;created_at;updated_at;status;first_name;last_name;sexe;dat_naiss;mobile;mail
+1;2020-05-31;2020-05-31;ENTREESTOCT;Brigitte;Smitham;Handcrafted;2020-05-30;parse networks;paradigm
+2;2020-05-31;2020-05-30;LIVRE;Tyler;Zemlak;Money Market Account invoice;2020-05-31;interfaces;Program hard drive Gorgeous
+3;2020-05-31;2020-05-30;SUPPRIME;Dino;Kautzer;quantify Jewelery;2020-05-31;parsing Ergonomic quantify;uniform index
+4;2020-05-31;2020-05-31;ENATTENTE;Hans;Wisozk;Solomon Islands Dollar;2020-05-30;Wooden grey;connect Avon
+5;2020-05-31;2020-05-30;ACTIVE;Maria;Greenfelder;Idaho Villages Hryvnia;2020-05-30;orange;copying
+6;2020-05-31;2020-05-31;SUGGESTION;Carlos;Abshire;Division Interactions;2020-05-31;Proactive;Granite Wisconsin Forward
+7;2020-05-30;2020-05-31;ENATTENTE;Abraham;Durgan;Automotive Music dynamic;2020-05-31;Gorgeous Wooden Pants;distributed sexy Gorgeous
+8;2020-05-31;2020-05-30;ENATTENTE;Buster;Kessler;Director optical COM;2020-05-30;bluetooth;Supervisor Nauru Rubber
+9;2020-05-30;2020-05-31;ACTIVE;Austin;Batz;Latvian Lats Chief Berkshire;2020-05-31;matrix Licensed Fresh Pizza bricks-and-clicks;magnetic systems
+10;2020-05-30;2020-05-31;NON_LIVRE;Felipa;MacGyver;gold Home Loan Account;2020-05-31;Fresh Sausages;Cheese reintermediate action-items

@@ -44,12 +44,6 @@
                                  referencedColumnNames="id"
                                  referencedTableName="gamme_produit"/>
 
-        <addForeignKeyConstraint baseColumnNames="fabriquant_id"
-                                 baseTableName="produit"
-                                 constraintName="fk_produit_fabriquant_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="fabriquant"/>
-
         <addForeignKeyConstraint baseColumnNames="tva_id"
                                  baseTableName="produit"
                                  constraintName="fk_produit_tva_id"

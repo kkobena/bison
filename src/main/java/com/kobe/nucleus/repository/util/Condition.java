@@ -11,7 +11,6 @@ public final class Condition {
         EQUAL, NOT_EQUAL, GREATER_THAN, LESS_THAN, LIKE,LESS_OR_EQUAL_THAN,GREATER_OR_EQUAL_THAN,
     }
     private final String[]  leftHand;
-    //private final String[] leftHandArray;
     private final String rightHand;
     private final OperationType operation;
     private final LogicalOperatorType operator;

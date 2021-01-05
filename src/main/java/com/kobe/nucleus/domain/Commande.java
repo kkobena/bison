@@ -3,6 +3,8 @@ package com.kobe.nucleus.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -23,8 +25,13 @@ import com.kobe.nucleus.domain.enumeration.TypeOrder;
  * A Commande.
  */
 @Entity
-@Table(name = "commande")
+@Table(name = "commande", indexes = { @Index(columnList = "updated_at",name = "commande_updatedAt_index") ,
+		@Index(columnList = "created_at",name = "commande_created_at_index") ,
+		@Index(columnList = "status",name = "commande_status_index"),
+		@Index(columnList = "type",name = "commande_type_index")
+})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Commande implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -78,29 +85,30 @@ public class Commande implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "statut_facture", nullable = false)
-    private StatutFacture statutFacture;
+    private StatutFacture statutFacture=StatutFacture.UNPAID;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private OrderStatus status;
-
+    @NotNull
+    @Column(name = "status", nullable = false)
+    private OrderStatus status=OrderStatus.COMMANDEENCOURS;
+    @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private TypeOrder type;
 
     @OneToMany(mappedBy = "commande")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<CommandeItem> commandeItems = new HashSet<>();
-
-    @ManyToOne
+    @NotNull
+    @ManyToOne(optional = false)
     @JsonIgnoreProperties(value = "commandes", allowSetters = true)
     private Magasin magasin;
-
-    @ManyToOne
+    @NotNull
+    @ManyToOne(optional = false)
     @JsonIgnoreProperties(value = "commandes", allowSetters = true)
     private Utilisateur createdBy;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    
     public Long getId() {
         return id;
     }
@@ -367,7 +375,7 @@ public class Commande implements Serializable {
     public void setCreatedBy(Utilisateur utilisateur) {
         this.createdBy = utilisateur;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+  
 
     @Override
     public boolean equals(Object o) {
@@ -385,7 +393,7 @@ public class Commande implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
+
     @Override
     public String toString() {
         return "Commande{" +

@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="inventaire"/>
 
+        <addForeignKeyConstraint baseColumnNames="stock_produit_id"
+                                 baseTableName="details_inventaire"
+                                 constraintName="fk_details_inventaire_stock_produit_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="stock_produit"/>
+
     </changeSet>
 </databaseChangeLog>

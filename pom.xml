@@ -10,14 +10,14 @@
     <name>Nucleus</name>
 
     <repositories>
-        <!-- jhipster-needle-maven-repository -->
+       
     </repositories>
 
     <pluginRepositories>
-        <!-- jhipster-needle-maven-plugin-repository -->
+      
     </pluginRepositories>
 
-    <!-- jhipster-needle-distribution-management -->
+    
 
     <properties>
         <!-- Build properties -->
@@ -403,6 +403,7 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
             </plugin>
+           
             <!-- jhipster-needle-maven-add-plugin -->
         </plugins>
         <pluginManagement>
@@ -836,7 +837,7 @@
                     </configuration>
 
                 </plugin>
-                <!-- jhipster-needle-maven-add-plugin-management -->
+              
             </plugins>
         </pluginManagement>
     </build>

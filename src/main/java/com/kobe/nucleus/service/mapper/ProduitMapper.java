@@ -9,7 +9,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Produit} and its DTO {@link ProduitDTO}.
  */
-@Mapper(componentModel = "spring", uses = {LaboratoireMapper.class, FormProduitMapper.class, TypeEtiquetteMapper.class, FamilleProduitMapper.class, GammeProduitMapper.class, FabriquantMapper.class, TvaMapper.class})
+@Mapper(componentModel = "spring", uses = {LaboratoireMapper.class, FormProduitMapper.class, TypeEtiquetteMapper.class, FamilleProduitMapper.class, GammeProduitMapper.class, TvaMapper.class})
 public interface ProduitMapper extends EntityMapper<ProduitDTO, Produit> {
 
     @Mapping(source = "parent.id", target = "parentId")
@@ -24,8 +24,6 @@ public interface ProduitMapper extends EntityMapper<ProduitDTO, Produit> {
     @Mapping(source = "famille.libelle", target = "familleLibelle")
     @Mapping(source = "gamme.id", target = "gammeId")
     @Mapping(source = "gamme.libelle", target = "gammeLibelle")
-    @Mapping(source = "fabriquant.id", target = "fabriquantId")
-    @Mapping(source = "fabriquant.libelle", target = "fabriquantLibelle")
     @Mapping(source = "tva.id", target = "tvaId")
     @Mapping(source = "tva.taux", target = "tvaTaux")
     ProduitDTO toDto(Produit produit);
@@ -46,7 +44,6 @@ public interface ProduitMapper extends EntityMapper<ProduitDTO, Produit> {
     @Mapping(source = "typeEtyquetteId", target = "typeEtyquette")
     @Mapping(source = "familleId", target = "famille")
     @Mapping(source = "gammeId", target = "gamme")
-    @Mapping(source = "fabriquantId", target = "fabriquant")
     @Mapping(source = "tvaId", target = "tva")
     Produit toEntity(ProduitDTO produitDTO);
 

@@ -1,7 +1,6 @@
 package com.kobe.nucleus.service.dto;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import com.kobe.nucleus.domain.enumeration.Status;
@@ -15,16 +14,13 @@ public class VenteDTO implements Serializable {
     
     private Long id;
 
-    
+    @NotNull
     private Instant createdAt;
-/*
-    @JsonFormat(shape = JsonFormat.Shape.STRING,
-    		pattern = DateProcessor.DATE_FORMAT)*/
+
+    @NotNull
     private Instant updatedAt;
 
-    private LocalDate dateMVT;
-
-   
+    @NotNull
     private Status status;
 
     private NatureVente natureVente;
@@ -63,8 +59,11 @@ public class VenteDTO implements Serializable {
 
     private String refBon;
 
-    
+    @NotNull
     private Integer avoidAmount;
+
+    @NotNull
+    private Double costAmount;
 
 
     private Long magasinId;
@@ -90,6 +89,8 @@ public class VenteDTO implements Serializable {
     private Long modePaiementId;
 
     private String modePaiementLibelle;
+
+    private Long medecinId;
     
     public Long getId() {
         return id;
@@ -113,14 +114,6 @@ public class VenteDTO implements Serializable {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
-    }
-
-    public LocalDate getDateMVT() {
-        return dateMVT;
-    }
-
-    public void setDateMVT(LocalDate dateMVT) {
-        this.dateMVT = dateMVT;
     }
 
     public Status getStatus() {
@@ -283,6 +276,14 @@ public class VenteDTO implements Serializable {
         this.avoidAmount = avoidAmount;
     }
 
+    public Double getCostAmount() {
+        return costAmount;
+    }
+
+    public void setCostAmount(Double costAmount) {
+        this.costAmount = costAmount;
+    }
+
     public Long getMagasinId() {
         return magasinId;
     }
@@ -379,6 +380,14 @@ public class VenteDTO implements Serializable {
         this.modePaiementLibelle = modePaiementLibelle;
     }
 
+    public Long getMedecinId() {
+        return medecinId;
+    }
+
+    public void setMedecinId(Long medecinId) {
+        this.medecinId = medecinId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -403,7 +412,6 @@ public class VenteDTO implements Serializable {
             "id=" + getId() +
             ", createdAt='" + getCreatedAt() + "'" +
             ", updatedAt='" + getUpdatedAt() + "'" +
-            ", dateMVT='" + getDateMVT() + "'" +
             ", status='" + getStatus() + "'" +
             ", natureVente='" + getNatureVente() + "'" +
             ", typeVente='" + getTypeVente() + "'" +
@@ -424,6 +432,7 @@ public class VenteDTO implements Serializable {
             ", montantRendu=" + getMontantRendu() +
             ", refBon='" + getRefBon() + "'" +
             ", avoidAmount=" + getAvoidAmount() +
+            ", costAmount=" + getCostAmount() +
             ", magasinId=" + getMagasinId() +
             ", magasinNomCourt='" + getMagasinNomCourt() + "'" +
             ", createdById=" + getCreatedById() +
@@ -436,6 +445,7 @@ public class VenteDTO implements Serializable {
             ", remiseValeur='" + getRemiseValeur() + "'" +
             ", modePaiementId=" + getModePaiementId() +
             ", modePaiementLibelle='" + getModePaiementLibelle() + "'" +
+            ", medecinId=" + getMedecinId() +
             "}";
     }
 }
