@@ -27,7 +27,6 @@ public interface ProduitMapper extends EntityMapper<ProduitDTO, Produit> {
     @Mapping(source = "tva.id", target = "tvaId")
     @Mapping(source = "tva.taux", target = "tvaTaux")
     ProduitDTO toDto(Produit produit);
-
     @Mapping(target = "produits", ignore = true)
     @Mapping(target = "removeProduit", ignore = true)
     @Mapping(target = "commandeItems", ignore = true)

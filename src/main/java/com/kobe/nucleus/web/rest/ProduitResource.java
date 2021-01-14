@@ -85,7 +85,7 @@ public class ProduitResource {
 		if (produitDTO.getId() == null) {
 			throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
 		}
-		ProduitDTO result = produitService.save(produitDTO);
+		ProduitDTO result = produitService.update(produitDTO);
 		return ResponseEntity.ok().headers(
 				HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, produitDTO.getId().toString()))
 				.body(result);

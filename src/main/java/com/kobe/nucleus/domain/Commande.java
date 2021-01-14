@@ -106,7 +106,7 @@ public class Commande implements Serializable {
     @NotNull
     @ManyToOne(optional = false)
     @JsonIgnoreProperties(value = "commandes", allowSetters = true)
-    private Utilisateur createdBy;
+    private User createdBy;
 
     
     public Long getId() {
@@ -363,16 +363,16 @@ public class Commande implements Serializable {
         this.magasin = magasin;
     }
 
-    public Utilisateur getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public Commande createdBy(Utilisateur utilisateur) {
+    public Commande createdBy(User utilisateur) {
         this.createdBy = utilisateur;
         return this;
     }
 
-    public void setCreatedBy(Utilisateur utilisateur) {
+    public void setCreatedBy(User utilisateur) {
         this.createdBy = utilisateur;
     }
   

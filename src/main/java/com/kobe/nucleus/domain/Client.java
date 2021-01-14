@@ -82,7 +82,7 @@ public class Client implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("clients")
-    private Remise remise;
+    private RemiseClient remise;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -323,16 +323,16 @@ public class Client implements Serializable {
         this.compagnie = compagnie;
     }
 
-    public Remise getRemise() {
+    public RemiseClient getRemise() {
         return remise;
     }
 
-    public Client remise(Remise remise) {
+    public Client remise(RemiseClient remise) {
         this.remise = remise;
         return this;
     }
 
-    public void setRemise(Remise remise) {
+    public void setRemise(RemiseClient remise) {
         this.remise = remise;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove

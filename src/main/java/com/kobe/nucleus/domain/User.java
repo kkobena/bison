@@ -3,6 +3,8 @@ package com.kobe.nucleus.domain;
 import com.kobe.nucleus.config.Constants;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -23,7 +25,7 @@ import java.util.Set;
  * A user.
  */
 @Entity
-@Table(name = "jhi_user")
+@Table(name = "utilisateur")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends AbstractAuditingEntity implements Serializable {
 
@@ -83,12 +85,13 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @Column(name = "reset_date")
     private Instant resetDate = null;
-
+    @ManyToOne
+    private Magasin magasin;
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "jhi_user_authority",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        name = "utilisateur_authority",
+        joinColumns = {@JoinColumn(name = "utilisateur_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
@@ -103,7 +106,21 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return id;
     }
 
-    public void setId(Long id) {
+    
+    
+    public Magasin getMagasin() {
+		return magasin;
+	}
+
+
+
+	public void setMagasin(Magasin magasin) {
+		this.magasin = magasin;
+	}
+
+
+
+	public void setId(Long id) {
         this.id = id;
     }
 
@@ -228,7 +245,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
+   
     @Override
     public String toString() {
         return "User{" +

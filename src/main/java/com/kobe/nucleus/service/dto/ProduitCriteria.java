@@ -27,6 +27,7 @@ public class ProduitCriteria implements Serializable {
 	private Long rayonId;
 	private String search;
 	private Boolean deconditionne;
+	private Long remiseId;
 
 	public Long getId() {
 		return id;
@@ -124,12 +125,17 @@ public class ProduitCriteria implements Serializable {
 		this.prixUni = prixUni;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "ProduitCriteria [id=" + id + ", codeEan=" + codeEan + ", codeCip=" + codeCip + ", libelle=" + libelle
 				+ ", status=" + status + ", dateperemption=" + dateperemption + ", deconditionnable=" + deconditionnable
 				+ ", qtySeuilMini=" + qtySeuilMini + ", qtyAppro=" + qtyAppro + ", parentId=" + parentId + ", prixPaf="
-				+ prixPaf + ", prixUni=" + prixUni + "]";
+				+ prixPaf + ", prixUni=" + prixUni + ", formeId=" + formeId + ", familleId=" + familleId + ", gammeId="
+				+ gammeId + ", fabriquantId=" + fabriquantId + ", laboratoireId=" + laboratoireId + ", tvaId=" + tvaId
+				+ ", magasinId=" + magasinId + ", rayonId=" + rayonId + ", search=" + search + ", deconditionne="
+				+ deconditionne + ", remiseId=" + remiseId + "]";
 	}
 
 	public Long getFormeId() {
@@ -210,6 +216,14 @@ public class ProduitCriteria implements Serializable {
 
 	public void setDeconditionne(Boolean deconditionne) {
 		this.deconditionne = deconditionne;
+	}
+
+	public Long getRemiseId() {
+		return remiseId;
+	}
+
+	public void setRemiseId(Long remiseId) {
+		this.remiseId = remiseId;
 	}
 
 }

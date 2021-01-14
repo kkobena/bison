@@ -18,6 +18,7 @@ import com.kobe.nucleus.domain.LignesVente;
 import com.kobe.nucleus.domain.Magasin;
 import com.kobe.nucleus.domain.Produit;
 import com.kobe.nucleus.domain.Rayon;
+import com.kobe.nucleus.domain.RemiseProduit;
 import com.kobe.nucleus.domain.StockProduit;
 import com.kobe.nucleus.domain.Tva;
 import com.kobe.nucleus.domain.TypeEtiquette;
@@ -31,9 +32,9 @@ public interface CustomizedProductService {
 
 	Page<ProduitDTO> findAll(ProduitCriteria produitCriteria, Pageable pageable) throws Exception;
 
-	void save(ProduitDTO dto) throws Exception;
+	ProduitDTO save(ProduitDTO dto) throws Exception;
 
-	void update(ProduitDTO dto) throws Exception;
+	ProduitDTO update(ProduitDTO dto) throws Exception;
 
 	void save(StockProduitDTO dto) throws Exception;
 
@@ -163,7 +164,15 @@ public interface CustomizedProductService {
 		return famille;
 
 	}
+	default RemiseProduit remiseProduitFromId(Long id) {
+		if (id == null) {
+			return null;
+		}
+		RemiseProduit remiseProduit = new RemiseProduit();
+		remiseProduit.setId(id);
+		return remiseProduit;
 
+	}
 	default GammeProduit gammeFromId(Long id) {
 		if (id == null) {
 			return null;
@@ -191,7 +200,6 @@ public interface CustomizedProductService {
 		produit.setPrixUni(dto.getPrixUni());
 		produit.setChiffre(dto.isChiffre());
 		produit.setCodeEan(dto.getCodeEan());
-		produit.setEtiquetable(dto.isEtiquetable());
 		produit.setDateperemption(dto.isDateperemption());
 		produit.setDeconditionnable(dto.isDeconditionnable());
 		produit.setPrixMnp(dto.getPrixMnp());
@@ -200,13 +208,13 @@ public interface CustomizedProductService {
 		produit.setQtyAppro(dto.getQtyAppro());
 		produit.setQtyDetails(dto.getQtyDetails());
 		produit.setTva(tvaFromId(dto.getTvaId()));
-		produit.setRemisable(dto.isRemisable());
 		produit.setForme(formeFromId(dto.getFormeId()));
 		produit.setTypeEtyquette(typeEtiquetteFromId(dto.getTypeEtyquetteId()));
 		produit.setFamille(familleFromId(dto.getFamilleId()));
 		produit.setLaboratoire(laboratoireFromId(dto.getLaboratoireId()));
 		produit.setParent(parentFromId(dto.getParentId()));
 		produit.setGamme(gammeFromId(dto.getGammeId()));
+		produit.setRemise(remiseProduitFromId(dto.getRemiseId()));
 		return produit;
 	}
 
@@ -219,7 +227,6 @@ public interface CustomizedProductService {
 		produit.setPrixUni(dto.getPrixUni());
 		produit.setChiffre(dto.isChiffre());
 		produit.setCodeEan(dto.getCodeEan());
-		produit.setEtiquetable(dto.isEtiquetable());
 		produit.setDateperemption(dto.isDateperemption());
 		produit.setDeconditionnable(dto.isDeconditionnable());
 		produit.setPrixMnp(dto.getPrixMnp());
@@ -228,13 +235,13 @@ public interface CustomizedProductService {
 		produit.setQtyAppro(dto.getQtyAppro());
 		produit.setQtyDetails(dto.getQtyDetails());
 		produit.setTva(tvaFromId(dto.getTvaId()));
-		produit.setRemisable(dto.isRemisable());
 		produit.setForme(formeFromId(dto.getFormeId()));
 		produit.setTypeEtyquette(typeEtiquetteFromId(dto.getTypeEtyquetteId()));
 		produit.setFamille(familleFromId(dto.getFamilleId()));
 		produit.setLaboratoire(laboratoireFromId(dto.getLaboratoireId()));
 		produit.setParent(parentFromId(dto.getParentId()));
 		produit.setGamme(gammeFromId(dto.getGammeId()));
+		produit.setRemise(remiseProduitFromId(dto.getRemiseId()));
 		return produit;
 	}
 

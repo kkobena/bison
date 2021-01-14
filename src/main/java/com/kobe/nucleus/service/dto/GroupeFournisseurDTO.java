@@ -8,8 +8,10 @@ import com.kobe.nucleus.domain.enumeration.Status;
  * A DTO for the {@link com.kobe.nucleus.domain.GroupeFournisseur} entity.
  */
 public class GroupeFournisseurDTO implements Serializable {
-    
-    private Long id;
+  
+	private static final long serialVersionUID = -6447988428721557444L;
+
+	private Long id;
 
     @NotNull
     private String libelle;
@@ -22,11 +24,7 @@ public class GroupeFournisseurDTO implements Serializable {
 
     private String tel;
 
-    @NotNull
-    private Status status;
-
-    @NotNull
-    private Integer odre;
+    private Integer odre=100;
 
     
     public Long getId() {
@@ -77,13 +75,7 @@ public class GroupeFournisseurDTO implements Serializable {
         this.tel = tel;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+  
 
     public Integer getOdre() {
         return odre;
@@ -120,7 +112,7 @@ public class GroupeFournisseurDTO implements Serializable {
             ", numFaxe='" + getNumFaxe() + "'" +
             ", email='" + getEmail() + "'" +
             ", tel='" + getTel() + "'" +
-            ", status='" + getStatus() + "'" +
+         
             ", odre=" + getOdre() +
             "}";
     }

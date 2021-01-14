@@ -31,10 +31,6 @@
       "fieldType": "Integer"
     },
     {
-      "fieldName": "etiquetable",
-      "fieldType": "Boolean"
-    },
-    {
       "fieldName": "dateperemption",
       "fieldType": "Boolean"
     },
@@ -59,10 +55,6 @@
       "fieldName": "deconditionnable",
       "fieldType": "Boolean",
       "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "remisable",
-      "fieldType": "Boolean"
     },
     {
       "fieldName": "prixPaf",
@@ -159,6 +151,13 @@
       "otherEntityRelationshipName": "produit",
       "relationshipName": "tva",
       "otherEntityField": "taux"
+    },
+    {
+      "relationshipName": "remise",
+      "otherEntityName": "remise",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "produit"
     }
   ],
   "changelogDate": "20200531173850",

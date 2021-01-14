@@ -1,5 +1,7 @@
 package com.kobe.nucleus.web.rest;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,12 +10,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kobe.nucleus.service.FournisseurProduitService;
 import com.kobe.nucleus.service.dto.FournisseurProduitDTO;
 
+import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 
 /**
@@ -54,4 +60,6 @@ public class FournisseurProduitResource {
         Optional<FournisseurProduitDTO> fournisseurProduitDTO = fournisseurProduitService.findOne(id);
         return ResponseUtil.wrapOrNotFound(fournisseurProduitDTO);
     }
+    
+   
 }

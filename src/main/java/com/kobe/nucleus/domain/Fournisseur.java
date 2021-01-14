@@ -35,9 +35,6 @@ public class Fournisseur implements Serializable {
     @Column(name = "status", nullable = false)
     private Status status;
 
-    @Column(name = "addresspostale")
-    private String addresspostale;
-
     @Column(name = "num_faxe")
     private String numFaxe;
 
@@ -63,7 +60,8 @@ public class Fournisseur implements Serializable {
     @JsonIgnoreProperties(value = "fournisseurs", allowSetters = true)
     private GroupeFournisseur groupeFournisseur;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    @Column(name = "identifiant_repartiteur")
+    private String identifiantRepartiteur;
     public Long getId() {
         return id;
     }
@@ -98,18 +96,7 @@ public class Fournisseur implements Serializable {
         this.status = status;
     }
 
-    public String getAddresspostale() {
-        return addresspostale;
-    }
-
-    public Fournisseur addresspostale(String addresspostale) {
-        this.addresspostale = addresspostale;
-        return this;
-    }
-
-    public void setAddresspostale(String addresspostale) {
-        this.addresspostale = addresspostale;
-    }
+   
 
     public String getNumFaxe() {
         return numFaxe;
@@ -219,14 +206,22 @@ public class Fournisseur implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
-    @Override
+
+    public String getIdentifiantRepartiteur() {
+		return identifiantRepartiteur;
+	}
+
+	public void setIdentifiantRepartiteur(String identifiantRepartiteur) {
+		this.identifiantRepartiteur = identifiantRepartiteur;
+	}
+
+	@Override
     public String toString() {
         return "Fournisseur{" +
             "id=" + getId() +
             ", libelle='" + getLibelle() + "'" +
             ", status='" + getStatus() + "'" +
-            ", addresspostale='" + getAddresspostale() + "'" +
+          
             ", numFaxe='" + getNumFaxe() + "'" +
             ", addressePostal='" + getAddressePostal() + "'" +
             ", phone='" + getPhone() + "'" +

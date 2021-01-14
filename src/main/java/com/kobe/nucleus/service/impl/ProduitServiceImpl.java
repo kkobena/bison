@@ -53,9 +53,13 @@ public class ProduitServiceImpl implements ProduitService {
 	@Override
 	public ProduitDTO save(ProduitDTO produitDTO) {
 		log.debug("Request to save Produit : {}", produitDTO);
-		Produit produit = produitMapper.toEntity(produitDTO);
-		produit = produitRepository.save(produit);
-		return produitMapper.toDto(produit);
+		try {
+			return customizedProductService.save(produitDTO);
+		} catch (Exception e) {
+			log.debug("Request to save Produit : {}", e);
+			return null;
+		}
+
 	}
 
 	/**
@@ -143,16 +147,15 @@ public class ProduitServiceImpl implements ProduitService {
 	@Override
 	@Transactional(readOnly = true)
 	public DetailsInventaire lastInventory(ProduitCriteria produitCriteria) {
-
 		return customizedProductService.lastInventory(produitCriteria);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public CommandeItem lastOrder(ProduitCriteria produitCriteria) {
-
 		return customizedProductService.lastOrder(produitCriteria);
 	}
+
 	@Override
 	@Transactional(readOnly = true)
 	public List<ProduitDTO> findWithCriteria(ProduitCriteria produitCriteria) {
@@ -165,4 +168,17 @@ public class ProduitServiceImpl implements ProduitService {
 		}
 
 	}
+	
+	@Override
+	public ProduitDTO update(ProduitDTO produitDTO) {
+		log.debug("Request to update Produit : {}", produitDTO);
+		try {
+			return customizedProductService.update(produitDTO);
+		} catch (Exception e) {
+			log.debug("Request to update Produit : {}", e);
+			return null;
+		}
+
+	}
+	
 }

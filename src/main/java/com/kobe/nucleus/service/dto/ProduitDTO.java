@@ -6,16 +6,25 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.Serializable;
 
 import com.kobe.nucleus.domain.FamilleProduit;
 import com.kobe.nucleus.domain.FormProduit;
 import com.kobe.nucleus.domain.GammeProduit;
 import com.kobe.nucleus.domain.Laboratoire;
+import com.kobe.nucleus.domain.Magasin;
 import com.kobe.nucleus.domain.Produit;
+import com.kobe.nucleus.domain.Rayon;
+import com.kobe.nucleus.domain.RemiseProduit;
 import com.kobe.nucleus.domain.Tva;
 import com.kobe.nucleus.domain.TypeEtiquette;
 import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeMagasin;
+import com.kobe.nucleus.web.rest.ClientResource;
 
 /**
  * A DTO for the {@link com.kobe.nucleus.domain.Produit} entity.
@@ -23,7 +32,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
 public class ProduitDTO implements Serializable {
 
 	private static final long serialVersionUID = 7777048661517241003L;
-
+	private final Logger LOG = LoggerFactory.getLogger(ProduitDTO.class);
 	private Long id;
 
 	@NotNull
@@ -44,8 +53,6 @@ public class ProduitDTO implements Serializable {
 
 	private Integer qtySeuilMini = 0;
 
-	private Boolean etiquetable = true;
-
 	private Boolean dateperemption = false;
 
 	private Boolean chiffre = true;
@@ -54,10 +61,10 @@ public class ProduitDTO implements Serializable {
 
 	private Integer qtyDetails = 0;
 
-	@NotNull
-	private Boolean deconditionnable;
+	private Boolean deconditionnable = true;
 
-	private Boolean remisable = true;
+	private Long remiseId;
+	private float tauxRemise;
 
 	@NotNull
 	private Integer prixPaf;
@@ -97,6 +104,9 @@ public class ProduitDTO implements Serializable {
 	private Set<StockProduitDTO> stockProduits = new HashSet<>();
 	private Set<ProduitDTO> produits = new HashSet<>();
 	private Set<FournisseurProduitDTO> fournisseurProduits = new HashSet<>();
+	private StockProduitDTO stockProduit;
+	private FournisseurProduitDTO fournisseurProduit;
+	private String qtyStatus;
 
 	private int totalQuantity;
 
@@ -164,12 +174,20 @@ public class ProduitDTO implements Serializable {
 		this.qtySeuilMini = qtySeuilMini;
 	}
 
-	public Boolean isEtiquetable() {
-		return etiquetable;
+	public Long getRemiseId() {
+		return remiseId;
 	}
 
-	public void setEtiquetable(Boolean etiquetable) {
-		this.etiquetable = etiquetable;
+	public void setRemiseId(Long remiseId) {
+		this.remiseId = remiseId;
+	}
+
+	public float getTauxRemise() {
+		return tauxRemise;
+	}
+
+	public void setTauxRemise(float tauxRemise) {
+		this.tauxRemise = tauxRemise;
 	}
 
 	public Boolean isDateperemption() {
@@ -218,14 +236,6 @@ public class ProduitDTO implements Serializable {
 
 	public void setDeconditionnable(Boolean deconditionnable) {
 		this.deconditionnable = deconditionnable;
-	}
-
-	public Boolean isRemisable() {
-		return remisable;
-	}
-
-	public void setRemisable(Boolean remisable) {
-		this.remisable = remisable;
 	}
 
 	public Integer getPrixPaf() {
@@ -440,13 +450,11 @@ public class ProduitDTO implements Serializable {
 		this.updatedAt = produit.getUpdatedAt();
 		this.qtyAppro = produit.getQtyAppro();
 		this.qtySeuilMini = produit.getQtySeuilMini();
-		this.etiquetable = produit.isEtiquetable();
 		this.dateperemption = produit.isDateperemption();
 		this.chiffre = produit.isChiffre();
 		this.codeEan = produit.getCodeEan();
 		this.qtyDetails = produit.getQtyDetails();
 		this.deconditionnable = produit.isDeconditionnable();
-		this.remisable = produit.isRemisable();
 		this.prixPaf = produit.getPrixPaf();
 		this.prixUni = produit.getPrixUni();
 		this.prixMnp = produit.getPrixMnp();
@@ -486,15 +494,58 @@ public class ProduitDTO implements Serializable {
 			this.tvaId = tva.getId();
 			this.tvaTaux = tva.getTaux();
 		}
+		RemiseProduit remise = produit.getRemise();
+		if (remise != null) {
+			this.remiseId = remise.getId();
+			this.tauxRemise = remise.getRemiseValue();
+		}
 		this.produits = produit.getProduits().stream().map(ProduitDTO::new).collect(Collectors.toSet());
 		produit.getStockProduits().forEach(stock -> {
+			LOG.info("Stock ========>>> {} ", stock);
 			this.totalQuantity += stock.getQtyStock();
-			this.getStockProduits().add(new StockProduitDTO(stock));
+			StockProduitDTO stockDto=new StockProduitDTO(stock);
+			LOG.info("stockDto ========>>> {} ", stockDto);
+			this.getStockProduits().add(stockDto);
+			LOG.info("SIZE  ========>>> {} ", this.getStockProduits().size());
+			Rayon rayon=stock.getRayon();
+			if(rayon!=null) {
+				Magasin magasin=rayon.getMagasin();
+				if(magasin!=null && magasin.getTypeMagasin()==TypeMagasin.PRINCIPAL) {
+					this.stockProduit=stockDto;
+				}
+			}
+			
 		});
+		
+		if (this.getTotalQuantity() <= 0) {
+			this.qtyStatus = "danger";
+		}else if(this.getTotalQuantity() >0 && this.getTotalQuantity() < this.getQtySeuilMini()) {
+			this.qtyStatus = "warning";
+		}else {
+			this.qtyStatus = "info";
+		}
 
 		this.fournisseurProduits = produit.getFournisseurProduits().stream().map(FournisseurProduitDTO::new)
 				.collect(Collectors.toSet());
-		;
+		produit.getFournisseurProduits().stream().filter(f -> f.isPrincipal()).findAny().ifPresent(fourProduit -> {
+			this.fournisseurProduit = new FournisseurProduitDTO(fourProduit);
+		});
+	}
+
+	public StockProduitDTO getStockProduit() {
+		return stockProduit;
+	}
+
+	public void setStockProduit(StockProduitDTO stockProduit) {
+		this.stockProduit = stockProduit;
+	}
+
+	public FournisseurProduitDTO getFournisseurProduit() {
+		return fournisseurProduit;
+	}
+
+	public void setFournisseurProduit(FournisseurProduitDTO fournisseurProduit) {
+		this.fournisseurProduit = fournisseurProduit;
 	}
 
 	@Override
@@ -514,15 +565,22 @@ public class ProduitDTO implements Serializable {
 		return 31;
 	}
 
+	public String getQtyStatus() {
+		return qtyStatus;
+	}
+
+	public void setQtyStatus(String qtyStatus) {
+		this.qtyStatus = qtyStatus;
+	}
+
 	@Override
 	public String toString() {
 		return "ProduitDTO{" + "id=" + getId() + ", libelle='" + getLibelle() + "'" + ", status='" + getStatus() + "'"
 				+ ", createdAt='" + getCreatedAt() + "'" + ", updatedAt='" + getUpdatedAt() + "'" + ", qtyAppro="
-				+ getQtyAppro() + ", qtySeuilMini=" + getQtySeuilMini() + ", etiquetable='" + isEtiquetable() + "'"
-				+ ", dateperemption='" + isDateperemption() + "'" + ", chiffre='" + isChiffre() + "'" + ", codeCip='"
-				+ getCodeCip() + "'" + ", codeEan='" + getCodeEan() + "'" + ", qtyDetails=" + getQtyDetails()
-				+ ", deconditionnable='" + isDeconditionnable() + "'" + ", remisable='" + isRemisable() + "'"
-				+ ", prixPaf=" + getPrixPaf() + ", prixUni=" + getPrixUni() + ", prixMnp=" + getPrixMnp()
+				+ getQtyAppro() + ", qtySeuilMini=" + getQtySeuilMini() + ", dateperemption='" + isDateperemption()
+				+ "'" + ", chiffre='" + isChiffre() + "'" + ", codeCip='" + getCodeCip() + "'" + ", codeEan='"
+				+ getCodeEan() + "'" + ", qtyDetails=" + getQtyDetails() + ", deconditionnable='" + isDeconditionnable()
+				+ "'" + ", prixPaf=" + getPrixPaf() + ", prixUni=" + getPrixUni() + ", prixMnp=" + getPrixMnp()
 				+ ", parentId=" + getParentId() + ", parentLibelle='" + getParentLibelle() + "'" + ", laboratoireId="
 				+ getLaboratoireId() + ", laboratoireLibelle='" + getLaboratoireLibelle() + "'" + ", formeId="
 				+ getFormeId() + ", formeLibelle='" + getFormeLibelle() + "'" + ", typeEtyquetteId="

@@ -22,7 +22,7 @@ management:
         include: ['configprops', 'env', 'health', 'info', 'jhimetrics', 'logfile', 'loggers', 'prometheus', 'threaddump']
   endpoint:
     health:
-      show-details: when_authorized  #always
+      show-details: when_authorized #always
       roles: 'ROLE_ADMIN'
     jhimetrics:
       enabled: true
@@ -89,7 +89,7 @@ spring:
       hibernate.query.fail_on_pagination_over_collection_fetch: false
       hibernate.query.in_clause_parameter_padding: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
@@ -116,6 +116,13 @@ spring:
   output:
     ansi:
       console-available: true
+  flyway:
+    enabled: true
+    schemas: public
+    baseline-on-migrate: true
+    create-schemas: false
+    installed-by: nucleus
+    # default-schema: public
 
 server:
   servlet:
@@ -159,15 +166,15 @@ jhipster:
     license:
     license-url:
 kafka:
- bootstrap-servers: localhost:9092
- consumer:
-   key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-   value.deserializer: org.apache.kafka.common.serialization.StringDeserializer
-   group.id: nucleus
-   auto.offset.reset: earliest
- producer:
-   key.serializer: org.apache.kafka.common.serialization.StringSerializer
-   value.serializer: org.apache.kafka.common.serialization.StringSerializer
+  bootstrap-servers: localhost:9092
+  consumer:
+    key.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value.deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    group.id: nucleus
+    auto.offset.reset: earliest
+  producer:
+    key.serializer: org.apache.kafka.common.serialization.StringSerializer
+    value.serializer: org.apache.kafka.common.serialization.StringSerializer
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

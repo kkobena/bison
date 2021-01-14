@@ -100,7 +100,7 @@ public class Facture implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "factures", allowSetters = true)
-    private Utilisateur createdBy;
+    private User createdBy;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "factures", allowSetters = true)
@@ -366,16 +366,16 @@ public class Facture implements Serializable {
         this.magasin = magasin;
     }
 
-    public Utilisateur getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public Facture createdBy(Utilisateur utilisateur) {
+    public Facture createdBy(User utilisateur) {
         this.createdBy = utilisateur;
         return this;
     }
 
-    public void setCreatedBy(Utilisateur utilisateur) {
+    public void setCreatedBy(User utilisateur) {
         this.createdBy = utilisateur;
     }
 

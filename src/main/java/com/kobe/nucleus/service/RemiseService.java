@@ -50,4 +50,6 @@ public interface RemiseService {
      * @param id the id of the entity.
      */
     void disable(Long id);
+    
+    
 }

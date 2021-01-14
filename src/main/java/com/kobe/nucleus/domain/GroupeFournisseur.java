@@ -42,13 +42,8 @@ public class GroupeFournisseur implements Serializable {
     private String tel;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
-
-    @NotNull
-    @Column(name = "odre", nullable = false, unique = true)
-    private Integer odre;
+    @Column(name = "odre", nullable = false)
+    private Integer odre=100;
 
     public Long getId() {
         return id;
@@ -123,18 +118,9 @@ public class GroupeFournisseur implements Serializable {
         this.tel = tel;
     }
 
-    public Status getStatus() {
-        return status;
-    }
+   
 
-    public GroupeFournisseur status(Status status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+  
 
     public Integer getOdre() {
         return odre;
@@ -176,7 +162,7 @@ public class GroupeFournisseur implements Serializable {
             ", numFaxe='" + getNumFaxe() + "'" +
             ", email='" + getEmail() + "'" +
             ", tel='" + getTel() + "'" +
-            ", status='" + getStatus() + "'" +
+         
             ", odre=" + getOdre() +
             "}";
     }

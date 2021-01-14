@@ -54,9 +54,6 @@ public class ProduitResourceIT {
     private static final Integer DEFAULT_QTY_SEUIL_MINI = 1;
     private static final Integer UPDATED_QTY_SEUIL_MINI = 2;
 
-    private static final Boolean DEFAULT_ETIQUETABLE = false;
-    private static final Boolean UPDATED_ETIQUETABLE = true;
-
     private static final Boolean DEFAULT_DATEPEREMPTION = false;
     private static final Boolean UPDATED_DATEPEREMPTION = true;
 
@@ -74,9 +71,6 @@ public class ProduitResourceIT {
 
     private static final Boolean DEFAULT_DECONDITIONNABLE = false;
     private static final Boolean UPDATED_DECONDITIONNABLE = true;
-
-    private static final Boolean DEFAULT_REMISABLE = false;
-    private static final Boolean UPDATED_REMISABLE = true;
 
     private static final Integer DEFAULT_PRIX_PAF = 1;
     private static final Integer UPDATED_PRIX_PAF = 2;
@@ -118,14 +112,12 @@ public class ProduitResourceIT {
             .updatedAt(DEFAULT_UPDATED_AT)
             .qtyAppro(DEFAULT_QTY_APPRO)
             .qtySeuilMini(DEFAULT_QTY_SEUIL_MINI)
-            .etiquetable(DEFAULT_ETIQUETABLE)
             .dateperemption(DEFAULT_DATEPEREMPTION)
             .chiffre(DEFAULT_CHIFFRE)
             .codeCip(DEFAULT_CODE_CIP)
             .codeEan(DEFAULT_CODE_EAN)
             .qtyDetails(DEFAULT_QTY_DETAILS)
             .deconditionnable(DEFAULT_DECONDITIONNABLE)
-            .remisable(DEFAULT_REMISABLE)
             .prixPaf(DEFAULT_PRIX_PAF)
             .prixUni(DEFAULT_PRIX_UNI)
             .prixMnp(DEFAULT_PRIX_MNP);
@@ -145,14 +137,12 @@ public class ProduitResourceIT {
             .updatedAt(UPDATED_UPDATED_AT)
             .qtyAppro(UPDATED_QTY_APPRO)
             .qtySeuilMini(UPDATED_QTY_SEUIL_MINI)
-            .etiquetable(UPDATED_ETIQUETABLE)
             .dateperemption(UPDATED_DATEPEREMPTION)
             .chiffre(UPDATED_CHIFFRE)
             .codeCip(UPDATED_CODE_CIP)
             .codeEan(UPDATED_CODE_EAN)
             .qtyDetails(UPDATED_QTY_DETAILS)
             .deconditionnable(UPDATED_DECONDITIONNABLE)
-            .remisable(UPDATED_REMISABLE)
             .prixPaf(UPDATED_PRIX_PAF)
             .prixUni(UPDATED_PRIX_UNI)
             .prixMnp(UPDATED_PRIX_MNP);
@@ -185,14 +175,12 @@ public class ProduitResourceIT {
         assertThat(testProduit.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
         assertThat(testProduit.getQtyAppro()).isEqualTo(DEFAULT_QTY_APPRO);
         assertThat(testProduit.getQtySeuilMini()).isEqualTo(DEFAULT_QTY_SEUIL_MINI);
-        assertThat(testProduit.isEtiquetable()).isEqualTo(DEFAULT_ETIQUETABLE);
         assertThat(testProduit.isDateperemption()).isEqualTo(DEFAULT_DATEPEREMPTION);
         assertThat(testProduit.isChiffre()).isEqualTo(DEFAULT_CHIFFRE);
         assertThat(testProduit.getCodeCip()).isEqualTo(DEFAULT_CODE_CIP);
         assertThat(testProduit.getCodeEan()).isEqualTo(DEFAULT_CODE_EAN);
         assertThat(testProduit.getQtyDetails()).isEqualTo(DEFAULT_QTY_DETAILS);
         assertThat(testProduit.isDeconditionnable()).isEqualTo(DEFAULT_DECONDITIONNABLE);
-        assertThat(testProduit.isRemisable()).isEqualTo(DEFAULT_REMISABLE);
         assertThat(testProduit.getPrixPaf()).isEqualTo(DEFAULT_PRIX_PAF);
         assertThat(testProduit.getPrixUni()).isEqualTo(DEFAULT_PRIX_UNI);
         assertThat(testProduit.getPrixMnp()).isEqualTo(DEFAULT_PRIX_MNP);
@@ -416,14 +404,12 @@ public class ProduitResourceIT {
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
             .andExpect(jsonPath("$.[*].qtyAppro").value(hasItem(DEFAULT_QTY_APPRO)))
             .andExpect(jsonPath("$.[*].qtySeuilMini").value(hasItem(DEFAULT_QTY_SEUIL_MINI)))
-            .andExpect(jsonPath("$.[*].etiquetable").value(hasItem(DEFAULT_ETIQUETABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].dateperemption").value(hasItem(DEFAULT_DATEPEREMPTION.booleanValue())))
             .andExpect(jsonPath("$.[*].chiffre").value(hasItem(DEFAULT_CHIFFRE.booleanValue())))
             .andExpect(jsonPath("$.[*].codeCip").value(hasItem(DEFAULT_CODE_CIP)))
             .andExpect(jsonPath("$.[*].codeEan").value(hasItem(DEFAULT_CODE_EAN)))
             .andExpect(jsonPath("$.[*].qtyDetails").value(hasItem(DEFAULT_QTY_DETAILS)))
             .andExpect(jsonPath("$.[*].deconditionnable").value(hasItem(DEFAULT_DECONDITIONNABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].remisable").value(hasItem(DEFAULT_REMISABLE.booleanValue())))
             .andExpect(jsonPath("$.[*].prixPaf").value(hasItem(DEFAULT_PRIX_PAF)))
             .andExpect(jsonPath("$.[*].prixUni").value(hasItem(DEFAULT_PRIX_UNI)))
             .andExpect(jsonPath("$.[*].prixMnp").value(hasItem(DEFAULT_PRIX_MNP)));
@@ -446,14 +432,12 @@ public class ProduitResourceIT {
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
             .andExpect(jsonPath("$.qtyAppro").value(DEFAULT_QTY_APPRO))
             .andExpect(jsonPath("$.qtySeuilMini").value(DEFAULT_QTY_SEUIL_MINI))
-            .andExpect(jsonPath("$.etiquetable").value(DEFAULT_ETIQUETABLE.booleanValue()))
             .andExpect(jsonPath("$.dateperemption").value(DEFAULT_DATEPEREMPTION.booleanValue()))
             .andExpect(jsonPath("$.chiffre").value(DEFAULT_CHIFFRE.booleanValue()))
             .andExpect(jsonPath("$.codeCip").value(DEFAULT_CODE_CIP))
             .andExpect(jsonPath("$.codeEan").value(DEFAULT_CODE_EAN))
             .andExpect(jsonPath("$.qtyDetails").value(DEFAULT_QTY_DETAILS))
             .andExpect(jsonPath("$.deconditionnable").value(DEFAULT_DECONDITIONNABLE.booleanValue()))
-            .andExpect(jsonPath("$.remisable").value(DEFAULT_REMISABLE.booleanValue()))
             .andExpect(jsonPath("$.prixPaf").value(DEFAULT_PRIX_PAF))
             .andExpect(jsonPath("$.prixUni").value(DEFAULT_PRIX_UNI))
             .andExpect(jsonPath("$.prixMnp").value(DEFAULT_PRIX_MNP));
@@ -485,14 +469,12 @@ public class ProduitResourceIT {
             .updatedAt(UPDATED_UPDATED_AT)
             .qtyAppro(UPDATED_QTY_APPRO)
             .qtySeuilMini(UPDATED_QTY_SEUIL_MINI)
-            .etiquetable(UPDATED_ETIQUETABLE)
             .dateperemption(UPDATED_DATEPEREMPTION)
             .chiffre(UPDATED_CHIFFRE)
             .codeCip(UPDATED_CODE_CIP)
             .codeEan(UPDATED_CODE_EAN)
             .qtyDetails(UPDATED_QTY_DETAILS)
             .deconditionnable(UPDATED_DECONDITIONNABLE)
-            .remisable(UPDATED_REMISABLE)
             .prixPaf(UPDATED_PRIX_PAF)
             .prixUni(UPDATED_PRIX_UNI)
             .prixMnp(UPDATED_PRIX_MNP);
@@ -513,14 +495,12 @@ public class ProduitResourceIT {
         assertThat(testProduit.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
         assertThat(testProduit.getQtyAppro()).isEqualTo(UPDATED_QTY_APPRO);
         assertThat(testProduit.getQtySeuilMini()).isEqualTo(UPDATED_QTY_SEUIL_MINI);
-        assertThat(testProduit.isEtiquetable()).isEqualTo(UPDATED_ETIQUETABLE);
         assertThat(testProduit.isDateperemption()).isEqualTo(UPDATED_DATEPEREMPTION);
         assertThat(testProduit.isChiffre()).isEqualTo(UPDATED_CHIFFRE);
         assertThat(testProduit.getCodeCip()).isEqualTo(UPDATED_CODE_CIP);
         assertThat(testProduit.getCodeEan()).isEqualTo(UPDATED_CODE_EAN);
         assertThat(testProduit.getQtyDetails()).isEqualTo(UPDATED_QTY_DETAILS);
         assertThat(testProduit.isDeconditionnable()).isEqualTo(UPDATED_DECONDITIONNABLE);
-        assertThat(testProduit.isRemisable()).isEqualTo(UPDATED_REMISABLE);
         assertThat(testProduit.getPrixPaf()).isEqualTo(UPDATED_PRIX_PAF);
         assertThat(testProduit.getPrixUni()).isEqualTo(UPDATED_PRIX_UNI);
         assertThat(testProduit.getPrixMnp()).isEqualTo(UPDATED_PRIX_MNP);

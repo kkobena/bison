@@ -88,7 +88,7 @@ public class Magasin implements Serializable {
    
     @OneToMany(mappedBy = "magasin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Utilisateur> utilisateurs = new HashSet<>();
+    private Set<User> utilisateurs = new HashSet<>();
 
     @OneToMany(mappedBy = "magasin")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -100,7 +100,7 @@ public class Magasin implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "magasins", allowSetters = true)
-    private Utilisateur manager;
+    private User manager;
 
  
     public Long getId() {
@@ -335,28 +335,28 @@ public class Magasin implements Serializable {
 
  
 
-    public Set<Utilisateur> getUtilisateurs() {
+    public Set<User> getUtilisateurs() {
         return utilisateurs;
     }
 
-    public Magasin utilisateurs(Set<Utilisateur> utilisateurs) {
+    public Magasin utilisateurs(Set<User> utilisateurs) {
         this.utilisateurs = utilisateurs;
         return this;
     }
 
-    public Magasin addUtilisateur(Utilisateur utilisateur) {
+    public Magasin addUtilisateur(User utilisateur) {
         this.utilisateurs.add(utilisateur);
-        utilisateur.setMagasin(this);
+     
         return this;
     }
 
-    public Magasin removeUtilisateur(Utilisateur utilisateur) {
+    public Magasin removeUtilisateur(User utilisateur) {
         this.utilisateurs.remove(utilisateur);
-        utilisateur.setMagasin(null);
+    
         return this;
     }
 
-    public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+    public void setUtilisateurs(Set<User> utilisateurs) {
         this.utilisateurs = utilisateurs;
     }
 
@@ -398,16 +398,16 @@ public class Magasin implements Serializable {
         this.magasin = magasin;
     }
 
-    public Utilisateur getManager() {
+    public User getManager() {
         return manager;
     }
 
-    public Magasin manager(Utilisateur utilisateur) {
+    public Magasin manager(User utilisateur) {
         this.manager = utilisateur;
         return this;
     }
 
-    public void setManager(Utilisateur utilisateur) {
+    public void setManager(User utilisateur) {
         this.manager = utilisateur;
     }
 

@@ -15,6 +15,11 @@
       "fieldType": "Status",
       "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dtype",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [

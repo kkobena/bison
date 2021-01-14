@@ -6,6 +6,7 @@ import com.kobe.nucleus.domain.Magasin;
 import com.kobe.nucleus.domain.Produit;
 import com.kobe.nucleus.domain.Rayon;
 import com.kobe.nucleus.domain.StockProduit;
+import com.kobe.nucleus.domain.enumeration.TypeMagasin;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -37,6 +38,7 @@ public class StockProduitDTO implements Serializable {
 	private String produitLibelle;
 	private String nomMagasin;
 	private String nomLongMagasin;
+	private TypeMagasin typeStock;
 
 	public Long getId() {
 		return id;
@@ -138,6 +140,14 @@ public class StockProduitDTO implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
+	public TypeMagasin getTypeStock() {
+		return typeStock;
+	}
+
+	public void setTypeStock(TypeMagasin typeStock) {
+		this.typeStock = typeStock;
+	}
+
 	public StockProduitDTO(StockProduit stockProduit) {
 		this.id = stockProduit.getId();
 		this.qtyStock = stockProduit.getQtyStock();
@@ -151,6 +161,7 @@ public class StockProduitDTO implements Serializable {
 		if (magasin != null) {
 			this.nomLongMagasin = magasin.getNomLong();
 			this.nomMagasin = magasin.getNomCourt();
+			this.typeStock=magasin.getTypeMagasin();
 		}
 		Produit produit = stockProduit.getProduit();
 		this.produitId = produit.getId();

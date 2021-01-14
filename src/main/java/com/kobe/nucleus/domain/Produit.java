@@ -68,9 +68,6 @@ public class Produit implements Serializable {
 	@Column(name = "qty_seuil_mini")
 	private Integer qtySeuilMini;
 
-	@Column(name = "etiquetable")
-	private Boolean etiquetable;
-
 	@Column(name = "dateperemption")
 	private Boolean dateperemption;
 
@@ -90,9 +87,6 @@ public class Produit implements Serializable {
 	@NotNull
 	@Column(name = "deconditionnable", nullable = false)
 	private Boolean deconditionnable;
-
-	@Column(name = "remisable")
-	private Boolean remisable;
 
 	@NotNull
 	 @Min(value = 1)
@@ -125,6 +119,7 @@ public class Produit implements Serializable {
 	private Set<DetailsAjustement> detailsAjustements = new HashSet<>();
 
 	@OneToMany(mappedBy = "produit",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
+	//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<StockProduit> stockProduits = new HashSet<>();
 
 	@OneToMany(mappedBy = "produit",cascade = { CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE})
@@ -158,8 +153,21 @@ public class Produit implements Serializable {
 	@ManyToOne
 	@JsonIgnoreProperties(value = "produits", allowSetters = true)
 	private Tva tva;
-
+	@ManyToOne
+	@JsonIgnoreProperties(value = "produits", allowSetters = true)
+	private RemiseProduit remise;
 	
+	
+	
+
+	public RemiseProduit getRemise() {
+		return remise;
+	}
+
+	public void setRemise(RemiseProduit remise) {
+		this.remise = remise;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -246,18 +254,7 @@ public class Produit implements Serializable {
 		this.qtySeuilMini = qtySeuilMini;
 	}
 
-	public Boolean isEtiquetable() {
-		return etiquetable;
-	}
-
-	public Produit etiquetable(Boolean etiquetable) {
-		this.etiquetable = etiquetable;
-		return this;
-	}
-
-	public void setEtiquetable(Boolean etiquetable) {
-		this.etiquetable = etiquetable;
-	}
+	
 
 	public Boolean isDateperemption() {
 		return dateperemption;
@@ -337,18 +334,7 @@ public class Produit implements Serializable {
 		this.deconditionnable = deconditionnable;
 	}
 
-	public Boolean isRemisable() {
-		return remisable;
-	}
 
-	public Produit remisable(Boolean remisable) {
-		this.remisable = remisable;
-		return this;
-	}
-
-	public void setRemisable(Boolean remisable) {
-		this.remisable = remisable;
-	}
 
 	public Integer getPrixPaf() {
 		return prixPaf;
@@ -648,10 +634,10 @@ public class Produit implements Serializable {
 	public String toString() {
 		return "Produit{" + "id=" + getId() + ", libelle='" + getLibelle() + "'" + ", status='" + getStatus() + "'"
 				+ ", createdAt='" + getCreatedAt() + "'" + ", updatedAt='" + getUpdatedAt() + "'" + ", qtyAppro="
-				+ getQtyAppro() + ", qtySeuilMini=" + getQtySeuilMini() + ", etiquetable='" + isEtiquetable() + "'"
+				+ getQtyAppro() + ", qtySeuilMini=" + getQtySeuilMini() 
 				+ ", dateperemption='" + isDateperemption() + "'" + ", chiffre='" + isChiffre() + "'" + ", codeCip='"
 				+ getCodeCip() + "'" + ", codeEan='" + getCodeEan() + "'" + ", qtyDetails=" + getQtyDetails()
-				+ ", deconditionnable='" + isDeconditionnable() + "'" + ", remisable='" + isRemisable() + "'"
+				+ ", deconditionnable='" + isDeconditionnable() + "'" 
 				+ ", prixPaf=" + getPrixPaf() + ", prixUni=" + getPrixUni() + ", prixMnp=" + getPrixMnp() + "}";
 	}
 }

@@ -17,8 +17,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -90,10 +93,10 @@ public class GroupeFournisseurResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of groupeFournisseurs in body.
      */
-    @GetMapping("/groupe-fournisseurs")
-    public ResponseEntity<List<GroupeFournisseurDTO>> getAllGroupeFournisseurs(Pageable pageable) {
+    @GetMapping(value ="/groupe-fournisseurs",params = {"search"} )
+    public ResponseEntity<List<GroupeFournisseurDTO>> getAllGroupeFournisseurs(@RequestParam(value = "search") String search,Pageable pageable) {
         log.debug("REST request to get a page of GroupeFournisseurs");
-        Page<GroupeFournisseurDTO> page = groupeFournisseurService.findAll(pageable);
+        Page<GroupeFournisseurDTO> page = groupeFournisseurService.findAll(search,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -123,5 +126,13 @@ public class GroupeFournisseurResource {
 
         groupeFournisseurService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    
+    
+    @PostMapping("/groupe-fournisseurs/importcsv")
+    public ResponseEntity<Void> uploadFile(@RequestPart("importcsv") MultipartFile file) throws URISyntaxException , IOException {
+    	groupeFournisseurService.importation(file.getInputStream());
+
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, "")).build();
     }
 }

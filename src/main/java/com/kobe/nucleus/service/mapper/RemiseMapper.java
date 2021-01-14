@@ -15,8 +15,6 @@ public interface RemiseMapper extends EntityMapper<RemiseDTO, Remise> {
 
     @Mapping(target = "ventes", ignore = true)
     @Mapping(target = "removeVente", ignore = true)
-    @Mapping(target = "clients", ignore = true)
-    @Mapping(target = "removeClient", ignore = true)
     Remise toEntity(RemiseDTO remiseDTO);
 
     default Remise fromId(Long id) {

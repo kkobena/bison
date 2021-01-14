@@ -9,7 +9,7 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Decondition} and its DTO {@link DeconditionDTO}.
  */
-@Mapper(componentModel = "spring", uses = {MagasinMapper.class, UtilisateurMapper.class})
+@Mapper(componentModel = "spring", uses = {MagasinMapper.class, UserMapper.class})
 public interface DeconditionMapper extends EntityMapper<DeconditionDTO, Decondition> {
 
     @Mapping(source = "magasin.id", target = "magasinId")

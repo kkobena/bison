@@ -110,7 +110,7 @@ public class Paiement implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "paiements", allowSetters = true)
-    private Utilisateur createdBy;
+    private User createdBy;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "paiements", allowSetters = true)
@@ -397,16 +397,16 @@ public class Paiement implements Serializable {
         this.magasin = magasin;
     }
 
-    public Utilisateur getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public Paiement createdBy(Utilisateur utilisateur) {
+    public Paiement createdBy(User utilisateur) {
         this.createdBy = utilisateur;
         return this;
     }
 
-    public void setCreatedBy(Utilisateur utilisateur) {
+    public void setCreatedBy(User utilisateur) {
         this.createdBy = utilisateur;
     }
 

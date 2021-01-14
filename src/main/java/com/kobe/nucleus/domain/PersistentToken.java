@@ -18,7 +18,7 @@ import java.time.LocalDate;
  * @see com.kobe.nucleus.security.PersistentTokenRememberMeServices
  */
 @Entity
-@Table(name = "jhi_persistent_token")
+@Table(name = "persistent_token")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PersistentToken implements Serializable {
 
@@ -117,7 +117,6 @@ public class PersistentToken implements Serializable {
         return Objects.hashCode(series);
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "PersistentToken{" +

@@ -38,7 +38,7 @@ public class Decondition implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "deconditions", allowSetters = true)
-    private Utilisateur createdBy;
+    private User createdBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -88,16 +88,16 @@ public class Decondition implements Serializable {
         this.magasin = magasin;
     }
 
-    public Utilisateur getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public Decondition createdBy(Utilisateur utilisateur) {
+    public Decondition createdBy(User utilisateur) {
         this.createdBy = utilisateur;
         return this;
     }
 
-    public void setCreatedBy(Utilisateur utilisateur) {
+    public void setCreatedBy(User utilisateur) {
         this.createdBy = utilisateur;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

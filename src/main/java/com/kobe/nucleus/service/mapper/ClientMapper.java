@@ -9,13 +9,12 @@ import org.mapstruct.*;
 /**
  * Mapper for the entity {@link Client} and its DTO {@link ClientDTO}.
  */
-@Mapper(componentModel = "spring", uses = {CompagnieMapper.class, RemiseMapper.class})
+@Mapper(componentModel = "spring", uses = {CompagnieMapper.class})
 public interface ClientMapper extends EntityMapper<ClientDTO, Client> {
 
     @Mapping(source = "compagnie.id", target = "compagnieId")
     @Mapping(source = "compagnie.libelle", target = "compagnieLibelle")
-    @Mapping(source = "remise.id", target = "remiseId")
-    @Mapping(source = "remise.valeur", target = "remiseValeur")
+    
     ClientDTO toDto(Client client);
 
     @Mapping(target = "factureItems", ignore = true)
@@ -27,7 +26,7 @@ public interface ClientMapper extends EntityMapper<ClientDTO, Client> {
     @Mapping(target = "compteClients", ignore = true)
     @Mapping(target = "removeCompteClient", ignore = true)
     @Mapping(source = "compagnieId", target = "compagnie")
-    @Mapping(source = "remiseId", target = "remise")
+ 
     Client toEntity(ClientDTO clientDTO);
 
     default Client fromId(Long id) {

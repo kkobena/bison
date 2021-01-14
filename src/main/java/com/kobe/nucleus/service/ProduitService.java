@@ -58,4 +58,6 @@ public interface ProduitService {
 	
 	ProduitDTO findOne(ProduitCriteria produitCriteria);
 	List<ProduitDTO> findWithCriteria(ProduitCriteria produitCriteria) ;
+	
+	ProduitDTO update(ProduitDTO produitDTO);
 }

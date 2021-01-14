@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.EntityGraph.EntityGraphType;
 import org.springframework.stereotype.Repository;
 
 /**
- * Spring Data repository for the Produit entity.
+ * Spring Data  repository for the Produit entity.
  */
 @SuppressWarnings("unused")
 @Repository
