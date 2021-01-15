@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.kobe.nucleus.domain.enumeration.Status;
+
 
 /**
  * A FamilleProduit.
@@ -36,10 +36,6 @@ public class FamilleProduit implements Serializable {
     @Column(name = "libelle", nullable = false, unique = true)
     private String libelle;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
 
     @OneToMany(mappedBy = "famille")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -84,18 +80,7 @@ public class FamilleProduit implements Serializable {
         this.libelle = libelle;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public FamilleProduit status(Status status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+   
 
     public Set<Produit> getProduits() {
         return produits;
@@ -159,7 +144,7 @@ public class FamilleProduit implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", libelle='" + getLibelle() + "'" +
-            ", status='" + getStatus() + "'" +
+          
             "}";
     }
 }

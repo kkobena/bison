@@ -92,10 +92,10 @@ public class FournisseurResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of fournisseurs in body.
      */
-    @GetMapping("/fournisseurs")
-    public ResponseEntity<List<FournisseurDTO>> getAllFournisseurs(Pageable pageable) {
+    @GetMapping(value = "/fournisseurs",params = {"search"} )
+    public ResponseEntity<List<FournisseurDTO>> getAllFournisseurs(@RequestParam(value = "search") String search,Pageable pageable) {
         log.debug("REST request to get a page of Fournisseurs");
-        Page<FournisseurDTO> page = fournisseurService.findAll(pageable);
+        Page<FournisseurDTO> page = fournisseurService.findAll(search,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -129,7 +129,6 @@ public class FournisseurResource {
     @PostMapping("/fournisseurs/importcsv")
     public ResponseEntity<Void> uploadFile(@RequestPart("importcsv") MultipartFile file) throws URISyntaxException , IOException {
     	fournisseurService.importation(file.getInputStream());
-
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, "")).build();
     }
 }

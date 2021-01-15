@@ -1,6 +1,7 @@
 package com.kobe.nucleus.repository;
 
 import com.kobe.nucleus.domain.CategorieProduit;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -10,5 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface CategorieProduitRepository extends JpaRepository<CategorieProduit, Long> {
+public interface CategorieProduitRepository extends JpaRepository<CategorieProduit, Long>  {
+	Optional<CategorieProduit> findOneByLibelle(String libelle);
 }

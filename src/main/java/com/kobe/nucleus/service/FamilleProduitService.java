@@ -5,6 +5,7 @@ import com.kobe.nucleus.service.dto.FamilleProduitDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.InputStream;
 import java.util.Optional;
 
 /**
@@ -26,7 +27,7 @@ public interface FamilleProduitService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<FamilleProduitDTO> findAll(Pageable pageable);
+    Page<FamilleProduitDTO> findAll(String search,Pageable pageable);
 
 
     /**
@@ -43,4 +44,6 @@ public interface FamilleProduitService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    void importation(InputStream inputStream);
 }

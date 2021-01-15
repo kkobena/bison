@@ -1,5 +1,6 @@
 package com.kobe.nucleus.repository;
 
+
 import com.kobe.nucleus.domain.FamilleProduit;
 
 import org.springframework.data.jpa.repository.*;
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface FamilleProduitRepository extends JpaRepository<FamilleProduit, Long> {
+public interface FamilleProduitRepository extends JpaRepository<FamilleProduit, Long>,JpaSpecificationExecutor<FamilleProduit> {
 }

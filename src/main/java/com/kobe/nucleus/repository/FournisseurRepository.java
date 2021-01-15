@@ -2,6 +2,7 @@ package com.kobe.nucleus.repository;
 
 import com.kobe.nucleus.domain.Fournisseur;
 
+
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> {
+public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> ,JpaSpecificationExecutor<Fournisseur>{
 }

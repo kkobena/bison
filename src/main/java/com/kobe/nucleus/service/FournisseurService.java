@@ -27,7 +27,7 @@ public interface FournisseurService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<FournisseurDTO> findAll(Pageable pageable);
+    Page<FournisseurDTO> findAll(String search,Pageable pageable);
 
 
     /**

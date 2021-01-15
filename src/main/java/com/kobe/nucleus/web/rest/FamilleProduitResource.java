@@ -3,6 +3,7 @@ package com.kobe.nucleus.web.rest;
 import com.kobe.nucleus.service.FamilleProduitService;
 import com.kobe.nucleus.web.rest.errors.BadRequestAlertException;
 import com.kobe.nucleus.service.dto.FamilleProduitDTO;
+import com.kobe.nucleus.service.dto.FournisseurProduitDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -16,8 +17,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -89,10 +93,10 @@ public class FamilleProduitResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of familleProduits in body.
      */
-    @GetMapping("/famille-produits")
-    public ResponseEntity<List<FamilleProduitDTO>> getAllFamilleProduits(Pageable pageable) {
+    @GetMapping(value = "/famille-produits",params = {"search"} )
+    public ResponseEntity<List<FamilleProduitDTO>> getAllFamilleProduits(@RequestParam(value = "search") String search,Pageable pageable) {
         log.debug("REST request to get a page of FamilleProduits");
-        Page<FamilleProduitDTO> page = familleProduitService.findAll(pageable);
+        Page<FamilleProduitDTO> page = familleProduitService.findAll(search,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -119,8 +123,12 @@ public class FamilleProduitResource {
     @DeleteMapping("/famille-produits/{id}")
     public ResponseEntity<Void> deleteFamilleProduit(@PathVariable Long id) {
         log.debug("REST request to delete FamilleProduit : {}", id);
-
         familleProduitService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    @PostMapping("/famille-produits/importcsv")
+    public ResponseEntity<Void> uploadFile(@RequestPart("importcsv") MultipartFile file) throws URISyntaxException , IOException {
+    	familleProduitService.importation(file.getInputStream());
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, "")).build();
     }
 }

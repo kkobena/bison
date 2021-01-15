@@ -219,9 +219,7 @@ as a guideline (300 items x 50% = 150 items)
 
 # REQUETE POUR EXPORTER LES FOURNISSEURS EN CSV
 
-SELECT g.str_LIBELLE AS libelle,g.str_CODE AS code,g.str_CODE_POSTAL AS addresse_postal,g.str_MOBILE AS mobile, g.str_TELEPHONE AS phone
-,g.str_URL_EXTRANET AS site, g.idrepartiteur AS identifiant_repartiteur, f.libelle AS groupeFournisseur_libelle
-FROM t_grossiste g LEFT JOIN groupefournisseur f ON g.groupeId=f.id;
+SELECT g.str_LIBELLE AS libelle,g.str_CODE AS code, f.libelle AS groupeFournisseur_libelle,g.str_CODE_POSTAL AS addresse_postal,g.str_MOBILE AS mobile, g.str_TELEPHONE AS phone ,g.str_URL_EXTRANET AS site, g.idrepartiteur AS identifiant_repartiteur FROM t_grossiste g LEFT JOIN groupefournisseur f ON g.groupeId=f.id;
 
 #REQUETE FAMILLE PRODUIT
 SELECT g.str_LIBELLE AS libelle,g.str_CODE AS code,g.str_CODE_POSTAL AS addresse_postal,g.str_MOBILE AS mobile, g.str_TELEPHONE AS phone

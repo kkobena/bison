@@ -11,7 +11,7 @@ public class FamilleProduitDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+
     private String code;
 
     @NotNull

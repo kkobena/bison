@@ -7,6 +7,8 @@ import com.kobe.nucleus.domain.GroupeFournisseur;
 import com.kobe.nucleus.domain.constants.EntityConstant;
 import com.kobe.nucleus.repository.FournisseurRepository;
 import com.kobe.nucleus.repository.GroupeFournisseurRepository;
+import com.kobe.nucleus.repository.util.Condition;
+import com.kobe.nucleus.repository.util.SpecificationBuilder;
 import com.kobe.nucleus.service.dto.FournisseurDTO;
 import com.kobe.nucleus.service.mapper.FournisseurMapper;
 
@@ -18,7 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,9 +77,17 @@ public class FournisseurServiceImpl implements FournisseurService {
 	 */
 	@Override
 	@Transactional(readOnly = true)
-	public Page<FournisseurDTO> findAll(Pageable pageable) {
-		log.debug("Request to get all Fournisseurs");
-		return fournisseurRepository.findAll(pageable).map(fournisseurMapper::toDto);
+	public Page<FournisseurDTO> findAll(String search ,Pageable pageable) {
+		  Pageable page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+	                Sort.by(Sort.Direction.ASC, "libelle"));
+	            if(!StringUtils.isEmpty(search)){
+	                SpecificationBuilder<Fournisseur> builder=new SpecificationBuilder<>();
+	                Specification<Fournisseur> spec = builder
+	                    .with(new String[]{"libelle"}, search+"%", Condition.OperationType.LIKE, Condition.LogicalOperatorType.END)
+	                    .build();
+	                return  fournisseurRepository.findAll(spec, page).map(fournisseurMapper::toDto);
+	            }
+		return fournisseurRepository.findAll(page).map(fournisseurMapper::toDto);
 	}
 
 	/**
@@ -108,15 +121,18 @@ public class FournisseurServiceImpl implements FournisseurService {
 			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withDelimiter(';').withFirstRecordAsHeader().parse(br);
 			records.forEach(record -> {
 				Fournisseur fournisseur = new Fournisseur();
+				fournisseur.setStatus(Status.ACTIVE);
 				fournisseur.setLibelle(record.get(0));
 				fournisseur.setCode(record.get(1));
-				fournisseur.setAddressePostal(record.get(2));
-				fournisseur.setMobile(record.get(3));
-				fournisseur.setPhone(record.get(4));
-				fournisseur.setSite(record.get(5));
-				fournisseur.setIdentifiantRepartiteur(record.get(6));
-				if (!StringUtils.isEmpty(record.get(7))) {
-					Optional<GroupeFournisseur> op = groupeFournisseurRepository.findOneByLibelle(record.get(7));
+				fournisseur.setAddressePostal(record.get(3));
+				fournisseur.setMobile(record.get(4));
+				fournisseur.setPhone(record.get(5));
+				fournisseur.setSite(record.get(6));
+				fournisseur.setIdentifiantRepartiteur(record.get(7));
+				log.debug("GroupeFournisseur LIBELLE  : {}", record.get(2));
+				if (!StringUtils.isEmpty(record.get(2))) {
+					Optional<GroupeFournisseur> op = groupeFournisseurRepository.findOneByLibelle(record.get(2));
+					log.debug("Optional  : {}", op);
 					if (op.isPresent()) {
 						fournisseur.setGroupeFournisseur(op.get());
 

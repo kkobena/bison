@@ -52,7 +52,7 @@ public class Fournisseur implements Serializable {
 
     @NotNull
     @Size(max = 70)
-    @Column(name = "code", length = 70, nullable = false, unique = true)
+    @Column(name = "code")
     private String code;
 
     @ManyToOne(optional = false)
