@@ -9,7 +9,6 @@ import com.kobe.nucleus.repository.CustomizedClientService;
 import com.kobe.nucleus.service.dto.ClientDTO;
 import com.kobe.nucleus.service.mapper.ClientMapper;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,82 +27,98 @@ import java.util.Optional;
 @Transactional
 public class ClientServiceImpl implements ClientService {
 
-    private final Logger log = LoggerFactory.getLogger(ClientServiceImpl.class);
+	private final Logger log = LoggerFactory.getLogger(ClientServiceImpl.class);
 
-    private final ClientRepository clientRepository;
-    private final CustomizedClientService customizedClientService;
-    private final ClientMapper clientMapper;
+	private final ClientRepository clientRepository;
+	private final CustomizedClientService customizedClientService;
+	private final ClientMapper clientMapper;
 
-    public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper,CustomizedClientService customizedClientService) {
-        this.clientRepository = clientRepository;
-        this.clientMapper = clientMapper;
-        this.customizedClientService=customizedClientService;
-    }
+	public ClientServiceImpl(ClientRepository clientRepository, ClientMapper clientMapper,
+			CustomizedClientService customizedClientService) {
+		this.clientRepository = clientRepository;
+		this.clientMapper = clientMapper;
+		this.customizedClientService = customizedClientService;
+	}
 
-    /**
-     * Save a client.
-     *
-     * @param clientDTO the entity to save.
-     * @return the persisted entity.
-     */
-    @Override
-    public ClientDTO save(ClientDTO clientDTO) {
-        log.debug("Request to save Client : {}", clientDTO);
-        Client client = clientMapper.toEntity(clientDTO);
-        client = clientRepository.save(client);
-        return clientMapper.toDto(client);
-    }
+	/**
+	 * Save a client.
+	 *
+	 * @param clientDTO the entity to save.
+	 * @return the persisted entity.
+	 */
+	@Override
+	public ClientDTO save(ClientDTO clientDTO) throws Exception {
+		log.debug("Request to save Client : {}", clientDTO);
+		if (clientDTO.getId() == null) {
+			return customizedClientService.save(clientDTO);
+		}
+		return customizedClientService.update(clientDTO);
+	}
 
-    /**
-     * Get all the clients.
-     *
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Page<ClientDTO> findAll(Pageable pageable) {
-        log.debug("Request to get all Clients");
-        return clientRepository.findAll(pageable)
-            .map(clientMapper::toDto);
-    }
+	/**
+	 * Get all the clients.
+	 *
+	 * @param pageable the pagination information.
+	 * @return the list of entities.
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Page<ClientDTO> findAll(Pageable pageable) {
+		log.debug("Request to get all Clients");
+		return clientRepository.findAll(pageable).map(clientMapper::toDto);
+	}
 
-    /**
-     * Get one client by id.
-     *
-     * @param id the id of the entity.
-     * @return the entity.
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public Optional<ClientDTO> findOne(Long id) {
-        log.debug("Request to get Client : {}", id);
-        return clientRepository.findById(id)
-            .map(clientMapper::toDto);
-    }
+	/**
+	 * Get one client by id.
+	 *
+	 * @param id the id of the entity.
+	 * @return the entity.
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Optional<ClientDTO> findOne(Long id) {
+		log.debug("Request to get Client : {}", id);
+		return clientRepository.findById(id).map(ClientDTO::new);
+	}
 
-    /**
-     * Delete the client by id.
-     *
-     * @param id the id of the entity.
-     */
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Client : {}", id);
-        clientRepository.deleteById(id);
-    }
-    
-    /**
-     * Get all the clients with ayantDroits and compteClients. 
-     *@search Search criteria 
-     * @param pageable the pagination information.
-     * @return the list of entities.
-     */
-    @Override
-    @Transactional(readOnly = true)
-    public List<ClientDTO> findAll(String search,TypeClient typeClient,Status status) {
-        log.debug("Request to get all Clients");
-        return customizedClientService.findAll(search, typeClient,status);
-            
-    }
+	/**
+	 * Delete the client by id.
+	 *
+	 * @param id the id of the entity.
+	 */
+	@Override
+	public void delete(Long id) {
+		log.debug("Request to delete Client : {}", id);
+		clientRepository.deleteById(id);
+	}
+
+	/**
+	 * Get all the clients with ayantDroits and compteClients.
+	 * 
+	 * @search Search criteria
+	 * @param pageable the pagination information.
+	 * @return the list of entities.
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public List<ClientDTO> findAll(String search, TypeClient typeClient, Status status) {
+		log.debug("Request to get all Clients");
+		return customizedClientService.findAll(search, typeClient, status);
+
+	}
+
+	@Override
+	public void activate(Long id,final boolean enable) {
+		clientRepository.findById(id).ifPresent(c->{
+		 if(enable) {
+			 c.setStatus(Status.ACTIVE);
+		 }else {
+			 c.setStatus(Status.DESACTIVE);
+		 }
+		 clientRepository.save(c);
+		});
+	
+	}
+	
+	
 }

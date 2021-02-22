@@ -1,105 +1,106 @@
 {
-    "name": "CompteClient",
-    "fields": [
-        {
-            "fieldName": "createdAt",
-            "fieldType": "Instant"
-        },
-        {
-            "fieldName": "updatedAt",
-            "fieldType": "Instant"
-        },
-        {
-            "fieldName": "encours",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "version",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "plafondJournalier",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "plafondMensuel",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "consommation",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "consoJournaliere",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "taux",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "numMaticule",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "enbale",
-            "fieldType": "Boolean"
-        },
-        {
-            "fieldName": "categorie",
-            "fieldType": "CategorieAssurance",
-            "fieldValues": "RO,RC1,RC2,RC3"
-        },
-        {
-            "fieldName": "status",
-            "fieldType": "Status",
-            "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
-            "fieldValidateRules": [
-                "required"
-            ]
-        },
-        {
-            "fieldName": "absolute",
-            "fieldType": "Boolean",
-            "fieldValidateRules": [
-                "required"
-            ]
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "lignesVenteAssurence",
-            "otherEntityRelationshipName": "compteClient",
-            "relationshipName": "lignesVenteAssurence"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "client",
-            "otherEntityRelationshipName": "compteClient",
-            "relationshipName": "client",
-            "relationshipValidateRules": "required",
-            "otherEntityField": "id"
-        },
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "tierspayant",
-            "otherEntityRelationshipName": "compteClient",
-            "relationshipName": "tierspayant",
-            "otherEntityField": "id"
-        }
-    ],
-    "changelogDate": "20200531180850",
-    "entityTableName": "compte_client",
-    "dto": "mapstruct",
-    "pagination": "pagination",
-    "service": "serviceImpl",
-    "jpaMetamodelFiltering": false,
-    "fluentMethods": true,
-    "readOnly": false,
-    "embedded": false,
-    "clientRootFolder": "",
-    "applications": "*",
-    "searchEngine": false,
-    "databaseType": "sql"
+  "name": "CompteClient",
+  "fields": [
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "encours",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "version",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "plafondJournalier",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "plafondMensuel",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "consommation",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "consoJournaliere",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "taux",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "numMaticule",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "enbale",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "categorie",
+      "fieldType": "CategorieAssurance",
+      "fieldValues": "RO,RC1,RC2,RC3"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "absolute",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "typeClient",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "lignesVenteAssurence",
+      "otherEntityRelationshipName": "compteClient",
+      "relationshipName": "lignesVenteAssurence"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "client",
+      "otherEntityRelationshipName": "compteClient",
+      "relationshipName": "client",
+      "relationshipValidateRules": "required",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tierspayant",
+      "otherEntityRelationshipName": "compteClient",
+      "relationshipName": "tierspayant",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20200531180850",
+  "entityTableName": "compte_client",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

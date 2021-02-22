@@ -28,7 +28,6 @@ public interface CategorieAyantDroitService {
      */
     Page<CategorieAyantDroitDTO> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" categorieAyantDroit.
      *

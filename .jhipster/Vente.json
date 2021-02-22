@@ -12,10 +12,6 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "dateMVT",
-      "fieldType": "LocalDate"
-    },
-    {
       "fieldName": "status",
       "fieldType": "Status",
       "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
@@ -99,6 +95,11 @@
       "fieldName": "avoidAmount",
       "fieldType": "Integer",
       "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "costAmount",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
@@ -156,6 +157,13 @@
       "relationshipValidateRules": "required",
       "relationshipName": "modePaiement",
       "otherEntityField": "libelle"
+    },
+    {
+      "relationshipName": "medecin",
+      "otherEntityName": "medecin",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "vente"
     }
   ],
   "changelogDate": "20200531181450",
@@ -168,5 +176,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

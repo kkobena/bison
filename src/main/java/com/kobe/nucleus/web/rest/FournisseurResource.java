@@ -13,12 +13,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -90,10 +92,10 @@ public class FournisseurResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of fournisseurs in body.
      */
-    @GetMapping("/fournisseurs")
-    public ResponseEntity<List<FournisseurDTO>> getAllFournisseurs(Pageable pageable) {
+    @GetMapping(value = "/fournisseurs",params = {"search"} )
+    public ResponseEntity<List<FournisseurDTO>> getAllFournisseurs(@RequestParam(value = "search") String search,Pageable pageable) {
         log.debug("REST request to get a page of Fournisseurs");
-        Page<FournisseurDTO> page = fournisseurService.findAll(pageable);
+        Page<FournisseurDTO> page = fournisseurService.findAll(search,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -123,5 +125,10 @@ public class FournisseurResource {
 
         fournisseurService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    @PostMapping("/fournisseurs/importcsv")
+    public ResponseEntity<Void> uploadFile(@RequestPart("importcsv") MultipartFile file) throws URISyntaxException , IOException {
+    	fournisseurService.importation(file.getInputStream());
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, "")).build();
     }
 }

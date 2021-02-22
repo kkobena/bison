@@ -71,7 +71,6 @@ public class CommandeItem implements Serializable {
 
     @Column(name = "created_at")
     private Instant createdAt;
-   // @DateTimeFormat(pattern = DateProcessor.DATE_FORMAT)
     @Column(name = "updated_at")
     private Instant updatedAt;
 
@@ -97,7 +96,7 @@ public class CommandeItem implements Serializable {
     @JsonIgnoreProperties(value = "commandeItems", allowSetters = true)
     private Produit produit;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+  
     public Long getId() {
         return id;
     }

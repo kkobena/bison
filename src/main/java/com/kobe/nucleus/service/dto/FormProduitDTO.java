@@ -11,10 +11,10 @@ public class FormProduitDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+   
     private String code;
 
-    @NotNull
+   
     private String libelle;
 
     public Long getId() {

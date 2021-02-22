@@ -8,10 +8,14 @@ import com.kobe.nucleus.domain.enumeration.Status;
  * A DTO for the {@link com.kobe.nucleus.domain.Fournisseur} entity.
  */
 public class FournisseurDTO implements Serializable {
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Long id;
     @NotNull
     private String libelle;
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     private String addresspostale;
 

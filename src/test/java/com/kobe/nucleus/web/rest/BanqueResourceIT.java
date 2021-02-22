@@ -32,7 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @WithMockUser
 public class BanqueResourceIT {
-
     private static final String DEFAULT_LIBELLE = "AAAAAAAAAA";
     private static final String UPDATED_LIBELLE = "BBBBBBBBBB";
 
@@ -115,17 +114,14 @@ public class BanqueResourceIT {
     @Transactional
     public void createBanqueWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = banqueRepository.findAll().size();
-
         // Create the Banque with an existing ID
         banque.setId(1L);
         BanqueDTO banqueDTO = banqueMapper.toDto(banque);
-
         // An entity with an existing ID cannot be created, so this API call must fail
         restBanqueMockMvc.perform(post("/api/banques").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(banqueDTO)))
             .andExpect(status().isBadRequest());
-
         // Validate the Banque in the database
         List<Banque> banqueList = banqueRepository.findAll();
         assertThat(banqueList).hasSize(databaseSizeBeforeCreate);
@@ -137,7 +133,6 @@ public class BanqueResourceIT {
     public void getAllBanques() throws Exception {
         // Initialize the database
         banqueRepository.saveAndFlush(banque);
-
         // Get all the banqueList
         restBanqueMockMvc.perform(get("/api/banques?sort=id,desc"))
             .andExpect(status().isOk())
@@ -153,7 +148,6 @@ public class BanqueResourceIT {
     public void getBanque() throws Exception {
         // Initialize the database
         banqueRepository.saveAndFlush(banque);
-
         // Get the banque
         restBanqueMockMvc.perform(get("/api/banques/{id}", banque.getId()))
             .andExpect(status().isOk())
@@ -176,9 +170,7 @@ public class BanqueResourceIT {
     public void updateBanque() throws Exception {
         // Initialize the database
         banqueRepository.saveAndFlush(banque);
-
         int databaseSizeBeforeUpdate = banqueRepository.findAll().size();
-
         // Update the banque
         Banque updatedBanque = banqueRepository.findById(banque.getId()).get();
         // Disconnect from session so that the updates on updatedBanque are not directly saved in db
@@ -188,12 +180,10 @@ public class BanqueResourceIT {
             .refPaiement(UPDATED_REF_PAIEMENT)
             .lieux(UPDATED_LIEUX);
         BanqueDTO banqueDTO = banqueMapper.toDto(updatedBanque);
-
         restBanqueMockMvc.perform(put("/api/banques").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(banqueDTO)))
             .andExpect(status().isOk());
-
         // Validate the Banque in the database
         List<Banque> banqueList = banqueRepository.findAll();
         assertThat(banqueList).hasSize(databaseSizeBeforeUpdate);
@@ -207,16 +197,13 @@ public class BanqueResourceIT {
     @Transactional
     public void updateNonExistingBanque() throws Exception {
         int databaseSizeBeforeUpdate = banqueRepository.findAll().size();
-
         // Create the Banque
         BanqueDTO banqueDTO = banqueMapper.toDto(banque);
-
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restBanqueMockMvc.perform(put("/api/banques").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(banqueDTO)))
             .andExpect(status().isBadRequest());
-
         // Validate the Banque in the database
         List<Banque> banqueList = banqueRepository.findAll();
         assertThat(banqueList).hasSize(databaseSizeBeforeUpdate);
@@ -227,14 +214,11 @@ public class BanqueResourceIT {
     public void deleteBanque() throws Exception {
         // Initialize the database
         banqueRepository.saveAndFlush(banque);
-
         int databaseSizeBeforeDelete = banqueRepository.findAll().size();
-
         // Delete the banque
         restBanqueMockMvc.perform(delete("/api/banques/{id}", banque.getId()).with(csrf())
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
-
         // Validate the database contains one less item
         List<Banque> banqueList = banqueRepository.findAll();
         assertThat(banqueList).hasSize(databaseSizeBeforeDelete - 1);

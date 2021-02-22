@@ -2,7 +2,9 @@ package com.kobe.nucleus.web.rest;
 
 import com.kobe.nucleus.service.RemiseService;
 import com.kobe.nucleus.web.rest.errors.BadRequestAlertException;
+import com.kobe.nucleus.service.dto.RemiseClientDTO;
 import com.kobe.nucleus.service.dto.RemiseDTO;
+import com.kobe.nucleus.service.dto.RemiseProduitDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -45,25 +47,32 @@ public class RemiseResource {
         this.remiseService = remiseService;
     }
 
-    /**
-     * {@code POST  /remises} : Create a new remise.
-     *
-     * @param remiseDTO the remiseDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new remiseDTO, or with status {@code 400 (Bad Request)} if the remise has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
-     */
-    @PostMapping("/remises")
-    public ResponseEntity<RemiseDTO> createRemise(@Valid @RequestBody RemiseDTO remiseDTO) throws URISyntaxException {
-        log.debug("REST request to save Remise : {}", remiseDTO);
-        if (remiseDTO.getId() != null) {
+  
+    @PostMapping("/remises/client")
+    public ResponseEntity<RemiseClientDTO> createRemiseClient(@Valid @RequestBody RemiseClientDTO remiseClientDTO) throws URISyntaxException {
+        log.debug("REST request to save Remise : {}", remiseClientDTO);
+        if (remiseClientDTO.getId() != null) {
             throw new BadRequestAlertException("A new remise cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        RemiseDTO result = remiseService.save(remiseDTO);
-        return ResponseEntity.created(new URI("/api/remises/" + result.getId()))
+        RemiseClientDTO result = remiseService.save(remiseClientDTO);
+        return ResponseEntity.created(new URI("/api/remises/client" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
-
+    @PostMapping("/remises/produit")
+    public ResponseEntity<RemiseProduitDTO> createRemiseProduit(@Valid @RequestBody RemiseProduitDTO remiseProduitDTO) throws URISyntaxException {
+        log.debug("REST request to save Remise : {}", remiseProduitDTO);
+        if (remiseProduitDTO.getId() != null) {
+            throw new BadRequestAlertException("A new remise cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        RemiseProduitDTO result = remiseService.save(remiseProduitDTO);
+        return ResponseEntity.created(new URI("/api/remises/produit" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .body(result);
+    }
+    
+    
+    
     /**
      * {@code PUT  /remises} : Updates an existing remise.
      *
@@ -73,18 +82,31 @@ public class RemiseResource {
      * or with status {@code 500 (Internal Server Error)} if the remiseDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/remises")
-    public ResponseEntity<RemiseDTO> updateRemise(@Valid @RequestBody RemiseDTO remiseDTO) throws URISyntaxException {
+    @PutMapping("/remises/produit")
+    public ResponseEntity<RemiseProduitDTO> updateRemiseProduit(@Valid @RequestBody RemiseProduitDTO remiseDTO) throws URISyntaxException {
         log.debug("REST request to update Remise : {}", remiseDTO);
         if (remiseDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        RemiseDTO result = remiseService.save(remiseDTO);
+        RemiseProduitDTO result = remiseService.save(remiseDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, remiseDTO.getId().toString()))
             .body(result);
     }
 
+    @PutMapping("/remises/client")
+    public ResponseEntity<RemiseClientDTO> updateRemiseProduit(@Valid @RequestBody RemiseClientDTO remiseDTO) throws URISyntaxException {
+        log.debug("REST request to update Remise : {}", remiseDTO);
+        if (remiseDTO.getId() == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        RemiseClientDTO result = remiseService.save(remiseDTO);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, remiseDTO.getId().toString()))
+            .body(result);
+    }
+    
+    
     /**
      * {@code GET  /remises} : get all the remises.
      *

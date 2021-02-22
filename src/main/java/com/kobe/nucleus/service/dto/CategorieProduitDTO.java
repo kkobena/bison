@@ -17,9 +17,7 @@ public class CategorieProduitDTO implements Serializable {
     @NotNull
     private String libelle;
 
-    @NotNull
-    private Status status;
-
+  
     
     public Long getId() {
         return id;
@@ -45,13 +43,7 @@ public class CategorieProduitDTO implements Serializable {
         this.libelle = libelle;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+  
 
     @Override
     public boolean equals(Object o) {
@@ -77,7 +69,7 @@ public class CategorieProduitDTO implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", libelle='" + getLibelle() + "'" +
-            ", status='" + getStatus() + "'" +
+          
             "}";
     }
 }

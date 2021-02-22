@@ -18,9 +18,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
 import java.time.Instant;
-import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -46,9 +44,6 @@ public class VenteResourceIT {
 
     private static final Instant DEFAULT_UPDATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_UPDATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final LocalDate DEFAULT_DATE_MVT = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_MVT = LocalDate.now(ZoneId.systemDefault());
 
     private static final Status DEFAULT_STATUS = Status.ACTIVE;
     private static final Status UPDATED_STATUS = Status.ENATTENTE;
@@ -110,6 +105,9 @@ public class VenteResourceIT {
     private static final Integer DEFAULT_AVOID_AMOUNT = 1;
     private static final Integer UPDATED_AVOID_AMOUNT = 2;
 
+    private static final Double DEFAULT_COST_AMOUNT = 1D;
+    private static final Double UPDATED_COST_AMOUNT = 2D;
+
     @Autowired
     private VenteRepository venteRepository;
 
@@ -137,7 +135,6 @@ public class VenteResourceIT {
         Vente vente = new Vente()
             .createdAt(DEFAULT_CREATED_AT)
             .updatedAt(DEFAULT_UPDATED_AT)
-            .dateMVT(DEFAULT_DATE_MVT)
             .status(DEFAULT_STATUS)
             .natureVente(DEFAULT_NATURE_VENTE)
             .typeVente(DEFAULT_TYPE_VENTE)
@@ -157,7 +154,8 @@ public class VenteResourceIT {
             .montantVerse(DEFAULT_MONTANT_VERSE)
             .montantRendu(DEFAULT_MONTANT_RENDU)
             .refBon(DEFAULT_REF_BON)
-            .avoidAmount(DEFAULT_AVOID_AMOUNT);
+            .avoidAmount(DEFAULT_AVOID_AMOUNT)
+            .costAmount(DEFAULT_COST_AMOUNT);
         // Add required entity
         ModePaiement modePaiement;
         if (TestUtil.findAll(em, ModePaiement.class).isEmpty()) {
@@ -180,7 +178,6 @@ public class VenteResourceIT {
         Vente vente = new Vente()
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
-            .dateMVT(UPDATED_DATE_MVT)
             .status(UPDATED_STATUS)
             .natureVente(UPDATED_NATURE_VENTE)
             .typeVente(UPDATED_TYPE_VENTE)
@@ -200,7 +197,8 @@ public class VenteResourceIT {
             .montantVerse(UPDATED_MONTANT_VERSE)
             .montantRendu(UPDATED_MONTANT_RENDU)
             .refBon(UPDATED_REF_BON)
-            .avoidAmount(UPDATED_AVOID_AMOUNT);
+            .avoidAmount(UPDATED_AVOID_AMOUNT)
+            .costAmount(UPDATED_COST_AMOUNT);
         // Add required entity
         ModePaiement modePaiement;
         if (TestUtil.findAll(em, ModePaiement.class).isEmpty()) {
@@ -236,7 +234,6 @@ public class VenteResourceIT {
         Vente testVente = venteList.get(venteList.size() - 1);
         assertThat(testVente.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testVente.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
-        assertThat(testVente.getDateMVT()).isEqualTo(DEFAULT_DATE_MVT);
         assertThat(testVente.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testVente.getNatureVente()).isEqualTo(DEFAULT_NATURE_VENTE);
         assertThat(testVente.getTypeVente()).isEqualTo(DEFAULT_TYPE_VENTE);
@@ -257,6 +254,7 @@ public class VenteResourceIT {
         assertThat(testVente.getMontantRendu()).isEqualTo(DEFAULT_MONTANT_RENDU);
         assertThat(testVente.getRefBon()).isEqualTo(DEFAULT_REF_BON);
         assertThat(testVente.getAvoidAmount()).isEqualTo(DEFAULT_AVOID_AMOUNT);
+        assertThat(testVente.getCostAmount()).isEqualTo(DEFAULT_COST_AMOUNT);
     }
 
     @Test
@@ -362,6 +360,26 @@ public class VenteResourceIT {
 
     @Test
     @Transactional
+    public void checkCostAmountIsRequired() throws Exception {
+        int databaseSizeBeforeTest = venteRepository.findAll().size();
+        // set the field null
+        vente.setCostAmount(null);
+
+        // Create the Vente, which fails.
+        VenteDTO venteDTO = venteMapper.toDto(vente);
+
+
+        restVenteMockMvc.perform(post("/api/ventes").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(venteDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Vente> venteList = venteRepository.findAll();
+        assertThat(venteList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllVentes() throws Exception {
         // Initialize the database
         venteRepository.saveAndFlush(vente);
@@ -373,7 +391,6 @@ public class VenteResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(vente.getId().intValue())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
-            .andExpect(jsonPath("$.[*].dateMVT").value(hasItem(DEFAULT_DATE_MVT.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].natureVente").value(hasItem(DEFAULT_NATURE_VENTE.toString())))
             .andExpect(jsonPath("$.[*].typeVente").value(hasItem(DEFAULT_TYPE_VENTE.toString())))
@@ -393,7 +410,8 @@ public class VenteResourceIT {
             .andExpect(jsonPath("$.[*].montantVerse").value(hasItem(DEFAULT_MONTANT_VERSE)))
             .andExpect(jsonPath("$.[*].montantRendu").value(hasItem(DEFAULT_MONTANT_RENDU)))
             .andExpect(jsonPath("$.[*].refBon").value(hasItem(DEFAULT_REF_BON)))
-            .andExpect(jsonPath("$.[*].avoidAmount").value(hasItem(DEFAULT_AVOID_AMOUNT)));
+            .andExpect(jsonPath("$.[*].avoidAmount").value(hasItem(DEFAULT_AVOID_AMOUNT)))
+            .andExpect(jsonPath("$.[*].costAmount").value(hasItem(DEFAULT_COST_AMOUNT.doubleValue())));
     }
     
     @Test
@@ -409,7 +427,6 @@ public class VenteResourceIT {
             .andExpect(jsonPath("$.id").value(vente.getId().intValue()))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
-            .andExpect(jsonPath("$.dateMVT").value(DEFAULT_DATE_MVT.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.natureVente").value(DEFAULT_NATURE_VENTE.toString()))
             .andExpect(jsonPath("$.typeVente").value(DEFAULT_TYPE_VENTE.toString()))
@@ -429,7 +446,8 @@ public class VenteResourceIT {
             .andExpect(jsonPath("$.montantVerse").value(DEFAULT_MONTANT_VERSE))
             .andExpect(jsonPath("$.montantRendu").value(DEFAULT_MONTANT_RENDU))
             .andExpect(jsonPath("$.refBon").value(DEFAULT_REF_BON))
-            .andExpect(jsonPath("$.avoidAmount").value(DEFAULT_AVOID_AMOUNT));
+            .andExpect(jsonPath("$.avoidAmount").value(DEFAULT_AVOID_AMOUNT))
+            .andExpect(jsonPath("$.costAmount").value(DEFAULT_COST_AMOUNT.doubleValue()));
     }
     @Test
     @Transactional
@@ -454,7 +472,6 @@ public class VenteResourceIT {
         updatedVente
             .createdAt(UPDATED_CREATED_AT)
             .updatedAt(UPDATED_UPDATED_AT)
-            .dateMVT(UPDATED_DATE_MVT)
             .status(UPDATED_STATUS)
             .natureVente(UPDATED_NATURE_VENTE)
             .typeVente(UPDATED_TYPE_VENTE)
@@ -474,7 +491,8 @@ public class VenteResourceIT {
             .montantVerse(UPDATED_MONTANT_VERSE)
             .montantRendu(UPDATED_MONTANT_RENDU)
             .refBon(UPDATED_REF_BON)
-            .avoidAmount(UPDATED_AVOID_AMOUNT);
+            .avoidAmount(UPDATED_AVOID_AMOUNT)
+            .costAmount(UPDATED_COST_AMOUNT);
         VenteDTO venteDTO = venteMapper.toDto(updatedVente);
 
         restVenteMockMvc.perform(put("/api/ventes").with(csrf())
@@ -488,7 +506,6 @@ public class VenteResourceIT {
         Vente testVente = venteList.get(venteList.size() - 1);
         assertThat(testVente.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testVente.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
-        assertThat(testVente.getDateMVT()).isEqualTo(UPDATED_DATE_MVT);
         assertThat(testVente.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testVente.getNatureVente()).isEqualTo(UPDATED_NATURE_VENTE);
         assertThat(testVente.getTypeVente()).isEqualTo(UPDATED_TYPE_VENTE);
@@ -509,6 +526,7 @@ public class VenteResourceIT {
         assertThat(testVente.getMontantRendu()).isEqualTo(UPDATED_MONTANT_RENDU);
         assertThat(testVente.getRefBon()).isEqualTo(UPDATED_REF_BON);
         assertThat(testVente.getAvoidAmount()).isEqualTo(UPDATED_AVOID_AMOUNT);
+        assertThat(testVente.getCostAmount()).isEqualTo(UPDATED_COST_AMOUNT);
     }
 
     @Test

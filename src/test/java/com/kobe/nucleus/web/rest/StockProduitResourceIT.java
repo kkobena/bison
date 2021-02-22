@@ -27,7 +27,6 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import com.kobe.nucleus.domain.enumeration.Status;
 /**
  * Integration tests for the {@link StockProduitResource} REST controller.
  */
@@ -44,21 +43,6 @@ public class StockProduitResourceIT {
 
     private static final Integer DEFAULT_QTY_UG = 1;
     private static final Integer UPDATED_QTY_UG = 2;
-
-    private static final Status DEFAULT_STATUS = Status.ACTIVE;
-    private static final Status UPDATED_STATUS = Status.ENATTENTE;
-
-    private static final String DEFAULT_CODE_CIP = "AAAAAAAAAA";
-    private static final String UPDATED_CODE_CIP = "BBBBBBBBBB";
-
-    private static final Integer DEFAULT_VERSION = 1;
-    private static final Integer UPDATED_VERSION = 2;
-
-    private static final Integer DEFAULT_PRIX_PAF = 1;
-    private static final Integer UPDATED_PRIX_PAF = 2;
-
-    private static final Integer DEFAULT_PRIX_UNI = 1;
-    private static final Integer UPDATED_PRIX_UNI = 2;
 
     @Autowired
     private StockProduitRepository stockProduitRepository;
@@ -87,12 +71,7 @@ public class StockProduitResourceIT {
         StockProduit stockProduit = new StockProduit()
             .qtyStock(DEFAULT_QTY_STOCK)
             .qtyVirtual(DEFAULT_QTY_VIRTUAL)
-            .qtyUG(DEFAULT_QTY_UG)
-            .status(DEFAULT_STATUS)
-            .codeCip(DEFAULT_CODE_CIP)
-            .version(DEFAULT_VERSION)
-            .prixPaf(DEFAULT_PRIX_PAF)
-            .prixUni(DEFAULT_PRIX_UNI);
+            .qtyUG(DEFAULT_QTY_UG);
         // Add required entity
         Rayon rayon;
         if (TestUtil.findAll(em, Rayon.class).isEmpty()) {
@@ -125,12 +104,7 @@ public class StockProduitResourceIT {
         StockProduit stockProduit = new StockProduit()
             .qtyStock(UPDATED_QTY_STOCK)
             .qtyVirtual(UPDATED_QTY_VIRTUAL)
-            .qtyUG(UPDATED_QTY_UG)
-            .status(UPDATED_STATUS)
-            .codeCip(UPDATED_CODE_CIP)
-            .version(UPDATED_VERSION)
-            .prixPaf(UPDATED_PRIX_PAF)
-            .prixUni(UPDATED_PRIX_UNI);
+            .qtyUG(UPDATED_QTY_UG);
         // Add required entity
         Rayon rayon;
         if (TestUtil.findAll(em, Rayon.class).isEmpty()) {
@@ -177,11 +151,6 @@ public class StockProduitResourceIT {
         assertThat(testStockProduit.getQtyStock()).isEqualTo(DEFAULT_QTY_STOCK);
         assertThat(testStockProduit.getQtyVirtual()).isEqualTo(DEFAULT_QTY_VIRTUAL);
         assertThat(testStockProduit.getQtyUG()).isEqualTo(DEFAULT_QTY_UG);
-        assertThat(testStockProduit.getStatus()).isEqualTo(DEFAULT_STATUS);
-        assertThat(testStockProduit.getCodeCip()).isEqualTo(DEFAULT_CODE_CIP);
-        assertThat(testStockProduit.getVersion()).isEqualTo(DEFAULT_VERSION);
-        assertThat(testStockProduit.getPrixPaf()).isEqualTo(DEFAULT_PRIX_PAF);
-        assertThat(testStockProduit.getPrixUni()).isEqualTo(DEFAULT_PRIX_UNI);
     }
 
     @Test
@@ -267,86 +236,6 @@ public class StockProduitResourceIT {
 
     @Test
     @Transactional
-    public void checkStatusIsRequired() throws Exception {
-        int databaseSizeBeforeTest = stockProduitRepository.findAll().size();
-        // set the field null
-        stockProduit.setStatus(null);
-
-        // Create the StockProduit, which fails.
-        StockProduitDTO stockProduitDTO = stockProduitMapper.toDto(stockProduit);
-
-
-        restStockProduitMockMvc.perform(post("/api/stock-produits").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(stockProduitDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<StockProduit> stockProduitList = stockProduitRepository.findAll();
-        assertThat(stockProduitList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCodeCipIsRequired() throws Exception {
-        int databaseSizeBeforeTest = stockProduitRepository.findAll().size();
-        // set the field null
-        stockProduit.setCodeCip(null);
-
-        // Create the StockProduit, which fails.
-        StockProduitDTO stockProduitDTO = stockProduitMapper.toDto(stockProduit);
-
-
-        restStockProduitMockMvc.perform(post("/api/stock-produits").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(stockProduitDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<StockProduit> stockProduitList = stockProduitRepository.findAll();
-        assertThat(stockProduitList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPrixPafIsRequired() throws Exception {
-        int databaseSizeBeforeTest = stockProduitRepository.findAll().size();
-        // set the field null
-        stockProduit.setPrixPaf(null);
-
-        // Create the StockProduit, which fails.
-        StockProduitDTO stockProduitDTO = stockProduitMapper.toDto(stockProduit);
-
-
-        restStockProduitMockMvc.perform(post("/api/stock-produits").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(stockProduitDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<StockProduit> stockProduitList = stockProduitRepository.findAll();
-        assertThat(stockProduitList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkPrixUniIsRequired() throws Exception {
-        int databaseSizeBeforeTest = stockProduitRepository.findAll().size();
-        // set the field null
-        stockProduit.setPrixUni(null);
-
-        // Create the StockProduit, which fails.
-        StockProduitDTO stockProduitDTO = stockProduitMapper.toDto(stockProduit);
-
-
-        restStockProduitMockMvc.perform(post("/api/stock-produits").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(stockProduitDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<StockProduit> stockProduitList = stockProduitRepository.findAll();
-        assertThat(stockProduitList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllStockProduits() throws Exception {
         // Initialize the database
         stockProduitRepository.saveAndFlush(stockProduit);
@@ -358,12 +247,7 @@ public class StockProduitResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(stockProduit.getId().intValue())))
             .andExpect(jsonPath("$.[*].qtyStock").value(hasItem(DEFAULT_QTY_STOCK)))
             .andExpect(jsonPath("$.[*].qtyVirtual").value(hasItem(DEFAULT_QTY_VIRTUAL)))
-            .andExpect(jsonPath("$.[*].qtyUG").value(hasItem(DEFAULT_QTY_UG)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].codeCip").value(hasItem(DEFAULT_CODE_CIP)))
-            .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION)))
-            .andExpect(jsonPath("$.[*].prixPaf").value(hasItem(DEFAULT_PRIX_PAF)))
-            .andExpect(jsonPath("$.[*].prixUni").value(hasItem(DEFAULT_PRIX_UNI)));
+            .andExpect(jsonPath("$.[*].qtyUG").value(hasItem(DEFAULT_QTY_UG)));
     }
     
     @Test
@@ -379,12 +263,7 @@ public class StockProduitResourceIT {
             .andExpect(jsonPath("$.id").value(stockProduit.getId().intValue()))
             .andExpect(jsonPath("$.qtyStock").value(DEFAULT_QTY_STOCK))
             .andExpect(jsonPath("$.qtyVirtual").value(DEFAULT_QTY_VIRTUAL))
-            .andExpect(jsonPath("$.qtyUG").value(DEFAULT_QTY_UG))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.codeCip").value(DEFAULT_CODE_CIP))
-            .andExpect(jsonPath("$.version").value(DEFAULT_VERSION))
-            .andExpect(jsonPath("$.prixPaf").value(DEFAULT_PRIX_PAF))
-            .andExpect(jsonPath("$.prixUni").value(DEFAULT_PRIX_UNI));
+            .andExpect(jsonPath("$.qtyUG").value(DEFAULT_QTY_UG));
     }
     @Test
     @Transactional
@@ -409,12 +288,7 @@ public class StockProduitResourceIT {
         updatedStockProduit
             .qtyStock(UPDATED_QTY_STOCK)
             .qtyVirtual(UPDATED_QTY_VIRTUAL)
-            .qtyUG(UPDATED_QTY_UG)
-            .status(UPDATED_STATUS)
-            .codeCip(UPDATED_CODE_CIP)
-            .version(UPDATED_VERSION)
-            .prixPaf(UPDATED_PRIX_PAF)
-            .prixUni(UPDATED_PRIX_UNI);
+            .qtyUG(UPDATED_QTY_UG);
         StockProduitDTO stockProduitDTO = stockProduitMapper.toDto(updatedStockProduit);
 
         restStockProduitMockMvc.perform(put("/api/stock-produits").with(csrf())
@@ -429,11 +303,6 @@ public class StockProduitResourceIT {
         assertThat(testStockProduit.getQtyStock()).isEqualTo(UPDATED_QTY_STOCK);
         assertThat(testStockProduit.getQtyVirtual()).isEqualTo(UPDATED_QTY_VIRTUAL);
         assertThat(testStockProduit.getQtyUG()).isEqualTo(UPDATED_QTY_UG);
-        assertThat(testStockProduit.getStatus()).isEqualTo(UPDATED_STATUS);
-        assertThat(testStockProduit.getCodeCip()).isEqualTo(UPDATED_CODE_CIP);
-        assertThat(testStockProduit.getVersion()).isEqualTo(UPDATED_VERSION);
-        assertThat(testStockProduit.getPrixPaf()).isEqualTo(UPDATED_PRIX_PAF);
-        assertThat(testStockProduit.getPrixUni()).isEqualTo(UPDATED_PRIX_UNI);
     }
 
     @Test

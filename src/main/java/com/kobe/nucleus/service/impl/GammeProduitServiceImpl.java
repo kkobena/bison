@@ -1,16 +1,15 @@
 package com.kobe.nucleus.service.impl;
 
-import com.kobe.nucleus.domain.Laboratoire;
-import com.kobe.nucleus.repository.util.Condition;
-import com.kobe.nucleus.repository.util.SpecificationBuilder;
-import com.kobe.nucleus.service.GammeProduitService;
-import com.kobe.nucleus.domain.GammeProduit;
-import com.kobe.nucleus.repository.GammeProduitRepository;
-import com.kobe.nucleus.service.dto.GammeProduitDTO;
-import com.kobe.nucleus.service.mapper.GammeProduitMapper;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Optional;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.util.Optional;
+import com.kobe.nucleus.domain.GammeProduit;
+import com.kobe.nucleus.repository.GammeProduitRepository;
+import com.kobe.nucleus.repository.util.Condition;
+import com.kobe.nucleus.repository.util.SpecificationBuilder;
+import com.kobe.nucleus.service.GammeProduitService;
+import com.kobe.nucleus.service.dto.GammeProduitDTO;
+import com.kobe.nucleus.service.mapper.GammeProduitMapper;
 
 /**
  * Service Implementation for managing {@link GammeProduit}.
@@ -102,7 +107,24 @@ public class GammeProduitServiceImpl implements GammeProduitService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete GammeProduit : {}", id);
-
         gammeProduitRepository.deleteById(id);
     }
+    
+    @Override
+	public void importation(InputStream inputStream) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withDelimiter(';').withFirstRecordAsHeader().parse(br);
+			records.forEach(record -> {
+				GammeProduit gammeProduit = new GammeProduit();
+				gammeProduit.setLibelle(record.get(0));
+				gammeProduitRepository.save(gammeProduit);
+			});
+		} catch (IOException e) {
+			log.debug("importation : {}", e);
+		}
+
+	
+		
+	}
+    
 }

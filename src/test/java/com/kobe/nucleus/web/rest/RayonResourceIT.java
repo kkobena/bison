@@ -28,7 +28,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.kobe.nucleus.domain.enumeration.Status;
-import com.kobe.nucleus.domain.enumeration.TypeEmplacement;
 /**
  * Integration tests for the {@link RayonResource} REST controller.
  */
@@ -51,9 +50,6 @@ public class RayonResourceIT {
 
     private static final String DEFAULT_LIBELLE = "AAAAAAAAAA";
     private static final String UPDATED_LIBELLE = "BBBBBBBBBB";
-
-    private static final TypeEmplacement DEFAULT_TYPE_RAYON = TypeEmplacement.RAYON;
-    private static final TypeEmplacement UPDATED_TYPE_RAYON = TypeEmplacement.ENTREPOT;
 
     @Autowired
     private RayonRepository rayonRepository;
@@ -84,8 +80,7 @@ public class RayonResourceIT {
             .updatedAt(DEFAULT_UPDATED_AT)
             .status(DEFAULT_STATUS)
             .code(DEFAULT_CODE)
-            .libelle(DEFAULT_LIBELLE)
-            .typeRayon(DEFAULT_TYPE_RAYON);
+            .libelle(DEFAULT_LIBELLE);
         return rayon;
     }
     /**
@@ -100,8 +95,7 @@ public class RayonResourceIT {
             .updatedAt(UPDATED_UPDATED_AT)
             .status(UPDATED_STATUS)
             .code(UPDATED_CODE)
-            .libelle(UPDATED_LIBELLE)
-            .typeRayon(UPDATED_TYPE_RAYON);
+            .libelle(UPDATED_LIBELLE);
         return rayon;
     }
 
@@ -130,7 +124,6 @@ public class RayonResourceIT {
         assertThat(testRayon.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testRayon.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testRayon.getLibelle()).isEqualTo(DEFAULT_LIBELLE);
-        assertThat(testRayon.getTypeRayon()).isEqualTo(DEFAULT_TYPE_RAYON);
     }
 
     @Test
@@ -216,26 +209,6 @@ public class RayonResourceIT {
 
     @Test
     @Transactional
-    public void checkTypeRayonIsRequired() throws Exception {
-        int databaseSizeBeforeTest = rayonRepository.findAll().size();
-        // set the field null
-        rayon.setTypeRayon(null);
-
-        // Create the Rayon, which fails.
-        RayonDTO rayonDTO = rayonMapper.toDto(rayon);
-
-
-        restRayonMockMvc.perform(post("/api/rayons").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(rayonDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Rayon> rayonList = rayonRepository.findAll();
-        assertThat(rayonList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllRayons() throws Exception {
         // Initialize the database
         rayonRepository.saveAndFlush(rayon);
@@ -249,8 +222,7 @@ public class RayonResourceIT {
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
-            .andExpect(jsonPath("$.[*].libelle").value(hasItem(DEFAULT_LIBELLE)))
-            .andExpect(jsonPath("$.[*].typeRayon").value(hasItem(DEFAULT_TYPE_RAYON.toString())));
+            .andExpect(jsonPath("$.[*].libelle").value(hasItem(DEFAULT_LIBELLE)));
     }
     
     @Test
@@ -268,8 +240,7 @@ public class RayonResourceIT {
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
-            .andExpect(jsonPath("$.libelle").value(DEFAULT_LIBELLE))
-            .andExpect(jsonPath("$.typeRayon").value(DEFAULT_TYPE_RAYON.toString()));
+            .andExpect(jsonPath("$.libelle").value(DEFAULT_LIBELLE));
     }
     @Test
     @Transactional
@@ -296,8 +267,7 @@ public class RayonResourceIT {
             .updatedAt(UPDATED_UPDATED_AT)
             .status(UPDATED_STATUS)
             .code(UPDATED_CODE)
-            .libelle(UPDATED_LIBELLE)
-            .typeRayon(UPDATED_TYPE_RAYON);
+            .libelle(UPDATED_LIBELLE);
         RayonDTO rayonDTO = rayonMapper.toDto(updatedRayon);
 
         restRayonMockMvc.perform(put("/api/rayons").with(csrf())
@@ -314,7 +284,6 @@ public class RayonResourceIT {
         assertThat(testRayon.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testRayon.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testRayon.getLibelle()).isEqualTo(UPDATED_LIBELLE);
-        assertThat(testRayon.getTypeRayon()).isEqualTo(UPDATED_TYPE_RAYON);
     }
 
     @Test

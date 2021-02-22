@@ -39,23 +39,21 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:mem:nucleus;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: nucleus
-    password:
+    url: jdbc:postgresql://localhost:5432/nucleus?createDatabaseIfNotExist=true
+    username: postgres
+    password: 2802
     hikari:
       poolName: Hikari
       auto-commit: false
-  h2:
-    console:
-      enabled: false
+
   jpa:
-    database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
-      ddl-auto: none
-  liquibase:
-    # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
+      ddl-auto: update
+  #liquibase:
+  # Remove 'faker' if you do not want the sample data to be loaded automatically
+  # contexts: dev, faker
   mail:
     host: localhost
     port: 25

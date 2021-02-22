@@ -14,9 +14,7 @@ public class TypeEtiquetteDTO implements Serializable {
     @NotNull
     private String libelle;
 
-    @NotNull
-    private Status status;
-
+ 
     
     public Long getId() {
         return id;
@@ -34,13 +32,7 @@ public class TypeEtiquetteDTO implements Serializable {
         this.libelle = libelle;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+    
 
     @Override
     public boolean equals(Object o) {
@@ -65,7 +57,7 @@ public class TypeEtiquetteDTO implements Serializable {
         return "TypeEtiquetteDTO{" +
             "id=" + getId() +
             ", libelle='" + getLibelle() + "'" +
-            ", status='" + getStatus() + "'" +
+       
             "}";
     }
 }

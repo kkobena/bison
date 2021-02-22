@@ -17,28 +17,13 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "status",
-      "fieldType": "Status",
-      "fieldValues": "ACTIVE,ENATTENTE,ENTRAITEMENT,PERIME,VALIDE,DESACTIVE,PASSE,SUGGESTION,ENTREESTOCT,STOCK,SUPPRIME,LIVRE,NON_LIVRE",
+      "fieldName": "createdAt",
+      "fieldType": "Instant",
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "codeCip",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "version",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "prixPaf",
-      "fieldType": "Integer",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "prixUni",
-      "fieldType": "Integer",
+      "fieldName": "updatedAt",
+      "fieldType": "Instant",
       "fieldValidateRules": ["required"]
     }
   ],
@@ -54,19 +39,6 @@
       "otherEntityName": "mvtProduit",
       "otherEntityRelationshipName": "produit",
       "relationshipName": "mvtProduit"
-    },
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "lignesVente",
-      "otherEntityRelationshipName": "produitStock",
-      "relationshipName": "lignesVente"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "magasin",
-      "otherEntityRelationshipName": "stockProduit",
-      "relationshipName": "magasin",
-      "otherEntityField": "nomCourt"
     },
     {
       "relationshipType": "many-to-one",
@@ -95,5 +67,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

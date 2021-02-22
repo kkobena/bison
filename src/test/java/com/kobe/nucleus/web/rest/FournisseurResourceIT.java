@@ -1,12 +1,19 @@
 package com.kobe.nucleus.web.rest;
 
-import com.kobe.nucleus.NucleusApp;
-import com.kobe.nucleus.domain.Fournisseur;
-import com.kobe.nucleus.domain.GroupeFournisseur;
-import com.kobe.nucleus.repository.FournisseurRepository;
-import com.kobe.nucleus.service.FournisseurService;
-import com.kobe.nucleus.service.dto.FournisseurDTO;
-import com.kobe.nucleus.service.mapper.FournisseurMapper;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,16 +24,14 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-import javax.persistence.EntityManager;
-import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.kobe.nucleus.NucleusApp;
+import com.kobe.nucleus.domain.Fournisseur;
 import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.repository.FournisseurRepository;
+import com.kobe.nucleus.service.FournisseurService;
+import com.kobe.nucleus.service.dto.FournisseurDTO;
+import com.kobe.nucleus.service.mapper.FournisseurMapper;
 /**
  * Integration tests for the {@link FournisseurResource} REST controller.
  */
@@ -89,23 +94,15 @@ public class FournisseurResourceIT {
         Fournisseur fournisseur = new Fournisseur()
             .libelle(DEFAULT_LIBELLE)
             .status(DEFAULT_STATUS)
-            .addresspostale(DEFAULT_ADDRESSPOSTALE)
+           
             .numFaxe(DEFAULT_NUM_FAXE)
             .addressePostal(DEFAULT_ADDRESSE_POSTAL)
             .phone(DEFAULT_PHONE)
             .mobile(DEFAULT_MOBILE)
             .site(DEFAULT_SITE)
             .code(DEFAULT_CODE);
-        // Add required entity
-        GroupeFournisseur groupeFournisseur;
-        if (TestUtil.findAll(em, GroupeFournisseur.class).isEmpty()) {
-            groupeFournisseur = GroupeFournisseurResourceIT.createEntity(em);
-            em.persist(groupeFournisseur);
-            em.flush();
-        } else {
-            groupeFournisseur = TestUtil.findAll(em, GroupeFournisseur.class).get(0);
-        }
-        fournisseur.setGroupeFournisseur(groupeFournisseur);
+      
+       
         return fournisseur;
     }
     /**
@@ -118,23 +115,14 @@ public class FournisseurResourceIT {
         Fournisseur fournisseur = new Fournisseur()
             .libelle(UPDATED_LIBELLE)
             .status(UPDATED_STATUS)
-            .addresspostale(UPDATED_ADDRESSPOSTALE)
+        
             .numFaxe(UPDATED_NUM_FAXE)
             .addressePostal(UPDATED_ADDRESSE_POSTAL)
             .phone(UPDATED_PHONE)
             .mobile(UPDATED_MOBILE)
             .site(UPDATED_SITE)
             .code(UPDATED_CODE);
-        // Add required entity
-        GroupeFournisseur groupeFournisseur;
-        if (TestUtil.findAll(em, GroupeFournisseur.class).isEmpty()) {
-            groupeFournisseur = GroupeFournisseurResourceIT.createUpdatedEntity(em);
-            em.persist(groupeFournisseur);
-            em.flush();
-        } else {
-            groupeFournisseur = TestUtil.findAll(em, GroupeFournisseur.class).get(0);
-        }
-        fournisseur.setGroupeFournisseur(groupeFournisseur);
+       
         return fournisseur;
     }
 
@@ -160,7 +148,7 @@ public class FournisseurResourceIT {
         Fournisseur testFournisseur = fournisseurList.get(fournisseurList.size() - 1);
         assertThat(testFournisseur.getLibelle()).isEqualTo(DEFAULT_LIBELLE);
         assertThat(testFournisseur.getStatus()).isEqualTo(DEFAULT_STATUS);
-        assertThat(testFournisseur.getAddresspostale()).isEqualTo(DEFAULT_ADDRESSPOSTALE);
+     
         assertThat(testFournisseur.getNumFaxe()).isEqualTo(DEFAULT_NUM_FAXE);
         assertThat(testFournisseur.getAddressePostal()).isEqualTo(DEFAULT_ADDRESSE_POSTAL);
         assertThat(testFournisseur.getPhone()).isEqualTo(DEFAULT_PHONE);
@@ -285,7 +273,7 @@ public class FournisseurResourceIT {
             .andExpect(jsonPath("$.id").value(fournisseur.getId().intValue()))
             .andExpect(jsonPath("$.libelle").value(DEFAULT_LIBELLE))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.addresspostale").value(DEFAULT_ADDRESSPOSTALE))
+           
             .andExpect(jsonPath("$.numFaxe").value(DEFAULT_NUM_FAXE))
             .andExpect(jsonPath("$.addressePostal").value(DEFAULT_ADDRESSE_POSTAL))
             .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE))
@@ -316,7 +304,7 @@ public class FournisseurResourceIT {
         updatedFournisseur
             .libelle(UPDATED_LIBELLE)
             .status(UPDATED_STATUS)
-            .addresspostale(UPDATED_ADDRESSPOSTALE)
+          
             .numFaxe(UPDATED_NUM_FAXE)
             .addressePostal(UPDATED_ADDRESSE_POSTAL)
             .phone(UPDATED_PHONE)
@@ -336,7 +324,7 @@ public class FournisseurResourceIT {
         Fournisseur testFournisseur = fournisseurList.get(fournisseurList.size() - 1);
         assertThat(testFournisseur.getLibelle()).isEqualTo(UPDATED_LIBELLE);
         assertThat(testFournisseur.getStatus()).isEqualTo(UPDATED_STATUS);
-        assertThat(testFournisseur.getAddresspostale()).isEqualTo(UPDATED_ADDRESSPOSTALE);
+       
         assertThat(testFournisseur.getNumFaxe()).isEqualTo(UPDATED_NUM_FAXE);
         assertThat(testFournisseur.getAddressePostal()).isEqualTo(UPDATED_ADDRESSE_POSTAL);
         assertThat(testFournisseur.getPhone()).isEqualTo(UPDATED_PHONE);

@@ -63,7 +63,7 @@ public class RetourFournisseur implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "retourFournisseurs", allowSetters = true)
-    private Utilisateur createdBy;
+    private User createdBy;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "retourFournisseurs", allowSetters = true)
@@ -194,16 +194,16 @@ public class RetourFournisseur implements Serializable {
         this.magasin = magasin;
     }
 
-    public Utilisateur getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public RetourFournisseur createdBy(Utilisateur utilisateur) {
+    public RetourFournisseur createdBy(User utilisateur) {
         this.createdBy = utilisateur;
         return this;
     }
 
-    public void setCreatedBy(Utilisateur utilisateur) {
+    public void setCreatedBy(User utilisateur) {
         this.createdBy = utilisateur;
     }
 

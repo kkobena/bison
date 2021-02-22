@@ -1,8 +1,10 @@
 package com.kobe.nucleus.service.impl;
 
+import com.kobe.nucleus.domain.Client;
 import com.kobe.nucleus.service.CompteClientService;
 import com.kobe.nucleus.domain.CompteClient;
 import com.kobe.nucleus.repository.CompteClientRepository;
+import com.kobe.nucleus.repository.CustomizedClientService;
 import com.kobe.nucleus.service.dto.CompteClientDTO;
 import com.kobe.nucleus.service.mapper.CompteClientMapper;
 import org.slf4j.Logger;
@@ -27,10 +29,13 @@ public class CompteClientServiceImpl implements CompteClientService {
     private final CompteClientRepository compteClientRepository;
 
     private final CompteClientMapper compteClientMapper;
+    private final CustomizedClientService customizedClientService;
 
-    public CompteClientServiceImpl(CompteClientRepository compteClientRepository, CompteClientMapper compteClientMapper) {
+    public CompteClientServiceImpl(CompteClientRepository compteClientRepository, CompteClientMapper compteClientMapper,
+            CustomizedClientService customizedClientService) {
         this.compteClientRepository = compteClientRepository;
         this.compteClientMapper = compteClientMapper;
+        this.customizedClientService = customizedClientService;
     }
 
     /**
@@ -40,11 +45,11 @@ public class CompteClientServiceImpl implements CompteClientService {
      * @return the persisted entity.
      */
     @Override
-    public CompteClientDTO save(CompteClientDTO compteClientDTO) {
-        log.debug("Request to save CompteClient : {}", compteClientDTO);
-        CompteClient compteClient = compteClientMapper.toEntity(compteClientDTO);
-        compteClient = compteClientRepository.save(compteClient);
-        return compteClientMapper.toDto(compteClient);
+    public CompteClientDTO save(CompteClientDTO compteClientDTO) throws Exception {
+        if (compteClientDTO.getId() == null) {
+            return customizedClientService.save(compteClientDTO);
+        }
+        return customizedClientService.update(compteClientDTO);
     }
 
     /**
@@ -57,8 +62,7 @@ public class CompteClientServiceImpl implements CompteClientService {
     @Transactional(readOnly = true)
     public Page<CompteClientDTO> findAll(Pageable pageable) {
         log.debug("Request to get all CompteClients");
-        return compteClientRepository.findAll(pageable)
-            .map(compteClientMapper::toDto);
+        return compteClientRepository.findAll(pageable).map(compteClientMapper::toDto);
     }
 
     /**
@@ -71,8 +75,7 @@ public class CompteClientServiceImpl implements CompteClientService {
     @Transactional(readOnly = true)
     public Optional<CompteClientDTO> findOne(Long id) {
         log.debug("Request to get CompteClient : {}", id);
-        return compteClientRepository.findById(id)
-            .map(compteClientMapper::toDto);
+        return compteClientRepository.findById(id).map(compteClientMapper::toDto);
     }
 
     /**
@@ -83,6 +86,11 @@ public class CompteClientServiceImpl implements CompteClientService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete CompteClient : {}", id);
-        compteClientRepository.deleteById(id);
+        compteClientRepository.findById(id).ifPresent(compteClient -> {
+            Client client = compteClient.getClient();
+            client.removeCompteClient(compteClient);
+            compteClientRepository.delete(compteClient);
+        });
+
     }
 }

@@ -1,28 +1,41 @@
 package com.kobe.nucleus.web.rest;
 
-import com.kobe.nucleus.service.RayonService;
-import com.kobe.nucleus.web.rest.errors.BadRequestAlertException;
-import com.kobe.nucleus.service.dto.RayonDTO;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 
-import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
+import com.kobe.nucleus.service.RayonService;
+import com.kobe.nucleus.service.dto.RayonDTO;
+import com.kobe.nucleus.service.dto.ResponseDTO;
+import com.kobe.nucleus.web.rest.errors.BadRequestAlertException;
+
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 
 /**
  * REST controller for managing {@link com.kobe.nucleus.domain.Rayon}.
@@ -78,7 +91,7 @@ public class RayonResource {
         if (rayonDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        RayonDTO result = rayonService.save(rayonDTO);
+        RayonDTO result = rayonService.update(rayonDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, rayonDTO.getId().toString()))
             .body(result);
@@ -90,10 +103,10 @@ public class RayonResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of rayons in body.
      */
-    @GetMapping("/rayons")
-    public ResponseEntity<List<RayonDTO>> getAllRayons(Pageable pageable) {
+    @GetMapping(value = "/rayons",params = {"search"} )
+    public ResponseEntity<List<RayonDTO>> getAllRayons(@RequestParam(name ="magasinId" )  Long magasinId,@RequestParam(value = "search",required = false,defaultValue = "") String search,  Pageable pageable) {
         log.debug("REST request to get a page of Rayons");
-        Page<RayonDTO> page = rayonService.findAll(pageable);
+        Page<RayonDTO> page = rayonService.findAll(magasinId,search, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -120,8 +133,20 @@ public class RayonResource {
     @DeleteMapping("/rayons/{id}")
     public ResponseEntity<Void> deleteRayon(@PathVariable Long id) {
         log.debug("REST request to delete Rayon : {}", id);
-
         rayonService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+    }
+    @PostMapping("/rayons/importcsv/{magasinId}")
+    public ResponseEntity<ResponseDTO> uploadFile(@RequestPart("importcsv") MultipartFile file,@PathVariable(name = "magasinId",required = true) Long magasinId) throws URISyntaxException , IOException {
+    	ResponseDTO responseDTO=	rayonService.importation(file.getInputStream(),magasinId);
+    	 return ResponseUtil.wrapOrNotFound(Optional.of(responseDTO));
+    }
+    
+    @PostMapping("/rayons/clone/{magasinId}")
+    public ResponseEntity<ResponseDTO> clonerRayons(@PathVariable(name = "magasinId",required = true) Long magasinId,
+    		@RequestBody List<RayonDTO> rayonIds
+    		) throws URISyntaxException , IOException {
+    	ResponseDTO responseDTO=	rayonService.cloner(rayonIds,magasinId);
+    	 return ResponseUtil.wrapOrNotFound(Optional.of(responseDTO));
     }
 }

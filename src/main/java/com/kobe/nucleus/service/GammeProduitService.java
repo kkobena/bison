@@ -5,6 +5,7 @@ import com.kobe.nucleus.service.dto.GammeProduitDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.io.InputStream;
 import java.util.Optional;
 
 /**
@@ -43,4 +44,6 @@ public interface GammeProduitService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+    
+    void importation(InputStream inputStream);
 }

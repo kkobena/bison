@@ -3,26 +3,25 @@ package com.kobe.nucleus.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
-
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.kobe.nucleus.domain.enumeration.Status;
 
 /**
  * A StockProduit.
  */
 @Entity
-@Table(name = "stock_produit")
+@Table(name = "stock_produit",
+uniqueConstraints=
+@UniqueConstraint(columnNames={"rayon_id", "produit_id"})
+		)
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+//@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class StockProduit implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -41,24 +40,12 @@ public class StockProduit implements Serializable {
     private Integer qtyUG;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
+    @Column(name = "created_at", nullable = false)
+    private Instant createdAt=Instant.now();
 
     @NotNull
-    @Column(name = "code_cip", nullable = false)
-    private String codeCip;
-
-    @Column(name = "version")
-    private Integer version;
-
-    @NotNull
-    @Column(name = "prix_paf", nullable = false)
-    private Integer prixPaf;
-
-    @NotNull
-    @Column(name = "prix_uni", nullable = false)
-    private Integer prixUni;
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
 
     @OneToMany(mappedBy = "stockProduit")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -67,14 +54,6 @@ public class StockProduit implements Serializable {
     @OneToMany(mappedBy = "produit")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<MvtProduit> mvtProduits = new HashSet<>();
-
-    @OneToMany(mappedBy = "produitStock")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<LignesVente> lignesVentes = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "stockProduits", allowSetters = true)
-    private Magasin magasin;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -86,7 +65,7 @@ public class StockProduit implements Serializable {
     @JsonIgnoreProperties(value = "stockProduits", allowSetters = true)
     private Produit produit;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+    
     public Long getId() {
         return id;
     }
@@ -134,69 +113,30 @@ public class StockProduit implements Serializable {
         this.qtyUG = qtyUG;
     }
 
-    public Status getStatus() {
-        return status;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public StockProduit status(Status status) {
-        this.status = status;
+    public StockProduit createdAt(Instant createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getCodeCip() {
-        return codeCip;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
-    public StockProduit codeCip(String codeCip) {
-        this.codeCip = codeCip;
+    public StockProduit updatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
         return this;
     }
 
-    public void setCodeCip(String codeCip) {
-        this.codeCip = codeCip;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public StockProduit version(Integer version) {
-        this.version = version;
-        return this;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
-
-    public Integer getPrixPaf() {
-        return prixPaf;
-    }
-
-    public StockProduit prixPaf(Integer prixPaf) {
-        this.prixPaf = prixPaf;
-        return this;
-    }
-
-    public void setPrixPaf(Integer prixPaf) {
-        this.prixPaf = prixPaf;
-    }
-
-    public Integer getPrixUni() {
-        return prixUni;
-    }
-
-    public StockProduit prixUni(Integer prixUni) {
-        this.prixUni = prixUni;
-        return this;
-    }
-
-    public void setPrixUni(Integer prixUni) {
-        this.prixUni = prixUni;
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Set<StockReport> getStockReports() {
@@ -249,44 +189,6 @@ public class StockProduit implements Serializable {
         this.mvtProduits = mvtProduits;
     }
 
-    public Set<LignesVente> getLignesVentes() {
-        return lignesVentes;
-    }
-
-    public StockProduit lignesVentes(Set<LignesVente> lignesVentes) {
-        this.lignesVentes = lignesVentes;
-        return this;
-    }
-
-    public StockProduit addLignesVente(LignesVente lignesVente) {
-        this.lignesVentes.add(lignesVente);
-        lignesVente.setProduitStock(this);
-        return this;
-    }
-
-    public StockProduit removeLignesVente(LignesVente lignesVente) {
-        this.lignesVentes.remove(lignesVente);
-        lignesVente.setProduitStock(null);
-        return this;
-    }
-
-    public void setLignesVentes(Set<LignesVente> lignesVentes) {
-        this.lignesVentes = lignesVentes;
-    }
-
-    public Magasin getMagasin() {
-        return magasin;
-    }
-
-    public StockProduit magasin(Magasin magasin) {
-        this.magasin = magasin;
-        return this;
-    }
-
-    public void setMagasin(Magasin magasin) {
-        this.magasin = magasin;
-    }
-
     public Rayon getRayon() {
         return rayon;
     }
@@ -312,7 +214,7 @@ public class StockProduit implements Serializable {
     public void setProduit(Produit produit) {
         this.produit = produit;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+   
 
     @Override
     public boolean equals(Object o) {
@@ -338,11 +240,8 @@ public class StockProduit implements Serializable {
             ", qtyStock=" + getQtyStock() +
             ", qtyVirtual=" + getQtyVirtual() +
             ", qtyUG=" + getQtyUG() +
-            ", status='" + getStatus() + "'" +
-            ", codeCip='" + getCodeCip() + "'" +
-            ", version=" + getVersion() +
-            ", prixPaf=" + getPrixPaf() +
-            ", prixUni=" + getPrixUni() +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", updatedAt='" + getUpdatedAt() + "'" +
             "}";
     }
 }

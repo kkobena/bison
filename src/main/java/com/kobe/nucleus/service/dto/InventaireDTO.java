@@ -26,23 +26,29 @@ public class InventaireDTO implements Serializable {
 
     private Boolean programmable;
 
-    @NotNull
-    private Instant valeurAchatAvant;
-
-    @NotNull
-    private Instant valeurAchatApres;
-
-    @NotNull
-    private Instant valeurVenteAvant;
-
-    @NotNull
-    private Instant valeurVenteApres;
-
     private LocalDate dateDebut;
 
     private LocalDate dateFin;
 
     private LocalDate endDate;
+
+    @NotNull
+    private Instant beginnin;
+
+    @NotNull
+    private Instant ending;
+
+    @NotNull
+    private Double valeurAchatAvant;
+
+    @NotNull
+    private Double valeurAchatApres;
+
+    @NotNull
+    private Double valeurVenteAvant;
+
+    @NotNull
+    private Double valeurVenteApres;
 
 
     private Long magasinId;
@@ -101,38 +107,6 @@ public class InventaireDTO implements Serializable {
         this.programmable = programmable;
     }
 
-    public Instant getValeurAchatAvant() {
-        return valeurAchatAvant;
-    }
-
-    public void setValeurAchatAvant(Instant valeurAchatAvant) {
-        this.valeurAchatAvant = valeurAchatAvant;
-    }
-
-    public Instant getValeurAchatApres() {
-        return valeurAchatApres;
-    }
-
-    public void setValeurAchatApres(Instant valeurAchatApres) {
-        this.valeurAchatApres = valeurAchatApres;
-    }
-
-    public Instant getValeurVenteAvant() {
-        return valeurVenteAvant;
-    }
-
-    public void setValeurVenteAvant(Instant valeurVenteAvant) {
-        this.valeurVenteAvant = valeurVenteAvant;
-    }
-
-    public Instant getValeurVenteApres() {
-        return valeurVenteApres;
-    }
-
-    public void setValeurVenteApres(Instant valeurVenteApres) {
-        this.valeurVenteApres = valeurVenteApres;
-    }
-
     public LocalDate getDateDebut() {
         return dateDebut;
     }
@@ -155,6 +129,54 @@ public class InventaireDTO implements Serializable {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public Instant getBeginnin() {
+        return beginnin;
+    }
+
+    public void setBeginnin(Instant beginnin) {
+        this.beginnin = beginnin;
+    }
+
+    public Instant getEnding() {
+        return ending;
+    }
+
+    public void setEnding(Instant ending) {
+        this.ending = ending;
+    }
+
+    public Double getValeurAchatAvant() {
+        return valeurAchatAvant;
+    }
+
+    public void setValeurAchatAvant(Double valeurAchatAvant) {
+        this.valeurAchatAvant = valeurAchatAvant;
+    }
+
+    public Double getValeurAchatApres() {
+        return valeurAchatApres;
+    }
+
+    public void setValeurAchatApres(Double valeurAchatApres) {
+        this.valeurAchatApres = valeurAchatApres;
+    }
+
+    public Double getValeurVenteAvant() {
+        return valeurVenteAvant;
+    }
+
+    public void setValeurVenteAvant(Double valeurVenteAvant) {
+        this.valeurVenteAvant = valeurVenteAvant;
+    }
+
+    public Double getValeurVenteApres() {
+        return valeurVenteApres;
+    }
+
+    public void setValeurVenteApres(Double valeurVenteApres) {
+        this.valeurVenteApres = valeurVenteApres;
     }
 
     public Long getMagasinId() {
@@ -216,13 +238,15 @@ public class InventaireDTO implements Serializable {
             ", updatedAt='" + getUpdatedAt() + "'" +
             ", status='" + getStatus() + "'" +
             ", programmable='" + isProgrammable() + "'" +
-            ", valeurAchatAvant='" + getValeurAchatAvant() + "'" +
-            ", valeurAchatApres='" + getValeurAchatApres() + "'" +
-            ", valeurVenteAvant='" + getValeurVenteAvant() + "'" +
-            ", valeurVenteApres='" + getValeurVenteApres() + "'" +
             ", dateDebut='" + getDateDebut() + "'" +
             ", dateFin='" + getDateFin() + "'" +
             ", endDate='" + getEndDate() + "'" +
+            ", beginnin='" + getBeginnin() + "'" +
+            ", ending='" + getEnding() + "'" +
+            ", valeurAchatAvant=" + getValeurAchatAvant() +
+            ", valeurAchatApres=" + getValeurAchatApres() +
+            ", valeurVenteAvant=" + getValeurVenteAvant() +
+            ", valeurVenteApres=" + getValeurVenteApres() +
             ", magasinId=" + getMagasinId() +
             ", magasinNomCourt='" + getMagasinNomCourt() + "'" +
             ", createdById=" + getCreatedById() +

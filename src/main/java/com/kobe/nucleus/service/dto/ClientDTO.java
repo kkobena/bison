@@ -14,44 +14,58 @@ import com.kobe.nucleus.domain.Compagnie;
 import com.kobe.nucleus.domain.Remise;
 import com.kobe.nucleus.domain.enumeration.CategorieAssurance;
 import com.kobe.nucleus.domain.enumeration.Status;
-import com.kobe.nucleus.domain.enumeration.TypeClient;
 
 /**
  * A DTO for the {@link com.kobe.nucleus.domain.Client} entity.
  */
 public class ClientDTO implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Long id;
 
-	@NotNull
 	private LocalDate createdAt;
 
-	@NotNull
 	private LocalDate updatedAt;
 
-	@NotNull
 	private Status status;
 
 	@NotNull
 	private String firstName;
-
+	@NotNull
 	private String lastName;
 
 	private String sexe;
 
 	private LocalDate datNaiss;
 
-	@NotNull
-	private TypeClient typeClient;
-
 	private String mobile;
 	private String numMaticule;
 	private String mail;
+	private String fullName;
 	private List<CompteClientDTO> compteClients = new ArrayList<>();
 	private List<AyantDroitDTO> ayantDroits = new ArrayList<>();
 
+	private CompteClientDTO compteClient;
+
 	public String getNumMaticule() {
 		return numMaticule;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public ClientDTO fullName(String fullName) {
+		this.fullName = fullName;
+		return this;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public void setNumMaticule(String numMaticule) {
@@ -170,14 +184,6 @@ public class ClientDTO implements Serializable {
 		this.datNaiss = datNaiss;
 	}
 
-	public TypeClient getTypeClient() {
-		return typeClient;
-	}
-
-	public void setTypeClient(TypeClient typeClient) {
-		this.typeClient = typeClient;
-	}
-
 	public String getMobile() {
 		return mobile;
 	}
@@ -238,13 +244,16 @@ public class ClientDTO implements Serializable {
 		this.status = client.getStatus();
 		this.firstName = client.getFirstName();
 		this.lastName = client.getLastName();
+		this.mail=client.getMail();
+		this.mobile=client.getMobile();
 		this.sexe = client.getSexe();
 		this.datNaiss = client.getDatNaiss();
-		this.typeClient = client.getTypeClient();
+		this.fullName = client.getFirstName() + " " + client.getLastName();
 		this.compteClients = client.getCompteClients().stream().sorted(Comparator.comparing(c -> c.getCategorie()))
 				.map(e -> new CompteClientDTO(e)).collect(Collectors.toList());
 		this.compteClients.stream().filter(a -> a.getCategorie() == CategorieAssurance.RO).findFirst().ifPresent(e -> {
 			this.numMaticule = e.getNumMaticule();
+			this.compteClient=e;
 		});
 		;
 		Compagnie compagnie = client.getCompagnie();
@@ -287,8 +296,22 @@ public class ClientDTO implements Serializable {
 		return "ClientDTO{" + "id=" + getId() + ", createdAt='" + getCreatedAt() + "'" + ", updatedAt='"
 				+ getUpdatedAt() + "'" + ", status='" + getStatus() + "'" + ", firstName='" + getFirstName() + "'"
 				+ ", lastName='" + getLastName() + "'" + ", sexe='" + getSexe() + "'" + ", datNaiss='" + getDatNaiss()
-				+ "'" + ", typeClient='" + getTypeClient() + "'" + ", mobile='" + getMobile() + "'" + ", mail='"
-				+ getMail() + "'" + ", compagnieId=" + getCompagnieId() + ", compagnieLibelle='" + getCompagnieLibelle()
-				+ "'" + ", remiseId=" + getRemiseId() + ", remiseValeur='" + getRemiseValeur() + "'" + "}";
+				+ "'" + ", mobile='" + getMobile() + "'" + ", mail='" + getMail() + "'" + ", compagnieId="
+				+ getCompagnieId() + ", compagnieLibelle='" + getCompagnieLibelle() + "'" + ", remiseId="
+				+ getRemiseId() + ", remiseValeur='" + getRemiseValeur() + "'" + "}";
 	}
+
+	public CompteClientDTO getCompteClient() {
+		return compteClient;
+	}
+
+	public void setCompteClient(CompteClientDTO compteClient) {
+		this.compteClient = compteClient;
+	}
+
+	public ClientDTO compteClient(CompteClientDTO compteClient) {
+		this.compteClient = compteClient;
+		return this;
+	}
+
 }

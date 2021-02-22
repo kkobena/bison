@@ -31,10 +31,6 @@
       "fieldType": "Integer"
     },
     {
-      "fieldName": "etiquetable",
-      "fieldType": "Boolean"
-    },
-    {
       "fieldName": "dateperemption",
       "fieldType": "Boolean"
     },
@@ -59,10 +55,6 @@
       "fieldName": "deconditionnable",
       "fieldType": "Boolean",
       "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "remisable",
-      "fieldType": "Boolean"
     },
     {
       "fieldName": "prixPaf",
@@ -155,17 +147,17 @@
     },
     {
       "relationshipType": "many-to-one",
-      "otherEntityName": "fabriquant",
-      "otherEntityRelationshipName": "produit",
-      "relationshipName": "fabriquant",
-      "otherEntityField": "libelle"
-    },
-    {
-      "relationshipType": "many-to-one",
       "otherEntityName": "tva",
       "otherEntityRelationshipName": "produit",
       "relationshipName": "tva",
       "otherEntityField": "taux"
+    },
+    {
+      "relationshipName": "remise",
+      "otherEntityName": "remise",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id",
+      "otherEntityRelationshipName": "produit"
     }
   ],
   "changelogDate": "20200531173850",
@@ -178,5 +170,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

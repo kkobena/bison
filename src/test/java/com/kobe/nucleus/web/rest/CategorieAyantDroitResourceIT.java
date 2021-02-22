@@ -30,6 +30,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
  * Integration tests for the {@link CategorieAyantDroitResource} REST controller.
  */
 @SpringBootTest(classes = NucleusApp.class)
+
 @AutoConfigureMockMvc
 @WithMockUser
 public class CategorieAyantDroitResourceIT {
@@ -96,6 +97,7 @@ public class CategorieAyantDroitResourceIT {
     @Transactional
     public void createCategorieAyantDroit() throws Exception {
         int databaseSizeBeforeCreate = categorieAyantDroitRepository.findAll().size();
+
         // Create the CategorieAyantDroit
         CategorieAyantDroitDTO categorieAyantDroitDTO = categorieAyantDroitMapper.toDto(categorieAyantDroit);
         restCategorieAyantDroitMockMvc.perform(post("/api/categorie-ayant-droits").with(csrf())
@@ -143,7 +145,6 @@ public class CategorieAyantDroitResourceIT {
         // Create the CategorieAyantDroit, which fails.
         CategorieAyantDroitDTO categorieAyantDroitDTO = categorieAyantDroitMapper.toDto(categorieAyantDroit);
 
-
         restCategorieAyantDroitMockMvc.perform(post("/api/categorie-ayant-droits").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(categorieAyantDroitDTO)))
@@ -163,7 +164,6 @@ public class CategorieAyantDroitResourceIT {
         // Create the CategorieAyantDroit, which fails.
         CategorieAyantDroitDTO categorieAyantDroitDTO = categorieAyantDroitMapper.toDto(categorieAyantDroit);
 
-
         restCategorieAyantDroitMockMvc.perform(post("/api/categorie-ayant-droits").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(categorieAyantDroitDTO)))
@@ -182,7 +182,6 @@ public class CategorieAyantDroitResourceIT {
 
         // Create the CategorieAyantDroit, which fails.
         CategorieAyantDroitDTO categorieAyantDroitDTO = categorieAyantDroitMapper.toDto(categorieAyantDroit);
-
 
         restCategorieAyantDroitMockMvc.perform(post("/api/categorie-ayant-droits").with(csrf())
             .contentType(MediaType.APPLICATION_JSON)
@@ -224,6 +223,7 @@ public class CategorieAyantDroitResourceIT {
             .andExpect(jsonPath("$.libelle").value(DEFAULT_LIBELLE))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
     }
+
     @Test
     @Transactional
     public void getNonExistingCategorieAyantDroit() throws Exception {

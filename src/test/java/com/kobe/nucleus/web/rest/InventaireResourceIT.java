@@ -53,18 +53,6 @@ public class InventaireResourceIT {
     private static final Boolean DEFAULT_PROGRAMMABLE = false;
     private static final Boolean UPDATED_PROGRAMMABLE = true;
 
-    private static final Instant DEFAULT_VALEUR_ACHAT_AVANT = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_VALEUR_ACHAT_AVANT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final Instant DEFAULT_VALEUR_ACHAT_APRES = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_VALEUR_ACHAT_APRES = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final Instant DEFAULT_VALEUR_VENTE_AVANT = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_VALEUR_VENTE_AVANT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final Instant DEFAULT_VALEUR_VENTE_APRES = Instant.ofEpochMilli(0L);
-    private static final Instant UPDATED_VALEUR_VENTE_APRES = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
     private static final LocalDate DEFAULT_DATE_DEBUT = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_DEBUT = LocalDate.now(ZoneId.systemDefault());
 
@@ -73,6 +61,24 @@ public class InventaireResourceIT {
 
     private static final LocalDate DEFAULT_END_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_END_DATE = LocalDate.now(ZoneId.systemDefault());
+
+    private static final Instant DEFAULT_BEGINNIN = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_BEGINNIN = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Instant DEFAULT_ENDING = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_ENDING = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Double DEFAULT_VALEUR_ACHAT_AVANT = 1D;
+    private static final Double UPDATED_VALEUR_ACHAT_AVANT = 2D;
+
+    private static final Double DEFAULT_VALEUR_ACHAT_APRES = 1D;
+    private static final Double UPDATED_VALEUR_ACHAT_APRES = 2D;
+
+    private static final Double DEFAULT_VALEUR_VENTE_AVANT = 1D;
+    private static final Double UPDATED_VALEUR_VENTE_AVANT = 2D;
+
+    private static final Double DEFAULT_VALEUR_VENTE_APRES = 1D;
+    private static final Double UPDATED_VALEUR_VENTE_APRES = 2D;
 
     @Autowired
     private InventaireRepository inventaireRepository;
@@ -104,13 +110,15 @@ public class InventaireResourceIT {
             .updatedAt(DEFAULT_UPDATED_AT)
             .status(DEFAULT_STATUS)
             .programmable(DEFAULT_PROGRAMMABLE)
+            .dateDebut(DEFAULT_DATE_DEBUT)
+            .dateFin(DEFAULT_DATE_FIN)
+            .endDate(DEFAULT_END_DATE)
+            .beginnin(DEFAULT_BEGINNIN)
+            .ending(DEFAULT_ENDING)
             .valeurAchatAvant(DEFAULT_VALEUR_ACHAT_AVANT)
             .valeurAchatApres(DEFAULT_VALEUR_ACHAT_APRES)
             .valeurVenteAvant(DEFAULT_VALEUR_VENTE_AVANT)
-            .valeurVenteApres(DEFAULT_VALEUR_VENTE_APRES)
-            .dateDebut(DEFAULT_DATE_DEBUT)
-            .dateFin(DEFAULT_DATE_FIN)
-            .endDate(DEFAULT_END_DATE);
+            .valeurVenteApres(DEFAULT_VALEUR_VENTE_APRES);
         return inventaire;
     }
     /**
@@ -126,13 +134,15 @@ public class InventaireResourceIT {
             .updatedAt(UPDATED_UPDATED_AT)
             .status(UPDATED_STATUS)
             .programmable(UPDATED_PROGRAMMABLE)
+            .dateDebut(UPDATED_DATE_DEBUT)
+            .dateFin(UPDATED_DATE_FIN)
+            .endDate(UPDATED_END_DATE)
+            .beginnin(UPDATED_BEGINNIN)
+            .ending(UPDATED_ENDING)
             .valeurAchatAvant(UPDATED_VALEUR_ACHAT_AVANT)
             .valeurAchatApres(UPDATED_VALEUR_ACHAT_APRES)
             .valeurVenteAvant(UPDATED_VALEUR_VENTE_AVANT)
-            .valeurVenteApres(UPDATED_VALEUR_VENTE_APRES)
-            .dateDebut(UPDATED_DATE_DEBUT)
-            .dateFin(UPDATED_DATE_FIN)
-            .endDate(UPDATED_END_DATE);
+            .valeurVenteApres(UPDATED_VALEUR_VENTE_APRES);
         return inventaire;
     }
 
@@ -161,13 +171,15 @@ public class InventaireResourceIT {
         assertThat(testInventaire.getUpdatedAt()).isEqualTo(DEFAULT_UPDATED_AT);
         assertThat(testInventaire.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testInventaire.isProgrammable()).isEqualTo(DEFAULT_PROGRAMMABLE);
+        assertThat(testInventaire.getDateDebut()).isEqualTo(DEFAULT_DATE_DEBUT);
+        assertThat(testInventaire.getDateFin()).isEqualTo(DEFAULT_DATE_FIN);
+        assertThat(testInventaire.getEndDate()).isEqualTo(DEFAULT_END_DATE);
+        assertThat(testInventaire.getBeginnin()).isEqualTo(DEFAULT_BEGINNIN);
+        assertThat(testInventaire.getEnding()).isEqualTo(DEFAULT_ENDING);
         assertThat(testInventaire.getValeurAchatAvant()).isEqualTo(DEFAULT_VALEUR_ACHAT_AVANT);
         assertThat(testInventaire.getValeurAchatApres()).isEqualTo(DEFAULT_VALEUR_ACHAT_APRES);
         assertThat(testInventaire.getValeurVenteAvant()).isEqualTo(DEFAULT_VALEUR_VENTE_AVANT);
         assertThat(testInventaire.getValeurVenteApres()).isEqualTo(DEFAULT_VALEUR_VENTE_APRES);
-        assertThat(testInventaire.getDateDebut()).isEqualTo(DEFAULT_DATE_DEBUT);
-        assertThat(testInventaire.getDateFin()).isEqualTo(DEFAULT_DATE_FIN);
-        assertThat(testInventaire.getEndDate()).isEqualTo(DEFAULT_END_DATE);
     }
 
     @Test
@@ -237,6 +249,46 @@ public class InventaireResourceIT {
         int databaseSizeBeforeTest = inventaireRepository.findAll().size();
         // set the field null
         inventaire.setStatus(null);
+
+        // Create the Inventaire, which fails.
+        InventaireDTO inventaireDTO = inventaireMapper.toDto(inventaire);
+
+
+        restInventaireMockMvc.perform(post("/api/inventaires").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(inventaireDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Inventaire> inventaireList = inventaireRepository.findAll();
+        assertThat(inventaireList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkBeginninIsRequired() throws Exception {
+        int databaseSizeBeforeTest = inventaireRepository.findAll().size();
+        // set the field null
+        inventaire.setBeginnin(null);
+
+        // Create the Inventaire, which fails.
+        InventaireDTO inventaireDTO = inventaireMapper.toDto(inventaire);
+
+
+        restInventaireMockMvc.perform(post("/api/inventaires").with(csrf())
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(inventaireDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Inventaire> inventaireList = inventaireRepository.findAll();
+        assertThat(inventaireList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkEndingIsRequired() throws Exception {
+        int databaseSizeBeforeTest = inventaireRepository.findAll().size();
+        // set the field null
+        inventaire.setEnding(null);
 
         // Create the Inventaire, which fails.
         InventaireDTO inventaireDTO = inventaireMapper.toDto(inventaire);
@@ -347,13 +399,15 @@ public class InventaireResourceIT {
             .andExpect(jsonPath("$.[*].updatedAt").value(hasItem(DEFAULT_UPDATED_AT.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].programmable").value(hasItem(DEFAULT_PROGRAMMABLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].valeurAchatAvant").value(hasItem(DEFAULT_VALEUR_ACHAT_AVANT.toString())))
-            .andExpect(jsonPath("$.[*].valeurAchatApres").value(hasItem(DEFAULT_VALEUR_ACHAT_APRES.toString())))
-            .andExpect(jsonPath("$.[*].valeurVenteAvant").value(hasItem(DEFAULT_VALEUR_VENTE_AVANT.toString())))
-            .andExpect(jsonPath("$.[*].valeurVenteApres").value(hasItem(DEFAULT_VALEUR_VENTE_APRES.toString())))
             .andExpect(jsonPath("$.[*].dateDebut").value(hasItem(DEFAULT_DATE_DEBUT.toString())))
             .andExpect(jsonPath("$.[*].dateFin").value(hasItem(DEFAULT_DATE_FIN.toString())))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())));
+            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
+            .andExpect(jsonPath("$.[*].beginnin").value(hasItem(DEFAULT_BEGINNIN.toString())))
+            .andExpect(jsonPath("$.[*].ending").value(hasItem(DEFAULT_ENDING.toString())))
+            .andExpect(jsonPath("$.[*].valeurAchatAvant").value(hasItem(DEFAULT_VALEUR_ACHAT_AVANT.doubleValue())))
+            .andExpect(jsonPath("$.[*].valeurAchatApres").value(hasItem(DEFAULT_VALEUR_ACHAT_APRES.doubleValue())))
+            .andExpect(jsonPath("$.[*].valeurVenteAvant").value(hasItem(DEFAULT_VALEUR_VENTE_AVANT.doubleValue())))
+            .andExpect(jsonPath("$.[*].valeurVenteApres").value(hasItem(DEFAULT_VALEUR_VENTE_APRES.doubleValue())));
     }
     
     @Test
@@ -372,13 +426,15 @@ public class InventaireResourceIT {
             .andExpect(jsonPath("$.updatedAt").value(DEFAULT_UPDATED_AT.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.programmable").value(DEFAULT_PROGRAMMABLE.booleanValue()))
-            .andExpect(jsonPath("$.valeurAchatAvant").value(DEFAULT_VALEUR_ACHAT_AVANT.toString()))
-            .andExpect(jsonPath("$.valeurAchatApres").value(DEFAULT_VALEUR_ACHAT_APRES.toString()))
-            .andExpect(jsonPath("$.valeurVenteAvant").value(DEFAULT_VALEUR_VENTE_AVANT.toString()))
-            .andExpect(jsonPath("$.valeurVenteApres").value(DEFAULT_VALEUR_VENTE_APRES.toString()))
             .andExpect(jsonPath("$.dateDebut").value(DEFAULT_DATE_DEBUT.toString()))
             .andExpect(jsonPath("$.dateFin").value(DEFAULT_DATE_FIN.toString()))
-            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()));
+            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()))
+            .andExpect(jsonPath("$.beginnin").value(DEFAULT_BEGINNIN.toString()))
+            .andExpect(jsonPath("$.ending").value(DEFAULT_ENDING.toString()))
+            .andExpect(jsonPath("$.valeurAchatAvant").value(DEFAULT_VALEUR_ACHAT_AVANT.doubleValue()))
+            .andExpect(jsonPath("$.valeurAchatApres").value(DEFAULT_VALEUR_ACHAT_APRES.doubleValue()))
+            .andExpect(jsonPath("$.valeurVenteAvant").value(DEFAULT_VALEUR_VENTE_AVANT.doubleValue()))
+            .andExpect(jsonPath("$.valeurVenteApres").value(DEFAULT_VALEUR_VENTE_APRES.doubleValue()));
     }
     @Test
     @Transactional
@@ -406,13 +462,15 @@ public class InventaireResourceIT {
             .updatedAt(UPDATED_UPDATED_AT)
             .status(UPDATED_STATUS)
             .programmable(UPDATED_PROGRAMMABLE)
+            .dateDebut(UPDATED_DATE_DEBUT)
+            .dateFin(UPDATED_DATE_FIN)
+            .endDate(UPDATED_END_DATE)
+            .beginnin(UPDATED_BEGINNIN)
+            .ending(UPDATED_ENDING)
             .valeurAchatAvant(UPDATED_VALEUR_ACHAT_AVANT)
             .valeurAchatApres(UPDATED_VALEUR_ACHAT_APRES)
             .valeurVenteAvant(UPDATED_VALEUR_VENTE_AVANT)
-            .valeurVenteApres(UPDATED_VALEUR_VENTE_APRES)
-            .dateDebut(UPDATED_DATE_DEBUT)
-            .dateFin(UPDATED_DATE_FIN)
-            .endDate(UPDATED_END_DATE);
+            .valeurVenteApres(UPDATED_VALEUR_VENTE_APRES);
         InventaireDTO inventaireDTO = inventaireMapper.toDto(updatedInventaire);
 
         restInventaireMockMvc.perform(put("/api/inventaires").with(csrf())
@@ -429,13 +487,15 @@ public class InventaireResourceIT {
         assertThat(testInventaire.getUpdatedAt()).isEqualTo(UPDATED_UPDATED_AT);
         assertThat(testInventaire.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testInventaire.isProgrammable()).isEqualTo(UPDATED_PROGRAMMABLE);
+        assertThat(testInventaire.getDateDebut()).isEqualTo(UPDATED_DATE_DEBUT);
+        assertThat(testInventaire.getDateFin()).isEqualTo(UPDATED_DATE_FIN);
+        assertThat(testInventaire.getEndDate()).isEqualTo(UPDATED_END_DATE);
+        assertThat(testInventaire.getBeginnin()).isEqualTo(UPDATED_BEGINNIN);
+        assertThat(testInventaire.getEnding()).isEqualTo(UPDATED_ENDING);
         assertThat(testInventaire.getValeurAchatAvant()).isEqualTo(UPDATED_VALEUR_ACHAT_AVANT);
         assertThat(testInventaire.getValeurAchatApres()).isEqualTo(UPDATED_VALEUR_ACHAT_APRES);
         assertThat(testInventaire.getValeurVenteAvant()).isEqualTo(UPDATED_VALEUR_VENTE_AVANT);
         assertThat(testInventaire.getValeurVenteApres()).isEqualTo(UPDATED_VALEUR_VENTE_APRES);
-        assertThat(testInventaire.getDateDebut()).isEqualTo(UPDATED_DATE_DEBUT);
-        assertThat(testInventaire.getDateFin()).isEqualTo(UPDATED_DATE_FIN);
-        assertThat(testInventaire.getEndDate()).isEqualTo(UPDATED_END_DATE);
     }
 
     @Test

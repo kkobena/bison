@@ -26,26 +26,6 @@
       "fieldType": "Boolean"
     },
     {
-      "fieldName": "valeurAchatAvant",
-      "fieldType": "Instant",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "valeurAchatApres",
-      "fieldType": "Instant",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "valeurVenteAvant",
-      "fieldType": "Instant",
-      "fieldValidateRules": ["required"]
-    },
-    {
-      "fieldName": "valeurVenteApres",
-      "fieldType": "Instant",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "dateDebut",
       "fieldType": "LocalDate"
     },
@@ -56,6 +36,36 @@
     {
       "fieldName": "endDate",
       "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "beginnin",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ending",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valeurAchatAvant",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valeurAchatApres",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valeurVenteAvant",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "valeurVenteApres",
+      "fieldType": "Double",
+      "fieldValidateRules": ["required"]
     }
   ],
   "relationships": [
@@ -90,5 +100,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

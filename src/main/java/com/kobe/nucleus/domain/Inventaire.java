@@ -49,22 +49,6 @@ public class Inventaire implements Serializable {
     @Column(name = "programmable")
     private Boolean programmable;
 
-    @NotNull
-    @Column(name = "valeur_achat_avant", nullable = false)
-    private Instant valeurAchatAvant;
-
-    @NotNull
-    @Column(name = "valeur_achat_apres", nullable = false)
-    private Instant valeurAchatApres;
-
-    @NotNull
-    @Column(name = "valeur_vente_avant", nullable = false)
-    private Instant valeurVenteAvant;
-
-    @NotNull
-    @Column(name = "valeur_vente_apres", nullable = false)
-    private Instant valeurVenteApres;
-
     @Column(name = "date_debut")
     private LocalDate dateDebut;
 
@@ -73,6 +57,30 @@ public class Inventaire implements Serializable {
 
     @Column(name = "end_date")
     private LocalDate endDate;
+
+    @NotNull
+    @Column(name = "beginnin", nullable = false)
+    private Instant beginnin;
+
+    @NotNull
+    @Column(name = "ending", nullable = false)
+    private Instant ending;
+
+    @NotNull
+    @Column(name = "valeur_achat_avant", nullable = false)
+    private Double valeurAchatAvant;
+
+    @NotNull
+    @Column(name = "valeur_achat_apres", nullable = false)
+    private Double valeurAchatApres;
+
+    @NotNull
+    @Column(name = "valeur_vente_avant", nullable = false)
+    private Double valeurVenteAvant;
+
+    @NotNull
+    @Column(name = "valeur_vente_apres", nullable = false)
+    private Double valeurVenteApres;
 
     @OneToMany(mappedBy = "inventaire")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -84,7 +92,7 @@ public class Inventaire implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "inventaires", allowSetters = true)
-    private Utilisateur createdBy;
+    private User createdBy;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -160,58 +168,6 @@ public class Inventaire implements Serializable {
         this.programmable = programmable;
     }
 
-    public Instant getValeurAchatAvant() {
-        return valeurAchatAvant;
-    }
-
-    public Inventaire valeurAchatAvant(Instant valeurAchatAvant) {
-        this.valeurAchatAvant = valeurAchatAvant;
-        return this;
-    }
-
-    public void setValeurAchatAvant(Instant valeurAchatAvant) {
-        this.valeurAchatAvant = valeurAchatAvant;
-    }
-
-    public Instant getValeurAchatApres() {
-        return valeurAchatApres;
-    }
-
-    public Inventaire valeurAchatApres(Instant valeurAchatApres) {
-        this.valeurAchatApres = valeurAchatApres;
-        return this;
-    }
-
-    public void setValeurAchatApres(Instant valeurAchatApres) {
-        this.valeurAchatApres = valeurAchatApres;
-    }
-
-    public Instant getValeurVenteAvant() {
-        return valeurVenteAvant;
-    }
-
-    public Inventaire valeurVenteAvant(Instant valeurVenteAvant) {
-        this.valeurVenteAvant = valeurVenteAvant;
-        return this;
-    }
-
-    public void setValeurVenteAvant(Instant valeurVenteAvant) {
-        this.valeurVenteAvant = valeurVenteAvant;
-    }
-
-    public Instant getValeurVenteApres() {
-        return valeurVenteApres;
-    }
-
-    public Inventaire valeurVenteApres(Instant valeurVenteApres) {
-        this.valeurVenteApres = valeurVenteApres;
-        return this;
-    }
-
-    public void setValeurVenteApres(Instant valeurVenteApres) {
-        this.valeurVenteApres = valeurVenteApres;
-    }
-
     public LocalDate getDateDebut() {
         return dateDebut;
     }
@@ -249,6 +205,84 @@ public class Inventaire implements Serializable {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+    }
+
+    public Instant getBeginnin() {
+        return beginnin;
+    }
+
+    public Inventaire beginnin(Instant beginnin) {
+        this.beginnin = beginnin;
+        return this;
+    }
+
+    public void setBeginnin(Instant beginnin) {
+        this.beginnin = beginnin;
+    }
+
+    public Instant getEnding() {
+        return ending;
+    }
+
+    public Inventaire ending(Instant ending) {
+        this.ending = ending;
+        return this;
+    }
+
+    public void setEnding(Instant ending) {
+        this.ending = ending;
+    }
+
+    public Double getValeurAchatAvant() {
+        return valeurAchatAvant;
+    }
+
+    public Inventaire valeurAchatAvant(Double valeurAchatAvant) {
+        this.valeurAchatAvant = valeurAchatAvant;
+        return this;
+    }
+
+    public void setValeurAchatAvant(Double valeurAchatAvant) {
+        this.valeurAchatAvant = valeurAchatAvant;
+    }
+
+    public Double getValeurAchatApres() {
+        return valeurAchatApres;
+    }
+
+    public Inventaire valeurAchatApres(Double valeurAchatApres) {
+        this.valeurAchatApres = valeurAchatApres;
+        return this;
+    }
+
+    public void setValeurAchatApres(Double valeurAchatApres) {
+        this.valeurAchatApres = valeurAchatApres;
+    }
+
+    public Double getValeurVenteAvant() {
+        return valeurVenteAvant;
+    }
+
+    public Inventaire valeurVenteAvant(Double valeurVenteAvant) {
+        this.valeurVenteAvant = valeurVenteAvant;
+        return this;
+    }
+
+    public void setValeurVenteAvant(Double valeurVenteAvant) {
+        this.valeurVenteAvant = valeurVenteAvant;
+    }
+
+    public Double getValeurVenteApres() {
+        return valeurVenteApres;
+    }
+
+    public Inventaire valeurVenteApres(Double valeurVenteApres) {
+        this.valeurVenteApres = valeurVenteApres;
+        return this;
+    }
+
+    public void setValeurVenteApres(Double valeurVenteApres) {
+        this.valeurVenteApres = valeurVenteApres;
     }
 
     public Set<DetailsInventaire> getDetailsInventaires() {
@@ -289,16 +323,16 @@ public class Inventaire implements Serializable {
         this.magasin = magasin;
     }
 
-    public Utilisateur getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public Inventaire createdBy(Utilisateur utilisateur) {
+    public Inventaire createdBy(User utilisateur) {
         this.createdBy = utilisateur;
         return this;
     }
 
-    public void setCreatedBy(Utilisateur utilisateur) {
+    public void setCreatedBy(User utilisateur) {
         this.createdBy = utilisateur;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -329,13 +363,15 @@ public class Inventaire implements Serializable {
             ", updatedAt='" + getUpdatedAt() + "'" +
             ", status='" + getStatus() + "'" +
             ", programmable='" + isProgrammable() + "'" +
-            ", valeurAchatAvant='" + getValeurAchatAvant() + "'" +
-            ", valeurAchatApres='" + getValeurAchatApres() + "'" +
-            ", valeurVenteAvant='" + getValeurVenteAvant() + "'" +
-            ", valeurVenteApres='" + getValeurVenteApres() + "'" +
             ", dateDebut='" + getDateDebut() + "'" +
             ", dateFin='" + getDateFin() + "'" +
             ", endDate='" + getEndDate() + "'" +
+            ", beginnin='" + getBeginnin() + "'" +
+            ", ending='" + getEnding() + "'" +
+            ", valeurAchatAvant=" + getValeurAchatAvant() +
+            ", valeurAchatApres=" + getValeurAchatApres() +
+            ", valeurVenteAvant=" + getValeurVenteAvant() +
+            ", valeurVenteApres=" + getValeurVenteApres() +
             "}";
     }
 }

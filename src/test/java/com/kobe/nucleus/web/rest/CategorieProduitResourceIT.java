@@ -70,7 +70,7 @@ public class CategorieProduitResourceIT {
         CategorieProduit categorieProduit = new CategorieProduit()
             .code(DEFAULT_CODE)
             .libelle(DEFAULT_LIBELLE)
-            .status(DEFAULT_STATUS);
+          ;
         return categorieProduit;
     }
     /**
@@ -83,7 +83,7 @@ public class CategorieProduitResourceIT {
         CategorieProduit categorieProduit = new CategorieProduit()
             .code(UPDATED_CODE)
             .libelle(UPDATED_LIBELLE)
-            .status(UPDATED_STATUS);
+            ;
         return categorieProduit;
     }
 
@@ -109,7 +109,8 @@ public class CategorieProduitResourceIT {
         CategorieProduit testCategorieProduit = categorieProduitList.get(categorieProduitList.size() - 1);
         assertThat(testCategorieProduit.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testCategorieProduit.getLibelle()).isEqualTo(DEFAULT_LIBELLE);
-        assertThat(testCategorieProduit.getStatus()).isEqualTo(DEFAULT_STATUS);
+
+
     }
 
     @Test
@@ -173,25 +174,7 @@ public class CategorieProduitResourceIT {
         assertThat(categorieProduitList).hasSize(databaseSizeBeforeTest);
     }
 
-    @Test
-    @Transactional
-    public void checkStatusIsRequired() throws Exception {
-        int databaseSizeBeforeTest = categorieProduitRepository.findAll().size();
-        // set the field null
-        categorieProduit.setStatus(null);
 
-        // Create the CategorieProduit, which fails.
-        CategorieProduitDTO categorieProduitDTO = categorieProduitMapper.toDto(categorieProduit);
-
-
-        restCategorieProduitMockMvc.perform(post("/api/categorie-produits").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(categorieProduitDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<CategorieProduit> categorieProduitList = categorieProduitRepository.findAll();
-        assertThat(categorieProduitList).hasSize(databaseSizeBeforeTest);
-    }
 
     @Test
     @Transactional
@@ -206,7 +189,8 @@ public class CategorieProduitResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(categorieProduit.getId().intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE)))
             .andExpect(jsonPath("$.[*].libelle").value(hasItem(DEFAULT_LIBELLE)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+
+;
     }
     
     @Test
@@ -222,7 +206,7 @@ public class CategorieProduitResourceIT {
             .andExpect(jsonPath("$.id").value(categorieProduit.getId().intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE))
             .andExpect(jsonPath("$.libelle").value(DEFAULT_LIBELLE))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            ;
     }
     @Test
     @Transactional
@@ -247,7 +231,7 @@ public class CategorieProduitResourceIT {
         updatedCategorieProduit
             .code(UPDATED_CODE)
             .libelle(UPDATED_LIBELLE)
-            .status(UPDATED_STATUS);
+           ;
         CategorieProduitDTO categorieProduitDTO = categorieProduitMapper.toDto(updatedCategorieProduit);
 
         restCategorieProduitMockMvc.perform(put("/api/categorie-produits").with(csrf())
@@ -261,7 +245,7 @@ public class CategorieProduitResourceIT {
         CategorieProduit testCategorieProduit = categorieProduitList.get(categorieProduitList.size() - 1);
         assertThat(testCategorieProduit.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testCategorieProduit.getLibelle()).isEqualTo(UPDATED_LIBELLE);
-        assertThat(testCategorieProduit.getStatus()).isEqualTo(UPDATED_STATUS);
+      ;
     }
 
     @Test

@@ -1,0 +1,32 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "produit",
+      "otherEntityName": "produit",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "remiseProduit"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "taux",
+      "fieldType": "Float",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20210106222027",
+  "dto": "no",
+  "searchEngine": false,
+  "service": "no",
+  "entityTableName": "remise_produit",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "no"
+}

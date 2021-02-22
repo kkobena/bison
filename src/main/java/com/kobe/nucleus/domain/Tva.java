@@ -27,13 +27,9 @@ public class Tva implements Serializable {
 
     @NotNull
     @Column(name = "taux", nullable = false)
-    private Integer taux;
-
+    private Integer taux=0;
     @OneToMany(mappedBy = "tva")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Produit> produits = new HashSet<>();
-
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }

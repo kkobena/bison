@@ -27,7 +27,7 @@ management:
   metrics:
     export:
       prometheus:
-        enabled: false
+        enabled: true
 
 spring:
   devtools:
@@ -37,18 +37,17 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/nucleus
+    url: jdbc:postgresql://localhost:5432/nucleus?createDatabaseIfNotExist=true
     username: postgres
     password: 2802
     hikari:
       poolName: Hikari
       auto-commit: false
   jpa:
-    database-platform: io.github.jhipster.domain.util.FixedPostgreSQL10Dialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: false
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
-  liquibase:
-    contexts: prod
+
   mail:
     host: localhost
     port: 25
@@ -107,10 +106,10 @@ jhipster:
       # security key (this key should be unique for your application, and kept secret)
       key: 6d3b5899fb5542450bf749872541c36f91a77cf13cedc1bd1ede95062fa62fd25c471e01153db36882ce40063e95ec5eeeb8
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://my-server-url-to-change # Modify according to your server's URL
+    base-url: http://localhost # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
-      enabled: false
+      enabled: true
       report-frequency: 60 # in seconds
   logging:
     use-json-format: false # By default, logs are not in Json format
@@ -120,7 +119,7 @@ jhipster:
       port: 5000
       queue-size: 512
   audit-events:
-    retention-period: 30 # Number of days before audit events are deleted.
+    retention-period: 120 # Number of days before audit events are deleted.
 
 # ===================================================================
 # Application specific properties

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,10 +56,16 @@ public class CompteClientResource {
         if (compteClientDTO.getId() != null) {
             throw new BadRequestAlertException("A new compteClient cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CompteClientDTO result = compteClientService.save(compteClientDTO);
-        return ResponseEntity.created(new URI("/api/compte-clients/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        try {
+        	  CompteClientDTO result = compteClientService.save(compteClientDTO);
+              return ResponseEntity.created(new URI("/api/compte-clients/" + result.getId()))
+                  .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+                  .body(result);
+		} catch (Exception e) {
+			log.debug("REST request to save Client : {}", e);
+			  throw new BadRequestAlertException(e.getLocalizedMessage(), ENTITY_NAME, e.getMessage());
+		}
+      
     }
 
     /**
@@ -78,10 +83,16 @@ public class CompteClientResource {
         if (compteClientDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        CompteClientDTO result = compteClientService.save(compteClientDTO);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, compteClientDTO.getId().toString()))
-            .body(result);
+        try {
+            CompteClientDTO result = compteClientService.save(compteClientDTO);
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, compteClientDTO.getId().toString()))
+                .body(result);
+		} catch (Exception e) {
+			log.debug("REST request to save Client : {}", e);
+			  throw new BadRequestAlertException(e.getLocalizedMessage(), ENTITY_NAME, e.getMessage());
+		}
+  
     }
 
     /**

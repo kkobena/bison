@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +15,7 @@ import java.util.Set;
 import com.kobe.nucleus.domain.enumeration.CategorieAssurance;
 
 import com.kobe.nucleus.domain.enumeration.Status;
+import com.kobe.nucleus.domain.enumeration.TypeClient;
 
 /**
  * A CompteClient.
@@ -27,11 +27,15 @@ import com.kobe.nucleus.domain.enumeration.Status;
 		@Index(name = "compte_client_categorie", columnList = "categorie") }, uniqueConstraints = {
 				@UniqueConstraint(name = "UNQ_compte_client_client_tierspayant", columnNames = { "client_id",
 						"tierspayant_id" }),
-				@UniqueConstraint(name = "UNQ_compte_client_categorie", columnNames = { "client_id", "categorie" }),
-				@UniqueConstraint(name = "UNQ_compte_client_num_maticule", columnNames = { "client_id",
-						"num_maticule" }) }
+
+				@UniqueConstraint(name = "UNQ_compte_client_num_maticule", columnNames = { "client_id", "num_maticule",
+						"tierspayant_id" }) }
 
 )
+@NamedQueries({
+		@NamedQuery(name = "CompteClient.findByClientAndTiersPayant", query = "SELECT c FROM CompteClient c WHERE c.client.id =:clientId AND c.tierspayant.id=:tierspayantId"),
+
+})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class CompteClient implements Serializable {
 
@@ -73,20 +77,20 @@ public class CompteClient implements Serializable {
 	private String numMaticule;
 
 	@Column(name = "enbale")
-	private Boolean enbale;
+	private Boolean enbale = true;
 
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	@Column(name = "categorie")
 	private CategorieAssurance categorie;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
-	private Status status;
+	private Status status = Status.ACTIVE;
 
 	@NotNull
 	@Column(name = "absolute", nullable = false)
-	private Boolean absolute;
+	private Boolean absolute = false;
 
 	@OneToMany(mappedBy = "compteClient")
 	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -100,9 +104,26 @@ public class CompteClient implements Serializable {
 	@ManyToOne
 	@JsonIgnoreProperties("compteClients")
 	private Tierspayant tierspayant;
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type_client", nullable = false)
+	private TypeClient typeClient;
 
 	public Long getId() {
 		return id;
+	}
+
+	public TypeClient getTypeClient() {
+		return typeClient;
+	}
+
+	public CompteClient typeClient(TypeClient typeClient) {
+		this.typeClient = typeClient;
+		return this;
+	}
+
+	public void setTypeClient(TypeClient typeClient) {
+		this.typeClient = typeClient;
 	}
 
 	public void setId(Long id) {

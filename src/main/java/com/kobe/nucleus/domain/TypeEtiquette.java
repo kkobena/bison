@@ -31,16 +31,12 @@ public class TypeEtiquette implements Serializable {
     @Column(name = "libelle", nullable = false, unique = true)
     private String libelle;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
+   
 
     @OneToMany(mappedBy = "typeEtyquette")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Produit> produits = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -62,18 +58,7 @@ public class TypeEtiquette implements Serializable {
         this.libelle = libelle;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public TypeEtiquette status(Status status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+  
 
     public Set<Produit> getProduits() {
         return produits;
@@ -123,7 +108,7 @@ public class TypeEtiquette implements Serializable {
         return "TypeEtiquette{" +
             "id=" + getId() +
             ", libelle='" + getLibelle() + "'" +
-            ", status='" + getStatus() + "'" +
+          
             "}";
     }
 }

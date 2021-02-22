@@ -8,10 +8,17 @@ import java.io.Serializable;
  */
 public class TvaDTO implements Serializable {
     
-    private Long id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -656800366874873921L;
+
+	private Long id;
 
     @NotNull
     private Integer taux;
+    
+    private String tva;
 
     
     public Long getId() {
@@ -47,8 +54,14 @@ public class TvaDTO implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
-    @Override
+  
+    public String getTva() {
+    	this.tva=taux.toString();
+		return tva ;
+	}
+
+	
+	@Override
     public String toString() {
         return "TvaDTO{" +
             "id=" + getId() +

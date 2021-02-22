@@ -18,14 +18,7 @@
       "fieldValidateRules": ["required"]
     }
   ],
-  "relationships": [
-    {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "ayantDroit",
-      "otherEntityRelationshipName": "categorie",
-      "relationshipName": "ayantDroit"
-    }
-  ],
+  "relationships": [],
   "changelogDate": "20200531175250",
   "entityTableName": "categorie_ayant_droit",
   "dto": "mapstruct",
@@ -36,5 +29,7 @@
   "readOnly": false,
   "embedded": false,
   "clientRootFolder": "",
-  "applications": "*"
+  "applications": "*",
+  "searchEngine": false,
+  "databaseType": "sql"
 }

@@ -72,7 +72,7 @@ public class MvtProduit implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(value = "mvtProduits", allowSetters = true)
-    private Utilisateur createdBy;
+    private User createdBy;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -231,16 +231,16 @@ public class MvtProduit implements Serializable {
         this.magasin = magasin;
     }
 
-    public Utilisateur getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public MvtProduit createdBy(Utilisateur utilisateur) {
+    public MvtProduit createdBy(User utilisateur) {
         this.createdBy = utilisateur;
         return this;
     }
 
-    public void setCreatedBy(Utilisateur utilisateur) {
+    public void setCreatedBy(User utilisateur) {
         this.createdBy = utilisateur;
     }
 

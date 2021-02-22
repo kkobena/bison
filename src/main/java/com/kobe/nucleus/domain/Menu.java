@@ -56,12 +56,7 @@ public class Menu implements Serializable {
     @JsonIgnoreProperties(value = "menus", allowSetters = true)
     private Menu parent;
 
-    @ManyToMany(mappedBy = "menus")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnore
-    private Set<RoleUtilisateur> roleUtilisateurs = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -198,31 +193,7 @@ public class Menu implements Serializable {
         this.parent = menu;
     }
 
-    public Set<RoleUtilisateur> getRoleUtilisateurs() {
-        return roleUtilisateurs;
-    }
-
-    public Menu roleUtilisateurs(Set<RoleUtilisateur> roleUtilisateurs) {
-        this.roleUtilisateurs = roleUtilisateurs;
-        return this;
-    }
-
-    public Menu addRoleUtilisateur(RoleUtilisateur roleUtilisateur) {
-        this.roleUtilisateurs.add(roleUtilisateur);
-        roleUtilisateur.getMenus().add(this);
-        return this;
-    }
-
-    public Menu removeRoleUtilisateur(RoleUtilisateur roleUtilisateur) {
-        this.roleUtilisateurs.remove(roleUtilisateur);
-        roleUtilisateur.getMenus().remove(this);
-        return this;
-    }
-
-    public void setRoleUtilisateurs(Set<RoleUtilisateur> roleUtilisateurs) {
-        this.roleUtilisateurs = roleUtilisateurs;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+   
 
     @Override
     public boolean equals(Object o) {

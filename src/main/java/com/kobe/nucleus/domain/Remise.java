@@ -18,6 +18,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
 @Entity
 @Table(name = "remise")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Remise implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,17 +38,15 @@ public class Remise implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     @OneToMany(mappedBy = "remise")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Vente> ventes = new HashSet<>();
 
-    @OneToMany(mappedBy = "remise")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Client> clients = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+
+ 
     public Long getId() {
         return id;
     }
@@ -120,31 +119,7 @@ public class Remise implements Serializable {
         this.ventes = ventes;
     }
 
-    public Set<Client> getClients() {
-        return clients;
-    }
-
-    public Remise clients(Set<Client> clients) {
-        this.clients = clients;
-        return this;
-    }
-
-    public Remise addClient(Client client) {
-        this.clients.add(client);
-        client.setRemise(this);
-        return this;
-    }
-
-    public Remise removeClient(Client client) {
-        this.clients.remove(client);
-        client.setRemise(null);
-        return this;
-    }
-
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+   
 
     @Override
     public boolean equals(Object o) {

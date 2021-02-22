@@ -51,7 +51,7 @@ public class VenteResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new venteDTO, or with status {@code 400 (Bad Request)} if the vente has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/zz")
+    @PostMapping("/ventes")
     public ResponseEntity<VenteDTO> createVente(@Valid @RequestBody VenteDTO venteDTO) throws URISyntaxException {
         log.debug("REST request to save Vente : {}", venteDTO);
         if (venteDTO.getId() != null) {

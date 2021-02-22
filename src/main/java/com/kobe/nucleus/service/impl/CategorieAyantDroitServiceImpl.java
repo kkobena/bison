@@ -61,7 +61,6 @@ public class CategorieAyantDroitServiceImpl implements CategorieAyantDroitServic
             .map(categorieAyantDroitMapper::toDto);
     }
 
-
     /**
      * Get one categorieAyantDroit by id.
      *
@@ -84,7 +83,6 @@ public class CategorieAyantDroitServiceImpl implements CategorieAyantDroitServic
     @Override
     public void delete(Long id) {
         log.debug("Request to delete CategorieAyantDroit : {}", id);
-
         categorieAyantDroitRepository.deleteById(id);
     }
 }

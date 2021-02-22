@@ -31,16 +31,10 @@ public class Motif implements Serializable {
     @Column(name = "libelle", nullable = false, unique = true)
     private String libelle;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
-
     @OneToMany(mappedBy = "motif")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<RetourFournisseur> retourFournisseurs = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+ 
     public Long getId() {
         return id;
     }
@@ -62,18 +56,7 @@ public class Motif implements Serializable {
         this.libelle = libelle;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public Motif status(Status status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+   
 
     public Set<RetourFournisseur> getRetourFournisseurs() {
         return retourFournisseurs;
@@ -123,7 +106,7 @@ public class Motif implements Serializable {
         return "Motif{" +
             "id=" + getId() +
             ", libelle='" + getLibelle() + "'" +
-            ", status='" + getStatus() + "'" +
+           
             "}";
     }
 }

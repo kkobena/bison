@@ -41,6 +41,8 @@ import java.time.Instant;
 import java.util.Locale;
 import java.util.Optional;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Service Implementation for managing {@link Tierspayant}.
  */
@@ -105,6 +107,34 @@ public class TierspayantServiceImpl implements TierspayantService {
 		}
 
 		return tierspayantRepository.findAll(page).map(tierspayantMapper::toDto);
+	}
+
+	/**
+	 * Get all the tierspayants.
+	 *
+	 * @param pageable the pagination information.
+	 * @param typeTp   type tierspayant (CARNET OR ASSURANCE)
+	 * @return the list of entities.
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public Page<TierspayantDTO> findAll(String search,@NotNull TypeTierspayant typeTp, Pageable pageable) {
+		log.debug("Request to get all Tierspayants by type");
+		Pageable page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+				Sort.by(Sort.Direction.ASC, "libelLong"));
+		if (!StringUtils.isEmpty(search)) {
+			SpecificationBuilder<Tierspayant> builder = new SpecificationBuilder<>();
+			Specification<Tierspayant> spec = builder
+					.with(new String[] { "libelCourt" }, search + "%", Condition.OperationType.LIKE,
+							Condition.LogicalOperatorType.OR)
+					.with(new String[] { "libelLong" }, search + "%", Condition.OperationType.LIKE,
+							Condition.LogicalOperatorType.END)
+
+					.build();
+			return tierspayantRepository.findAll(spec.and(equalTypeTp(typeTp)), page).map(tierspayantMapper::toDto);
+		}
+
+		return tierspayantRepository.findAll(equalTypeTp(typeTp),page).map(tierspayantMapper::toDto);
 	}
 
 	/**

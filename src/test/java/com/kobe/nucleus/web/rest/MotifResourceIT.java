@@ -66,7 +66,7 @@ public class MotifResourceIT {
     public static Motif createEntity(EntityManager em) {
         Motif motif = new Motif()
             .libelle(DEFAULT_LIBELLE)
-            .status(DEFAULT_STATUS);
+            ;
         return motif;
     }
     /**
@@ -77,8 +77,8 @@ public class MotifResourceIT {
      */
     public static Motif createUpdatedEntity(EntityManager em) {
         Motif motif = new Motif()
-            .libelle(UPDATED_LIBELLE)
-            .status(UPDATED_STATUS);
+            .libelle(UPDATED_LIBELLE);
+           
         return motif;
     }
 
@@ -103,7 +103,7 @@ public class MotifResourceIT {
         assertThat(motifList).hasSize(databaseSizeBeforeCreate + 1);
         Motif testMotif = motifList.get(motifList.size() - 1);
         assertThat(testMotif.getLibelle()).isEqualTo(DEFAULT_LIBELLE);
-        assertThat(testMotif.getStatus()).isEqualTo(DEFAULT_STATUS);
+      
     }
 
     @Test
@@ -147,25 +147,7 @@ public class MotifResourceIT {
         assertThat(motifList).hasSize(databaseSizeBeforeTest);
     }
 
-    @Test
-    @Transactional
-    public void checkStatusIsRequired() throws Exception {
-        int databaseSizeBeforeTest = motifRepository.findAll().size();
-        // set the field null
-        motif.setStatus(null);
-
-        // Create the Motif, which fails.
-        MotifDTO motifDTO = motifMapper.toDto(motif);
-
-
-        restMotifMockMvc.perform(post("/api/motifs").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(motifDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Motif> motifList = motifRepository.findAll();
-        assertThat(motifList).hasSize(databaseSizeBeforeTest);
-    }
+  
 
     @Test
     @Transactional
@@ -178,8 +160,8 @@ public class MotifResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(motif.getId().intValue())))
-            .andExpect(jsonPath("$.[*].libelle").value(hasItem(DEFAULT_LIBELLE)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].libelle").value(hasItem(DEFAULT_LIBELLE)));
+        
     }
     
     @Test
@@ -193,8 +175,8 @@ public class MotifResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(motif.getId().intValue()))
-            .andExpect(jsonPath("$.libelle").value(DEFAULT_LIBELLE))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.libelle").value(DEFAULT_LIBELLE));
+          
     }
     @Test
     @Transactional
@@ -218,7 +200,7 @@ public class MotifResourceIT {
         em.detach(updatedMotif);
         updatedMotif
             .libelle(UPDATED_LIBELLE)
-            .status(UPDATED_STATUS);
+            ;
         MotifDTO motifDTO = motifMapper.toDto(updatedMotif);
 
         restMotifMockMvc.perform(put("/api/motifs").with(csrf())
@@ -231,7 +213,7 @@ public class MotifResourceIT {
         assertThat(motifList).hasSize(databaseSizeBeforeUpdate);
         Motif testMotif = motifList.get(motifList.size() - 1);
         assertThat(testMotif.getLibelle()).isEqualTo(UPDATED_LIBELLE);
-        assertThat(testMotif.getStatus()).isEqualTo(UPDATED_STATUS);
+      
     }
 
     @Test

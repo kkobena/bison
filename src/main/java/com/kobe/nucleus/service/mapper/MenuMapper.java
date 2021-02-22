@@ -21,8 +21,7 @@ public interface MenuMapper extends EntityMapper<MenuDTO, Menu> {
     @Mapping(target = "permissions", ignore = true)
     @Mapping(target = "removePermission", ignore = true)
     @Mapping(source = "parentId", target = "parent")
-    @Mapping(target = "roleUtilisateurs", ignore = true)
-    @Mapping(target = "removeRoleUtilisateur", ignore = true)
+
     Menu toEntity(MenuDTO menuDTO);
 
     default Menu fromId(Long id) {

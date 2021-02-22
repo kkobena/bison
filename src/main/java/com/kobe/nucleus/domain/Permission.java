@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
@@ -25,19 +26,14 @@ public class Permission implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "name",unique = true)
     private String name;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "permissions", allowSetters = true)
-    private Utilisateur createdBy;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "permissions", allowSetters = true)
     private Menu menu;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
     }
@@ -72,19 +68,7 @@ public class Permission implements Serializable {
         this.name = name;
     }
 
-    public Utilisateur getCreatedBy() {
-        return createdBy;
-    }
-
-    public Permission createdBy(Utilisateur utilisateur) {
-        this.createdBy = utilisateur;
-        return this;
-    }
-
-    public void setCreatedBy(Utilisateur utilisateur) {
-        this.createdBy = utilisateur;
-    }
-
+   
     public Menu getMenu() {
         return menu;
     }

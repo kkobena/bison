@@ -1,208 +1,215 @@
 package com.kobe.nucleus.service.dto;
 
 import javax.validation.constraints.*;
+
+import com.kobe.nucleus.domain.Magasin;
+import com.kobe.nucleus.domain.Produit;
+import com.kobe.nucleus.domain.Rayon;
+import com.kobe.nucleus.domain.StockProduit;
+import com.kobe.nucleus.domain.enumeration.TypeMagasin;
+
 import java.io.Serializable;
-import com.kobe.nucleus.domain.enumeration.Status;
+import java.time.Instant;
 
 /**
  * A DTO for the {@link com.kobe.nucleus.domain.StockProduit} entity.
  */
 public class StockProduitDTO implements Serializable {
-    
-    private Long id;
 
-    @NotNull
-    private Integer qtyStock;
+	private static final long serialVersionUID = 1L;
 
-    @NotNull
-    private Integer qtyVirtual;
+	private Long id;
 
-    @NotNull
-    private Integer qtyUG;
+	@NotNull
+	private Integer qtyStock;
 
-    @NotNull
-    private Status status;
+	private int qtyVirtual;
 
-    @NotNull
-    private String codeCip;
+	private int qtyUG;
 
-    private Integer version;
+	private Long rayonId;
 
-    @NotNull
-    private Integer prixPaf;
+	private String rayonLibelle;
+	private String rayonCode;
+	private String produitCip;
+	private Long produitId;
+	private Instant createdAt ;
+	private Instant updatedAt;
+	private String produitLibelle;
+	private String nomMagasin;
+	private String nomLongMagasin;
+	private TypeMagasin typeStock;
 
-    @NotNull
-    private Integer prixUni;
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    private Long magasinId;
+	public Integer getQtyStock() {
+		return qtyStock;
+	}
 
-    private String magasinNomCourt;
+	public void setQtyStock(Integer qtyStock) {
+		this.qtyStock = qtyStock;
+	}
 
-    private Long rayonId;
+	public int getQtyVirtual() {
+		return qtyVirtual;
+	}
 
-    private String rayonLibelle;
+	public void setQtyVirtual(int qtyVirtual) {
+		this.qtyVirtual = qtyVirtual;
+	}
 
-    private Long produitId;
+	public int getQtyUG() {
+		return qtyUG;
+	}
 
-    private String produitLibelle;
-    
-    public Long getId() {
-        return id;
-    }
+	public void setQtyUG(int qtyUG) {
+		this.qtyUG = qtyUG;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getRayonId() {
+		return rayonId;
+	}
 
-    public Integer getQtyStock() {
-        return qtyStock;
-    }
+	public void setRayonId(Long rayonId) {
+		this.rayonId = rayonId;
+	}
 
-    public void setQtyStock(Integer qtyStock) {
-        this.qtyStock = qtyStock;
-    }
+	public String getRayonLibelle() {
+		return rayonLibelle;
+	}
 
-    public Integer getQtyVirtual() {
-        return qtyVirtual;
-    }
+	public void setRayonLibelle(String rayonLibelle) {
+		this.rayonLibelle = rayonLibelle;
+	}
 
-    public void setQtyVirtual(Integer qtyVirtual) {
-        this.qtyVirtual = qtyVirtual;
-    }
+	public Long getProduitId() {
+		return produitId;
+	}
 
-    public Integer getQtyUG() {
-        return qtyUG;
-    }
+	public void setProduitId(Long produitId) {
+		this.produitId = produitId;
+	}
 
-    public void setQtyUG(Integer qtyUG) {
-        this.qtyUG = qtyUG;
-    }
+	public String getProduitLibelle() {
+		return produitLibelle;
+	}
 
-    public Status getStatus() {
-        return status;
-    }
+	public void setProduitLibelle(String produitLibelle) {
+		this.produitLibelle = produitLibelle;
+	}
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+	public String getRayonCode() {
+		return rayonCode;
+	}
 
-    public String getCodeCip() {
-        return codeCip;
-    }
+	public void setRayonCode(String rayonCode) {
+		this.rayonCode = rayonCode;
+	}
 
-    public void setCodeCip(String codeCip) {
-        this.codeCip = codeCip;
-    }
+	public String getProduitCip() {
+		return produitCip;
+	}
 
-    public Integer getVersion() {
-        return version;
-    }
+	public void setProduitCip(String produitCip) {
+		this.produitCip = produitCip;
+	}
 
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
+	public StockProduitDTO() {
 
-    public Integer getPrixPaf() {
-        return prixPaf;
-    }
+	}
 
-    public void setPrixPaf(Integer prixPaf) {
-        this.prixPaf = prixPaf;
-    }
+	public Instant getCreatedAt() {
+		return createdAt;
+	}
 
-    public Integer getPrixUni() {
-        return prixUni;
-    }
+	public void setCreatedAt(Instant createdAt) {
+		this.createdAt = createdAt;
+	}
 
-    public void setPrixUni(Integer prixUni) {
-        this.prixUni = prixUni;
-    }
+	public Instant getUpdatedAt() {
+		return updatedAt;
+	}
 
-    public Long getMagasinId() {
-        return magasinId;
-    }
+	public void setUpdatedAt(Instant updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
-    public void setMagasinId(Long magasinId) {
-        this.magasinId = magasinId;
-    }
+	public TypeMagasin getTypeStock() {
+		return typeStock;
+	}
 
-    public String getMagasinNomCourt() {
-        return magasinNomCourt;
-    }
+	public void setTypeStock(TypeMagasin typeStock) {
+		this.typeStock = typeStock;
+	}
 
-    public void setMagasinNomCourt(String magasinNomCourt) {
-        this.magasinNomCourt = magasinNomCourt;
-    }
+	public StockProduitDTO(StockProduit stockProduit) {
+		this.id = stockProduit.getId();
+		this.qtyStock = stockProduit.getQtyStock();
+		this.qtyVirtual = stockProduit.getQtyVirtual();
+		this.qtyUG = stockProduit.getQtyUG();
+		Rayon rayon = stockProduit.getRayon();
+		this.rayonId = rayon.getId();
+		this.rayonCode = rayon.getCode();
+		this.rayonLibelle = rayon.getLibelle();
+		Magasin magasin = rayon.getMagasin();
+		if (magasin != null) {
+			this.nomLongMagasin = magasin.getNomLong();
+			this.nomMagasin = magasin.getNomCourt();
+			this.typeStock=magasin.getTypeMagasin();
+		}
+		Produit produit = stockProduit.getProduit();
+		this.produitId = produit.getId();
+		this.produitLibelle = produit.getLibelle();
+		this.produitCip = produit.getCodeCip();
+		this.createdAt = stockProduit.getCreatedAt();
+		this.updatedAt = stockProduit.getUpdatedAt();
+	}
 
-    public Long getRayonId() {
-        return rayonId;
-    }
+	
+	
+	public String getNomMagasin() {
+		return nomMagasin;
+	}
 
-    public void setRayonId(Long rayonId) {
-        this.rayonId = rayonId;
-    }
+	public void setNomMagasin(String nomMagasin) {
+		this.nomMagasin = nomMagasin;
+	}
 
-    public String getRayonLibelle() {
-        return rayonLibelle;
-    }
+	public String getNomLongMagasin() {
+		return nomLongMagasin;
+	}
 
-    public void setRayonLibelle(String rayonLibelle) {
-        this.rayonLibelle = rayonLibelle;
-    }
+	public void setNomLongMagasin(String nomLongMagasin) {
+		this.nomLongMagasin = nomLongMagasin;
+	}
 
-    public Long getProduitId() {
-        return produitId;
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof StockProduitDTO)) {
+			return false;
+		}
 
-    public void setProduitId(Long produitId) {
-        this.produitId = produitId;
-    }
+		return id != null && id.equals(((StockProduitDTO) o).id);
+	}
 
-    public String getProduitLibelle() {
-        return produitLibelle;
-    }
+	@Override
+	public int hashCode() {
+		return 31;
+	}
 
-    public void setProduitLibelle(String produitLibelle) {
-        this.produitLibelle = produitLibelle;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof StockProduitDTO)) {
-            return false;
-        }
-
-        return id != null && id.equals(((StockProduitDTO) o).id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 31;
-    }
-
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "StockProduitDTO{" +
-            "id=" + getId() +
-            ", qtyStock=" + getQtyStock() +
-            ", qtyVirtual=" + getQtyVirtual() +
-            ", qtyUG=" + getQtyUG() +
-            ", status='" + getStatus() + "'" +
-            ", codeCip='" + getCodeCip() + "'" +
-            ", version=" + getVersion() +
-            ", prixPaf=" + getPrixPaf() +
-            ", prixUni=" + getPrixUni() +
-            ", magasinId=" + getMagasinId() +
-            ", magasinNomCourt='" + getMagasinNomCourt() + "'" +
-            ", rayonId=" + getRayonId() +
-            ", rayonLibelle='" + getRayonLibelle() + "'" +
-            ", produitId=" + getProduitId() +
-            ", produitLibelle='" + getProduitLibelle() + "'" +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "StockProduitDTO{" + "id=" + getId() + ", qtyStock=" + getQtyStock() + ", qtyVirtual=" + getQtyVirtual()
+				+ ", qtyUG=" + getQtyUG() + ", rayonId=" + getRayonId() + ", rayonLibelle='" + getRayonLibelle() + "'"
+				+ ", produitId=" + getProduitId() + ", produitLibelle='" + getProduitLibelle() + "'" + "}";
+	}
 }

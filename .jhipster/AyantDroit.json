@@ -39,9 +39,8 @@
       "fieldType": "LocalDate"
     },
     {
-      "fieldName": "principal",
-      "fieldType": "Boolean",
-      "fieldValidateRules": ["required"]
+      "fieldName": "mobile",
+      "fieldType": "String"
     }
   ],
   "relationships": [
@@ -64,13 +63,6 @@
       "relationshipValidateRules": "required",
       "relationshipName": "assure",
       "otherEntityField": "firstName"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "categorieAyantDroit",
-      "otherEntityRelationshipName": "ayantDroit",
-      "relationshipName": "categorie",
-      "otherEntityField": "libelle"
     }
   ],
   "changelogDate": "20200531175450",

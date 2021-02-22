@@ -7,9 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.kobe.nucleus.domain.enumeration.Status;
 
 /**
@@ -17,7 +14,7 @@ import com.kobe.nucleus.domain.enumeration.Status;
  */
 @Entity
 @Table(name = "categorie_ayant_droit")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class CategorieAyantDroit implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,10 +36,6 @@ public class CategorieAyantDroit implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private Status status;
-
-    @OneToMany(mappedBy = "categorie")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<AyantDroit> ayantDroits = new HashSet<>();
 
 
     public Long getId() {
@@ -91,32 +84,7 @@ public class CategorieAyantDroit implements Serializable {
     public void setStatus(Status status) {
         this.status = status;
     }
-
-    public Set<AyantDroit> getAyantDroits() {
-        return ayantDroits;
-    }
-
-    public CategorieAyantDroit ayantDroits(Set<AyantDroit> ayantDroits) {
-        this.ayantDroits = ayantDroits;
-        return this;
-    }
-
-    public CategorieAyantDroit addAyantDroit(AyantDroit ayantDroit) {
-        this.ayantDroits.add(ayantDroit);
-        ayantDroit.setCategorie(this);
-        return this;
-    }
-
-    public CategorieAyantDroit removeAyantDroit(AyantDroit ayantDroit) {
-        this.ayantDroits.remove(ayantDroit);
-        ayantDroit.setCategorie(null);
-        return this;
-    }
-
-    public void setAyantDroits(Set<AyantDroit> ayantDroits) {
-        this.ayantDroits = ayantDroits;
-    }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
+    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -134,7 +102,6 @@ public class CategorieAyantDroit implements Serializable {
         return 31;
     }
 
-    // prettier-ignore
     @Override
     public String toString() {
         return "CategorieAyantDroit{" +
