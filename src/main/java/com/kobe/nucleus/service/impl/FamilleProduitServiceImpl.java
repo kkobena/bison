@@ -1,24 +1,15 @@
 package com.kobe.nucleus.service.impl;
-import com.kobe.nucleus.domain.CategorieProduit;
-import com.kobe.nucleus.service.FamilleProduitService;
-import com.kobe.nucleus.domain.FamilleProduit;
-import com.kobe.nucleus.domain.Fournisseur;
-import com.kobe.nucleus.domain.GroupeFournisseur;
-import com.kobe.nucleus.domain.constants.EntityConstant;
-import com.kobe.nucleus.domain.enumeration.Status;
-import com.kobe.nucleus.repository.CategorieProduitRepository;
-import com.kobe.nucleus.repository.FamilleProduitRepository;
-import com.kobe.nucleus.repository.util.Condition;
-import com.kobe.nucleus.repository.util.SpecificationBuilder;
-import com.kobe.nucleus.service.dto.FamilleProduitDTO;
-import com.kobe.nucleus.service.mapper.FamilleProduitMapper;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Optional;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,11 +18,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Optional;
+import com.kobe.nucleus.domain.CategorieProduit;
+import com.kobe.nucleus.domain.FamilleProduit;
+import com.kobe.nucleus.repository.CategorieProduitRepository;
+import com.kobe.nucleus.repository.FamilleProduitRepository;
+import com.kobe.nucleus.repository.util.Condition;
+import com.kobe.nucleus.repository.util.SpecificationBuilder;
+import com.kobe.nucleus.service.FamilleProduitService;
+import com.kobe.nucleus.service.dto.FamilleProduitDTO;
+import com.kobe.nucleus.service.mapper.FamilleProduitMapper;
 
 /**
  * Service Implementation for managing {@link FamilleProduit}.
@@ -142,9 +137,7 @@ public class FamilleProduitServiceImpl implements FamilleProduitService {
 		}
 
 	
-		
 	}
-    
     
     
 }

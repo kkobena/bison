@@ -29,11 +29,10 @@ import com.kobe.nucleus.domain.enumeration.Status;
  * A Produit.
  */
 @Entity
-@Table(name = "produit", indexes = { @Index(columnList = "libelle",name = "produit_libelle_index") ,
-		@Index(columnList = "status",name = "produit_status_index"),
-		@Index(columnList = "code_cip",name = "produit_codeCip_index"),
-		@Index(columnList = "code_ean",name = "produit_codeean_index")
-})
+@Table(name = "produit", indexes = { @Index(columnList = "libelle", name = "produit_libelle_index"),
+		@Index(columnList = "status", name = "produit_status_index"),
+		@Index(columnList = "code_cip", name = "produit_codeCip_index"),
+		@Index(columnList = "code_ean", name = "produit_codeean_index") })
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 //@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 public class Produit implements Serializable {
@@ -52,11 +51,11 @@ public class Produit implements Serializable {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
-	private Status status=Status.ACTIVE;
+	private Status status = Status.ACTIVE;
 
 	@NotNull
 	@Column(name = "created_at", nullable = false)
-	private Instant createdAt=Instant.now();
+	private Instant createdAt = Instant.now();
 
 	@NotNull
 	@Column(name = "updated_at", nullable = false)
@@ -89,15 +88,16 @@ public class Produit implements Serializable {
 	private Boolean deconditionnable;
 
 	@NotNull
-	 @Min(value = 1)
+	@Min(value = 1)
 	@Column(name = "prix_paf", nullable = false)
 	private Integer prixPaf;
 
 	@NotNull
-	 @Min(value = 1)
+	@Min(value = 1)
 	@Column(name = "prix_uni", nullable = false)
 	private Integer prixUni;
-
+	@Column(name = "exclude", columnDefinition = "boolean default false")
+	private boolean exclude;
 	@NotNull
 	@Column(name = "prix_mnp", nullable = false)
 	private Integer prixMnp;
@@ -118,11 +118,11 @@ public class Produit implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<DetailsAjustement> detailsAjustements = new HashSet<>();
 
-	@OneToMany(mappedBy = "produit",cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
-	//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+	@OneToMany(mappedBy = "produit", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+	// @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<StockProduit> stockProduits = new HashSet<>();
 
-	@OneToMany(mappedBy = "produit",cascade = { CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE})
+	@OneToMany(mappedBy = "produit", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<FournisseurProduit> fournisseurProduits = new HashSet<>();
 
@@ -156,9 +156,6 @@ public class Produit implements Serializable {
 	@ManyToOne
 	@JsonIgnoreProperties(value = "produits", allowSetters = true)
 	private RemiseProduit remise;
-	
-	
-	
 
 	public RemiseProduit getRemise() {
 		return remise;
@@ -254,8 +251,6 @@ public class Produit implements Serializable {
 		this.qtySeuilMini = qtySeuilMini;
 	}
 
-	
-
 	public Boolean isDateperemption() {
 		return dateperemption;
 	}
@@ -333,8 +328,6 @@ public class Produit implements Serializable {
 	public void setDeconditionnable(Boolean deconditionnable) {
 		this.deconditionnable = deconditionnable;
 	}
-
-
 
 	public Integer getPrixPaf() {
 		return prixPaf;
@@ -507,9 +500,7 @@ public class Produit implements Serializable {
 		fournisseurProduit.setProduit(null);
 		return this;
 	}
-	
-	
-	
+
 	public void setStockProduits(Set<StockProduit> stockProduits) {
 		this.stockProduits = stockProduits;
 	}
@@ -596,6 +587,14 @@ public class Produit implements Serializable {
 		return tva;
 	}
 
+	public boolean isExclude() {
+		return exclude;
+	}
+
+	public void setExclude(boolean exclude) {
+		this.exclude = exclude;
+	}
+
 	public Produit tva(Tva tva) {
 		this.tva = tva;
 		return this;
@@ -634,10 +633,9 @@ public class Produit implements Serializable {
 	public String toString() {
 		return "Produit{" + "id=" + getId() + ", libelle='" + getLibelle() + "'" + ", status='" + getStatus() + "'"
 				+ ", createdAt='" + getCreatedAt() + "'" + ", updatedAt='" + getUpdatedAt() + "'" + ", qtyAppro="
-				+ getQtyAppro() + ", qtySeuilMini=" + getQtySeuilMini() 
-				+ ", dateperemption='" + isDateperemption() + "'" + ", chiffre='" + isChiffre() + "'" + ", codeCip='"
-				+ getCodeCip() + "'" + ", codeEan='" + getCodeEan() + "'" + ", qtyDetails=" + getQtyDetails()
-				+ ", deconditionnable='" + isDeconditionnable() + "'" 
-				+ ", prixPaf=" + getPrixPaf() + ", prixUni=" + getPrixUni() + ", prixMnp=" + getPrixMnp() + "}";
+				+ getQtyAppro() + ", qtySeuilMini=" + getQtySeuilMini() + ", dateperemption='" + isDateperemption()
+				+ "'" + ", chiffre='" + isChiffre() + "'" + ", codeCip='" + getCodeCip() + "'" + ", codeEan='"
+				+ getCodeEan() + "'" + ", qtyDetails=" + getQtyDetails() + ", deconditionnable='" + isDeconditionnable()
+				+ "'" + ", prixPaf=" + getPrixPaf() + ", prixUni=" + getPrixUni() + ", prixMnp=" + getPrixMnp() + "}";
 	}
 }

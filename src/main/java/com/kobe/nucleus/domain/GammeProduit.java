@@ -26,7 +26,7 @@ public class GammeProduit implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "code", nullable = false, unique = true)
+    @Column(name = "code")
     private String code;
 
     @NotNull
@@ -37,7 +37,7 @@ public class GammeProduit implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Produit> produits = new HashSet<>();
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here
+  
     public Long getId() {
         return id;
     }

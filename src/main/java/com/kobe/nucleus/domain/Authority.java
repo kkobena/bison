@@ -27,9 +27,9 @@ public class Authority implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    @Size(max = 50)
+    @Size(max = 100)
     @Id
-    @Column(length = 50)
+    @Column(length = 100)
     private String name;
     private String libelle;
     @ManyToMany
@@ -104,4 +104,8 @@ public class Authority implements Serializable {
             "name='" + name + '\'' +
             "}";
     }
+	 public Authority name(String name) {
+	        this.name = name;
+	        return this;
+	    }
 }

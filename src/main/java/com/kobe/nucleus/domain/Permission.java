@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
@@ -25,8 +26,8 @@ public class Permission implements Serializable {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "name")
+    @NotNull
+    @Column(name = "name",unique = true)
     private String name;
 
     @ManyToOne

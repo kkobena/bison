@@ -130,7 +130,7 @@ public class CustomizedProductRepository implements CustomizedProductService {
 		return predicates;
 	}
 
-	@Transactional(readOnly = true)
+
 	private long findAllCount(ProduitCriteria produitCriteria) throws Exception {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> cq = cb.createQuery(Long.class);
@@ -147,7 +147,6 @@ public class CustomizedProductRepository implements CustomizedProductService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<ProduitDTO> findAll(ProduitCriteria produitCriteria) throws Exception {
-
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Produit> cq = cb.createQuery(Produit.class);
 		Root<Produit> root = cq.from(Produit.class);
@@ -246,7 +245,6 @@ public class CustomizedProductRepository implements CustomizedProductService {
 
 	@Override
 	public ProduitDTO update(ProduitDTO dto) throws Exception {
-
 		final Produit produit = buildProduitFromProduitDTO(dto, em.find(Produit.class, dto.getId()));
 		if (dto.getStockProduit() != null) {
 			stockProduitRepository.findById(dto.getStockProduit().getId()).ifPresent(s -> {
@@ -254,7 +252,6 @@ public class CustomizedProductRepository implements CustomizedProductService {
 				produit.addStockProduit(s);
 			});
 		}
-
 		produit.addStockProduit(buildStockProduitFromStockProduitDTO(dto.getStockProduit()));
 		produit.addFournisseurProduit(buildFournisseurProduitFromFournisseurProduitDTO(dto.getFournisseurProduit()));
 		dto.getFournisseurProduits().stream().forEach(fournisseurProduit -> {

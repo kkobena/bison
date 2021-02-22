@@ -2,8 +2,10 @@ package com.kobe.nucleus.service;
 
 import com.kobe.nucleus.config.Constants;
 import com.kobe.nucleus.domain.Authority;
+import com.kobe.nucleus.domain.Magasin;
 import com.kobe.nucleus.domain.User;
 import com.kobe.nucleus.repository.AuthorityRepository;
+import com.kobe.nucleus.repository.MagasinRepository;
 import com.kobe.nucleus.repository.PersistentTokenRepository;
 import com.kobe.nucleus.repository.UserRepository;
 import com.kobe.nucleus.security.AuthoritiesConstants;
@@ -47,12 +49,16 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, 
+    		PersistentTokenRepository persistentTokenRepository, 
+    		AuthorityRepository authorityRepository,
+    		CacheManager cacheManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+       
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -143,7 +149,10 @@ public class UserService {
     public User createUser(UserDTO userDTO) {
         User user = new User();
         user.setLogin(userDTO.getLogin().toLowerCase());
-        user.setFirstName(userDTO.getFirstName());
+        user.setFirstName(userDTO.getFirstName().toUpperCase());
+        Magasin magasin=new Magasin();
+        magasin.setId(userDTO.getMagasinId());
+        user.setMagasin(magasin);
         user.setLastName(userDTO.getLastName());
         if (userDTO.getEmail() != null) {
             user.setEmail(userDTO.getEmail().toLowerCase());
@@ -154,19 +163,21 @@ public class UserService {
         } else {
             user.setLangKey(userDTO.getLangKey());
         }
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+        String encryptedPassword = passwordEncoder.encode(userDTO.getLogin().toLowerCase());
+       // String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
         user.setActivated(true);
-        if (userDTO.getAuthorities() != null) {
+        user.setAuthorities(Set.of(new Authority().name(userDTO.getRole())));
+       /* if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO.getAuthorities().stream()
                 .map(authorityRepository::findById)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
-        }
+        }*/
         userRepository.save(user);
         this.clearUserCaches(user);
         log.debug("Created Information for User: {}", user);
@@ -187,30 +198,29 @@ public class UserService {
             .map(user -> {
                 this.clearUserCaches(user);
                 user.setLogin(userDTO.getLogin().toLowerCase());
-                user.setFirstName(userDTO.getFirstName());
+                user.setFirstName(userDTO.getFirstName().toUpperCase());
                 user.setLastName(userDTO.getLastName());
                 if (userDTO.getEmail() != null) {
                     user.setEmail(userDTO.getEmail().toLowerCase());
                 }
-                user.setImageUrl(userDTO.getImageUrl());
-                user.setActivated(userDTO.isActivated());
-                user.setLangKey(userDTO.getLangKey());
+               
                 Set<Authority> managedAuthorities = user.getAuthorities();
                 managedAuthorities.clear();
-                userDTO.getAuthorities().stream()
+                user.setAuthorities(Set.of(new Authority().name(userDTO.getRole())));
+               /* userDTO.getAuthorities().stream()
                     .map(authorityRepository::findById)
                     .filter(Optional::isPresent)
                     .map(Optional::get)
-                    .forEach(managedAuthorities::add);
+                    .forEach(managedAuthorities::add);*/
                 this.clearUserCaches(user);
                 log.debug("Changed Information for User: {}", user);
-                return user;
+                return user ;
             })
             .map(UserDTO::new);
     }
 
-    public void deleteUser(String login) {
-        userRepository.findOneByLogin(login).ifPresent(user -> {
+    public void deleteUser(long  id) {
+        userRepository.findById(id).ifPresent(user -> {
             userRepository.delete(user);
             this.clearUserCaches(user);
             log.debug("Deleted User: {}", user);
@@ -226,18 +236,21 @@ public class UserService {
      * @param langKey   language key.
      * @param imageUrl  image URL of user.
      */
-    public void updateUser(String firstName, String lastName, String email, String langKey, String imageUrl) {
+   
+    public void updateUser(String login,String firstName, String lastName, String email, String langKey, String imageUrl) {
         SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .ifPresent(user -> {
-                user.setFirstName(firstName);
+                user.setFirstName(firstName.toUpperCase());
                 user.setLastName(lastName);
+                user.setLogin(login.toLowerCase());
                 if (email != null) {
                     user.setEmail(email.toLowerCase());
                 }
                 user.setLangKey(langKey);
                 user.setImageUrl(imageUrl);
                 this.clearUserCaches(user);
+             
                 log.debug("Changed Information for User: {}", user);
             });
     }
@@ -255,13 +268,14 @@ public class UserService {
                 String encryptedPassword = passwordEncoder.encode(newPassword);
                 user.setPassword(encryptedPassword);
                 this.clearUserCaches(user);
+                userRepository.save(user) ;
                 log.debug("Changed password for User: {}", user);
             });
     }
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
-        return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+    public Page<UserDTO> getAllManagedUsers(Long magasinId,Pageable pageable) {
+        return userRepository.findAllByMagasinIdAndLoginNotIn(magasinId,List.of(Constants.ANONYMOUS_USER,Constants.ADMIN), pageable).map(UserDTO::new);
     }
 
     @Transactional(readOnly = true)
@@ -292,14 +306,14 @@ public class UserService {
     }
 
     /**
-     * Not activated users should be automatically deleted after 3 days.
+     * Not activated users should be automatically deleted after 3 MONTHS.
      * <p>
      * This is scheduled to get fired everyday, at 01:00 (am).
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
         userRepository
-            .findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.DAYS))
+            .findAllByActivatedIsFalseAndActivationKeyIsNotNullAndCreatedDateBefore(Instant.now().minus(3, ChronoUnit.MONTHS))
             .forEach(user -> {
                 log.debug("Deleting not activated user {}", user.getLogin());
                 userRepository.delete(user);
@@ -322,5 +336,17 @@ public class UserService {
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
         }
+    }
+    public Optional<User> activateRegistration(UserDTO userDTO) {
+       
+        return userRepository.findById(userDTO.getId())
+            .map(user -> {
+                // activate given user for the registration key.
+                user.setActivated(userDTO.isActivated());
+                user.setActivationKey(null);
+                this.clearUserCaches(user);
+                log.debug("Activated user: {}", user);
+                return user;
+            });
     }
 }

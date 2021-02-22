@@ -1,6 +1,8 @@
 package com.kobe.nucleus.service;
 
+import com.kobe.nucleus.service.dto.RemiseClientDTO;
 import com.kobe.nucleus.service.dto.RemiseDTO;
+import com.kobe.nucleus.service.dto.RemiseProduitDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +20,7 @@ public interface RemiseService {
      * @param remiseDTO the entity to save.
      * @return the persisted entity.
      */
-    RemiseDTO save(RemiseDTO remiseDTO);
+	RemiseProduitDTO save(RemiseProduitDTO remiseProduitDTO);
 
     /**
      * Get all the remises.
@@ -51,5 +53,5 @@ public interface RemiseService {
      */
     void disable(Long id);
     
-    
+    RemiseClientDTO save(RemiseClientDTO remiseClientDTO);
 }

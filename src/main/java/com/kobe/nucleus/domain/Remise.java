@@ -38,7 +38,7 @@ public class Remise implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private Status status;
+    private Status status=Status.ACTIVE;
 
     @OneToMany(mappedBy = "remise")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)

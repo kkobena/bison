@@ -14,8 +14,7 @@ public class MotifDTO implements Serializable {
     @NotNull
     private String libelle;
 
-    @NotNull
-    private Status status;
+
 
     
     public Long getId() {
@@ -34,13 +33,7 @@ public class MotifDTO implements Serializable {
         this.libelle = libelle;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+   
 
     @Override
     public boolean equals(Object o) {
@@ -65,7 +58,7 @@ public class MotifDTO implements Serializable {
         return "MotifDTO{" +
             "id=" + getId() +
             ", libelle='" + getLibelle() + "'" +
-            ", status='" + getStatus() + "'" +
+          
             "}";
     }
 }

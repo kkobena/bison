@@ -24,7 +24,7 @@ public class Parametre implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "key", nullable = false, unique = true)
+    @Column(name = "pkey", nullable = false, unique = true)
     private String key;
 
     @NotNull
@@ -35,7 +35,9 @@ public class Parametre implements Serializable {
     @Column(name = "dtype", nullable = false)
     private String dtype;
 
- 
+    @NotNull
+    @Column(name = "libelle", nullable = false)
+    private String libelle;
     public Long getId() {
         return id;
     }
@@ -74,7 +76,17 @@ public class Parametre implements Serializable {
         return dtype;
     }
 
-    public Parametre dtype(String dtype) {
+    
+    
+    public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+
+	public Parametre dtype(String dtype) {
         this.dtype = dtype;
         return this;
     }

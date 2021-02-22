@@ -7,10 +7,13 @@ import java.io.Serializable;
  * A DTO for the {@link com.kobe.nucleus.domain.GammeProduit} entity.
  */
 public class GammeProduitDTO implements Serializable {
-    
-    private Long id;
+   
+	private static final long serialVersionUID = -605218151933409039L;
 
-    @NotNull
+
+	private Long id;
+
+   
     private String code;
 
     @NotNull

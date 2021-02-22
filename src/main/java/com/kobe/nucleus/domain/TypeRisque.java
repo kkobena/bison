@@ -24,9 +24,7 @@ public class TypeRisque implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
-    @NotNull
-    @Column(name = "code", nullable = false, unique = true)
-    private String code;
+   
 
     @NotNull
     @Column(name = "libelle", nullable = false, unique = true)
@@ -40,18 +38,7 @@ public class TypeRisque implements Serializable {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public TypeRisque code(String code) {
-        this.code = code;
-        return this;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
+   
 
     public String getLibelle() {
         return libelle;
@@ -88,7 +75,7 @@ public class TypeRisque implements Serializable {
     public String toString() {
         return "TypeRisque{" +
             "id=" + getId() +
-            ", code='" + getCode() + "'" +
+      
             ", libelle='" + getLibelle() + "'" +
             "}";
     }

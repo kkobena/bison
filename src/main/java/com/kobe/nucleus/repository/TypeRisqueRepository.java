@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface TypeRisqueRepository extends JpaRepository<TypeRisque, Long> {
-    Page<TypeRisque> findByCodeOrLibelleAllIgnoreCaseStartingWithOrderByCodeAsc (String  code,String libelle,Pageable pageble);
+  
 }

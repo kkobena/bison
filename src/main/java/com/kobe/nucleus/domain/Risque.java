@@ -35,10 +35,7 @@ public class Risque implements Serializable {
     @Column(name = "libelle", nullable = false, unique = true)
     private String libelle;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
+
 
     @OneToMany(mappedBy = "risque")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -84,18 +81,7 @@ public class Risque implements Serializable {
         this.libelle = libelle;
     }
 
-    public Status getStatus() {
-        return status;
-    }
 
-    public Risque status(Status status) {
-        this.status = status;
-        return this;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 
     public Set<Tierspayant> getTierspayants() {
         return tierspayants;
@@ -159,7 +145,7 @@ public class Risque implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", libelle='" + getLibelle() + "'" +
-            ", status='" + getStatus() + "'" +
+          
             "}";
     }
 }

@@ -8,7 +8,6 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 
-import com.kobe.nucleus.domain.enumeration.Status;
 
 /**
  * A GroupeFournisseur.

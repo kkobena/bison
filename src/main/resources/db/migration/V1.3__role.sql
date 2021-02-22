@@ -1,0 +1,1 @@
+INSERT INTO authority(name, libelle) VALUES ('ROLE_ADMIN', 'ROLE_ADMIN');

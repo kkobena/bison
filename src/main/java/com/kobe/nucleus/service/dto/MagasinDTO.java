@@ -2,264 +2,358 @@ package com.kobe.nucleus.service.dto;
 
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import com.kobe.nucleus.domain.enumeration.TypeMagasin;
+import com.kobe.nucleus.domain.Magasin;
+import com.kobe.nucleus.domain.User;
 import com.kobe.nucleus.domain.enumeration.Status;
 
 /**
  * A DTO for the {@link com.kobe.nucleus.domain.Magasin} entity.
  */
 public class MagasinDTO implements Serializable {
-    
-    /**
+
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 
-    @NotNull
-    private TypeMagasin typeMagasin;
+	@NotNull
+	private TypeMagasin typeMagasin;
+	private String typeMagasinValue;
 
-    private String nomCourt;
+	private String nomCourt;
 
-    @NotNull
-    private String nomLong;
+	@NotNull
+	private String nomLong;
 
-    private String addressePostal;
+	private String addressePostal;
 
-  
-    private Status status;
+	private Status status=Status.ACTIVE;
 
-    private String phone;
+	private String phone;
 
-    private String mobile;
+	private String mobile;
 
-    private String commentaire;
+	private String commentaire;
 
-    private String autreCommentaire;
+	private String autreCommentaire;
 
-    private String entete;
+	private String entete;
 
-    private String compteContribuable;
+	private String compteContribuable;
 
-    private String registreCommerce;
+	private String registreCommerce;
 
-    private String registreImposition;
+	private String registreImposition;
 
-    private String centreImposition;
+	private String centreImposition;
 
-    private String numComptable;
+	private String numComptable;
 
+	private Long magasinId;
 
-    private Long magasinId;
+	private String magasinNomCourt;
 
-    private String magasinNomCourt;
+	private Long managerId;
+   private boolean autonome;
+	private String managerFirstName;
+	private Set<RayonDTO> rayons = new HashSet<>();
+	private Set<MagasinDTO> magasins = new HashSet<>();
+	private Set<UserDTO> utilisateurs = new HashSet<>();
+	private MagasinInfos magasinInfo;
+	private UserDTO manager;
 
-    private Long managerId;
+	
+	public boolean isAutonome() {
+		return autonome;
+	}
 
-    private String managerFirstName;
-    
-    public Long getId() {
-        return id;
-    }
+	public void setAutonome(boolean autonome) {
+		this.autonome = autonome;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public UserDTO getManager() {
+		return manager;
+	}
 
-    public TypeMagasin getTypeMagasin() {
-        return typeMagasin;
-    }
+	public void setManager(UserDTO manager) {
+		this.manager = manager;
+	}
 
-    public void setTypeMagasin(TypeMagasin typeMagasin) {
-        this.typeMagasin = typeMagasin;
-    }
+	public String getTypeMagasinValue() {
+		return typeMagasinValue;
+	}
 
-    public String getNomCourt() {
-        return nomCourt;
-    }
+	public void setTypeMagasinValue(String typeMagasinValue) {
+		this.typeMagasinValue = typeMagasinValue;
+	}
 
-    public void setNomCourt(String nomCourt) {
-        this.nomCourt = nomCourt;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getNomLong() {
-        return nomLong;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setNomLong(String nomLong) {
-        this.nomLong = nomLong;
-    }
+	public TypeMagasin getTypeMagasin() {
+		return typeMagasin;
+	}
 
-    public String getAddressePostal() {
-        return addressePostal;
-    }
+	public void setTypeMagasin(TypeMagasin typeMagasin) {
+		this.typeMagasin = typeMagasin;
+	}
 
-    public void setAddressePostal(String addressePostal) {
-        this.addressePostal = addressePostal;
-    }
+	public String getNomCourt() {
+		return nomCourt;
+	}
 
-    public Status getStatus() {
-        return status;
-    }
+	public void setNomCourt(String nomCourt) {
+		this.nomCourt = nomCourt;
+	}
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+	public String getNomLong() {
+		return nomLong;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public void setNomLong(String nomLong) {
+		this.nomLong = nomLong;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public String getAddressePostal() {
+		return addressePostal;
+	}
 
-    public String getMobile() {
-        return mobile;
-    }
+	public void setAddressePostal(String addressePostal) {
+		this.addressePostal = addressePostal;
+	}
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+	public Status getStatus() {
+		return status;
+	}
 
-    public String getCommentaire() {
-        return commentaire;
-    }
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
-    public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
-    }
+	public String getPhone() {
+		return phone;
+	}
 
-    public String getAutreCommentaire() {
-        return autreCommentaire;
-    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    public void setAutreCommentaire(String autreCommentaire) {
-        this.autreCommentaire = autreCommentaire;
-    }
+	public String getMobile() {
+		return mobile;
+	}
 
-    public String getEntete() {
-        return entete;
-    }
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-    public void setEntete(String entete) {
-        this.entete = entete;
-    }
+	public String getCommentaire() {
+		return commentaire;
+	}
 
-    public String getCompteContribuable() {
-        return compteContribuable;
-    }
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
 
-    public void setCompteContribuable(String compteContribuable) {
-        this.compteContribuable = compteContribuable;
-    }
+	public String getAutreCommentaire() {
+		return autreCommentaire;
+	}
 
-    public String getRegistreCommerce() {
-        return registreCommerce;
-    }
+	public void setAutreCommentaire(String autreCommentaire) {
+		this.autreCommentaire = autreCommentaire;
+	}
 
-    public void setRegistreCommerce(String registreCommerce) {
-        this.registreCommerce = registreCommerce;
-    }
+	public String getEntete() {
+		return entete;
+	}
 
-    public String getRegistreImposition() {
-        return registreImposition;
-    }
+	public void setEntete(String entete) {
+		this.entete = entete;
+	}
 
-    public void setRegistreImposition(String registreImposition) {
-        this.registreImposition = registreImposition;
-    }
+	public String getCompteContribuable() {
+		return compteContribuable;
+	}
 
-    public String getCentreImposition() {
-        return centreImposition;
-    }
+	public void setCompteContribuable(String compteContribuable) {
+		this.compteContribuable = compteContribuable;
+	}
 
-    public void setCentreImposition(String centreImposition) {
-        this.centreImposition = centreImposition;
-    }
+	public String getRegistreCommerce() {
+		return registreCommerce;
+	}
 
-    public String getNumComptable() {
-        return numComptable;
-    }
+	public void setRegistreCommerce(String registreCommerce) {
+		this.registreCommerce = registreCommerce;
+	}
 
-    public void setNumComptable(String numComptable) {
-        this.numComptable = numComptable;
-    }
+	public String getRegistreImposition() {
+		return registreImposition;
+	}
 
-    public Long getMagasinId() {
-        return magasinId;
-    }
+	public void setRegistreImposition(String registreImposition) {
+		this.registreImposition = registreImposition;
+	}
 
-    public void setMagasinId(Long magasinId) {
-        this.magasinId = magasinId;
-    }
+	public String getCentreImposition() {
+		return centreImposition;
+	}
 
-    public String getMagasinNomCourt() {
-        return magasinNomCourt;
-    }
+	public void setCentreImposition(String centreImposition) {
+		this.centreImposition = centreImposition;
+	}
 
-    public void setMagasinNomCourt(String magasinNomCourt) {
-        this.magasinNomCourt = magasinNomCourt;
-    }
+	public String getNumComptable() {
+		return numComptable;
+	}
 
-    public Long getManagerId() {
-        return managerId;
-    }
+	public void setNumComptable(String numComptable) {
+		this.numComptable = numComptable;
+	}
 
-    public void setManagerId(Long utilisateurId) {
-        this.managerId = utilisateurId;
-    }
+	public Long getMagasinId() {
+		return magasinId;
+	}
 
-    public String getManagerFirstName() {
-        return managerFirstName;
-    }
+	public void setMagasinId(Long magasinId) {
+		this.magasinId = magasinId;
+	}
 
-    public void setManagerFirstName(String utilisateurFirstName) {
-        this.managerFirstName = utilisateurFirstName;
-    }
+	public String getMagasinNomCourt() {
+		return magasinNomCourt;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof MagasinDTO)) {
-            return false;
-        }
+	public void setMagasinNomCourt(String magasinNomCourt) {
+		this.magasinNomCourt = magasinNomCourt;
+	}
 
-        return id != null && id.equals(((MagasinDTO) o).id);
-    }
+	public Long getManagerId() {
+		return managerId;
+	}
 
-    @Override
-    public int hashCode() {
-        return 31;
-    }
+	public void setManagerId(Long utilisateurId) {
+		this.managerId = utilisateurId;
+	}
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "MagasinDTO{" +
-            "id=" + getId() +
-            ", typeMagasin='" + getTypeMagasin() + "'" +
-            ", nomCourt='" + getNomCourt() + "'" +
-            ", nomLong='" + getNomLong() + "'" +
-            ", addressePostal='" + getAddressePostal() + "'" +
-            ", status='" + getStatus() + "'" +
-            ", phone='" + getPhone() + "'" +
-            ", mobile='" + getMobile() + "'" +
-            ", commentaire='" + getCommentaire() + "'" +
-            ", autreCommentaire='" + getAutreCommentaire() + "'" +
-            ", entete='" + getEntete() + "'" +
-            ", compteContribuable='" + getCompteContribuable() + "'" +
-            ", registreCommerce='" + getRegistreCommerce() + "'" +
-            ", registreImposition='" + getRegistreImposition() + "'" +
-            ", centreImposition='" + getCentreImposition() + "'" +
-            ", numComptable='" + getNumComptable() + "'" +
-            ", magasinId=" + getMagasinId() +
-            ", magasinNomCourt='" + getMagasinNomCourt() + "'" +
-            ", managerId=" + getManagerId() +
-            ", managerFirstName='" + getManagerFirstName() + "'" +
-            "}";
-    }
+	public String getManagerFirstName() {
+		return managerFirstName;
+	}
+
+	public void setManagerFirstName(String utilisateurFirstName) {
+		this.managerFirstName = utilisateurFirstName;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof MagasinDTO)) {
+			return false;
+		}
+
+		return id != null && id.equals(((MagasinDTO) o).id);
+	}
+
+	@Override
+	public int hashCode() {
+		return 31;
+	}
+
+	public MagasinDTO() {
+
+	}
+
+	public Set<RayonDTO> getRayons() {
+		return rayons;
+	}
+
+	public void setRayons(Set<RayonDTO> rayons) {
+		this.rayons = rayons;
+	}
+
+	public Set<MagasinDTO> getMagasins() {
+		return magasins;
+	}
+
+	public void setMagasins(Set<MagasinDTO> magasins) {
+		this.magasins = magasins;
+	}
+
+	public Set<UserDTO> getUtilisateurs() {
+		return utilisateurs;
+	}
+
+	public void setUtilisateurs(Set<UserDTO> utilisateurs) {
+		this.utilisateurs = utilisateurs;
+	}
+
+	public MagasinInfos getMagasinInfo() {
+		return magasinInfo;
+	}
+
+	public void setMagasinInfo(MagasinInfos magasinInfo) {
+		this.magasinInfo = magasinInfo;
+	}
+
+	public MagasinDTO(Magasin magasin) {
+
+		this.id = magasin.getId();
+		this.typeMagasin = magasin.getTypeMagasin();
+		this.nomCourt = magasin.getNomCourt();
+		this.nomLong = magasin.getNomLong();
+		this.addressePostal = magasin.getAddressePostal();
+		this.phone = magasin.getPhone();
+		this.mobile = magasin.getMobile();
+		this.commentaire = magasin.getCommentaire();
+		this.autreCommentaire = magasin.getAutreCommentaire();
+		this.entete = magasin.getEntete();
+		this.compteContribuable = magasin.getCompteContribuable();
+		this.registreCommerce = magasin.getRegistreCommerce();
+		this.registreImposition = magasin.getRegistreImposition();
+		this.centreImposition = magasin.getCentreImposition();
+		this.numComptable = magasin.getNumComptable();
+		this.autonome=magasin.isAutonome();
+		Magasin parent = magasin.getMagasin();
+		if (parent != null) {
+			this.magasinId = parent.getId();
+			this.magasinNomCourt = parent.getNomCourt();
+		}
+		User manager = magasin.getManager();
+		if (manager != null) {
+			this.managerId = manager.getId();
+			this.managerFirstName = manager.getFirstName() + " " + manager.getLastName();
+			this.manager = new UserDTO(manager);
+		}
+		this.magasinInfo = new MagasinInfos(this.commentaire, this.autreCommentaire, this.entete,this.id);
+		this.magasins = magasin.getMagasins().stream().map(MagasinDTO::new).collect(Collectors.toSet());
+		this.utilisateurs = magasin.getUtilisateurs().stream().map(UserDTO::new).collect(Collectors.toSet());
+		this.typeMagasinValue = magasin.getTypeMagasin().getValue();
+
+	}
+
+	@Override
+	public String toString() {
+		return "MagasinDTO{" + "id=" + getId() + ", typeMagasin='" + getTypeMagasin() + "'" + ", nomCourt='"
+				+ getNomCourt() + "'" + ", nomLong='" + getNomLong() + "'" + ", addressePostal='" + getAddressePostal()
+				+ "'" + ", status='" + getStatus() + "'" + ", phone='" + getPhone() + "'" + ", mobile='" + getMobile()
+				+ "'" + ", commentaire='" + getCommentaire() + "'" + ", autreCommentaire='" + getAutreCommentaire()
+				+ "'" + ", entete='" + getEntete() + "'" + ", compteContribuable='" + getCompteContribuable() + "'"
+				+ ", registreCommerce='" + getRegistreCommerce() + "'" + ", registreImposition='"
+				+ getRegistreImposition() + "'" + ", centreImposition='" + getCentreImposition() + "'"
+				+ ", numComptable='" + getNumComptable() + "'" + ", magasinId=" + getMagasinId() + ", magasinNomCourt='"
+				+ getMagasinNomCourt() + "'" + ", managerId=" + getManagerId() + ", managerFirstName='"
+				+ getManagerFirstName() + "'" + "}";
+	}
 }

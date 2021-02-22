@@ -3,8 +3,12 @@ package com.kobe.nucleus.service.impl;
 import com.kobe.nucleus.domain.enumeration.Status;
 import com.kobe.nucleus.service.RemiseService;
 import com.kobe.nucleus.domain.Remise;
+import com.kobe.nucleus.domain.RemiseClient;
+import com.kobe.nucleus.domain.RemiseProduit;
 import com.kobe.nucleus.repository.RemiseRepository;
+import com.kobe.nucleus.service.dto.RemiseClientDTO;
 import com.kobe.nucleus.service.dto.RemiseDTO;
+import com.kobe.nucleus.service.dto.RemiseProduitDTO;
 import com.kobe.nucleus.service.mapper.RemiseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,12 +45,15 @@ public class RemiseServiceImpl implements RemiseService {
      * @return the persisted entity.
      */
     @Override
-    public RemiseDTO save(RemiseDTO remiseDTO) {
-        log.debug("Request to save Remise : {}", remiseDTO);
-        Remise remise = remiseMapper.toEntity(remiseDTO);
-        remise.setStatus(Status.ACTIVE);
-        remise = remiseRepository.save(remise);
-        return remiseMapper.toDto(remise);
+    public RemiseProduitDTO save(RemiseProduitDTO remiseDTO) {
+    	  log.debug("Request to save Remise : {}", remiseDTO);
+    	  RemiseProduit remise =new RemiseProduit();
+          remise.setId(remiseDTO.getId());
+          remise.setValeur(remiseDTO.getValeur());
+          remise.setRemiseValue(remiseDTO.getRemiseValue());
+          remise.setStatus(Status.ACTIVE);
+          remise = remiseRepository.save(remise);
+          return new RemiseProduitDTO(remise);
     }
 
     /**
@@ -59,8 +66,8 @@ public class RemiseServiceImpl implements RemiseService {
     @Transactional(readOnly = true)
     public Page<RemiseDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Remises");
-        return remiseRepository.findByStatus(Status.DESACTIVE,pageable)
-            .map(remiseMapper::toDto);
+        return remiseRepository.findByStatus(Status.ACTIVE,pageable)
+            .map(RemiseDTO::new);
     }
 
 
@@ -98,5 +105,18 @@ public class RemiseServiceImpl implements RemiseService {
 
        });
 
+    }
+    
+    
+    @Override
+    public RemiseClientDTO save(RemiseClientDTO remiseDTO) {
+        log.debug("Request to save Remise : {}", remiseDTO);
+        RemiseClient remise =new RemiseClient();
+        remise.setId(remiseDTO.getId());
+        remise.setValeur(remiseDTO.getValeur());
+        remise.setRemiseValue(remiseDTO.getRemiseValue());
+        remise.setStatus(Status.ACTIVE);
+        remise = remiseRepository.save(remise);
+        return new RemiseClientDTO(remise);
     }
 }

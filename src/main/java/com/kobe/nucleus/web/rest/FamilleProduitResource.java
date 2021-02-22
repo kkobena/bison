@@ -94,7 +94,7 @@ public class FamilleProduitResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of familleProduits in body.
      */
     @GetMapping(value = "/famille-produits",params = {"search"} )
-    public ResponseEntity<List<FamilleProduitDTO>> getAllFamilleProduits(@RequestParam(value = "search") String search,Pageable pageable) {
+    public ResponseEntity<List<FamilleProduitDTO>> getAllFamilleProduits(@RequestParam(value = "search",required = false) String search,Pageable pageable) {
         log.debug("REST request to get a page of FamilleProduits");
         Page<FamilleProduitDTO> page = familleProduitService.findAll(search,pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);

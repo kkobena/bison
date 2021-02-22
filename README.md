@@ -225,3 +225,16 @@ SELECT g.str_LIBELLE AS libelle,g.str_CODE AS code, f.libelle AS groupeFournisse
 SELECT g.str_LIBELLE AS libelle,g.str_CODE AS code,g.str_CODE_POSTAL AS addresse_postal,g.str_MOBILE AS mobile, g.str_TELEPHONE AS phone
 ,g.str_URL_EXTRANET AS site, g.idrepartiteur AS identifiant_repartiteur, f.libelle AS groupeFournisseur_libelle
 FROM t_grossiste g LEFT JOIN groupefournisseur f ON g.groupeId=f.id;
+
+#GAMME DE PRODUITS
+
+select g.libelle AS libelle from gamme_produit g;
+
+#LABORATOIRE PRODUITS
+
+select l.libelle AS libelle from laboratoire l;
+
+# REQUETE POUR EXPORTER LES RAYONS EN CSV
+
+SELECT r.str_LIBELLEE AS libelle,r.str_CODE AS code, r.bool_ACCOUNT AS exclude FROM t_zone_geographique r
+WHERE r.str_STATUT='enable' AND r.str_LIBELLEE <> 'Default';

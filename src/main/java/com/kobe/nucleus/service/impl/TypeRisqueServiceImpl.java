@@ -91,7 +91,7 @@ public class TypeRisqueServiceImpl implements TypeRisqueService {
     @Override
     @Transactional(readOnly = true)
     public Page<TypeRisqueDTO> findByCodeOrLibelle(String  code,String libelle, Pageable pageable) {
-        return typeRisqueRepository.findByCodeOrLibelleAllIgnoreCaseStartingWithOrderByCodeAsc(code,libelle,pageable)
-            .map(typeRisqueMapper::toDto);
+    	 return typeRisqueRepository.findAll(pageable)
+    	            .map(typeRisqueMapper::toDto);
     }
 }
