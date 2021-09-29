@@ -22,7 +22,6 @@ public interface MagasinService {
 	/**
 	 * Get all the magasins.
 	 *
-	 * @param pageable the pagination information.
 	 * @return the list of entities.
 	 */
 	List<MagasinDTO> findAll();

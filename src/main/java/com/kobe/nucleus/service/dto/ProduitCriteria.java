@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class ProduitCriteria implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	private Long id;
 	private String codeEan;
 	private String codeCip;
@@ -28,11 +27,9 @@ public class ProduitCriteria implements Serializable {
 	private String search;
 	private Boolean deconditionne;
 	private Long remiseId;
-
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}

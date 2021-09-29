@@ -22,31 +22,22 @@ import com.kobe.nucleus.domain.enumeration.Status;
 public class Remise implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
-
     @Column(name = "valeur")
     private String valeur;
-
     @NotNull
     @Column(name = "remise_value", nullable = false)
     private Float remiseValue;
-
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "status", nullable = false)
     private Status status=Status.ACTIVE;
-
     @OneToMany(mappedBy = "remise")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Vente> ventes = new HashSet<>();
-
-
-
- 
     public Long getId() {
         return id;
     }
@@ -119,7 +110,7 @@ public class Remise implements Serializable {
         this.ventes = ventes;
     }
 
-   
+
 
     @Override
     public boolean equals(Object o) {
