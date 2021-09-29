@@ -110,7 +110,7 @@ public class MagasinResource {
 	/**
 	 * {@code GET  /magasins} : get all the magasins.
 	 *
-	 * @param pageable the pagination information.
+	 * @param  the pagination information.
 	 * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list
 	 *         of magasins in body.
 	 */
@@ -267,8 +267,8 @@ public class MagasinResource {
 		return ResponseEntity.ok().body(magasinService.findOne(1l).get().getMagasins());
 
 	}
-	
-	
+
+
 	@GetMapping("/magasins/principals")
 	public ResponseEntity<List<MagasinDTO>> getAllMagasinsOrDepots() {
 		log.debug("REST request to get a page of Magasins");

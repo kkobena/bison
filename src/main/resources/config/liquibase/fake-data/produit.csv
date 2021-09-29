@@ -1,0 +1,11 @@
+id;libelle;status;created_at;updated_at;qty_appro;qty_seuil_mini;dateperemption;chiffre;code_cip;code_ean;qty_details;deconditionnable;prix_paf;prix_uni;prix_mnp;item_cost_amount;item_reguar_unit_price
+1;conglomeration Marketing solutions;SUPPRIME;2020-05-31T11:31:01;2020-05-30T21:46:26;51278;97284;true;true;Infrastructure logistical Avon;Division;79392;false;87458;80269;636;54352;60931
+2;Unions GB Soap;DESACTIVE;2020-05-31T11:01:13;2020-05-31T08:36:53;48025;75966;true;false;Soap deposit;override web-readiness 1080p;37721;false;76268;4391;44289;5204;51330
+3;parse THX Computer;LIVRE;2020-05-31T05:14:41;2020-05-31T03:11:34;27324;71359;false;true;hack SMTP;array Beauty;75755;false;27443;15922;1228;9660;74623
+4;Practical;ENTRAITEMENT;2020-05-30T18:53:36;2020-05-31T13:05:29;56297;36527;false;false;Savings Account Estates supply-chains;Graphical User Interface;2242;true;84030;48148;69539;2434;87381
+5;turquoise Soft;ENATTENTE;2020-05-30T17:58:58;2020-05-31T13:52:47;3106;6710;false;false;Connecticut;instruction set;29677;true;27024;11196;23246;61158;14898
+6;application Alaska;PASSE;2020-05-31T03:21:21;2020-05-31T05:38:22;20166;64202;true;true;ability Customizable Cheese;navigating niches;47947;true;38238;48709;93810;61762;76736
+7;enterprise feed;NON_LIVRE;2020-05-31T05:06:35;2020-05-31T02:16:08;16355;14517;false;true;Persevering;Sleek Wooden Fish mint green Principal;9029;true;49765;13302;47190;34939;10615
+8;back-end;PASSE;2020-05-31T03:40:16;2020-05-31T04:35:30;63238;17273;true;false;Gambia impactful;Granite;40305;true;3508;68529;83339;74381;8143
+9;Wisconsin SMTP;STOCK;2020-05-30T19:27:35;2020-05-30T18:47:01;35866;80249;false;false;copy;pixel innovative;40937;false;92428;89311;95026;92638;75771
+10;FTP Manager;PERIME;2020-05-30T20:17:51;2020-05-31T05:03:18;81219;73906;true;false;National parsing;alarm;59849;true;90926;37185;73177;89787;24024

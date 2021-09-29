@@ -57,12 +57,12 @@ public class ProduitDTO implements Serializable {
 
 	private Boolean chiffre = true;
 
-	private String codeEan;
+
 
 	private Integer qtyDetails = 0;
 
 	private Boolean deconditionnable = true;
-
+    private String codeEan;
 	private Long remiseId;
 	private float tauxRemise;
 
@@ -514,9 +514,9 @@ public class ProduitDTO implements Serializable {
 					this.stockProduit=stockDto;
 				}
 			}
-			
+
 		});
-		
+
 		if (this.getTotalQuantity() <= 0) {
 			this.qtyStatus = "danger";
 		}else if(this.getTotalQuantity() >0 && this.getTotalQuantity() < this.getQtySeuilMini()) {
